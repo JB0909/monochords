@@ -30,6 +30,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Rubocop導入 fix_3
 gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
+#Devise導入
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
