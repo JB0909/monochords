@@ -32,6 +32,8 @@ gem 'rubocop', require: false
 gem 'rubocop-rails', require: false
 #Devise導入
 gem 'devise'
+#Faker導入
+gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
