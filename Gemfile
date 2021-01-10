@@ -41,6 +41,7 @@ group :development, :test do
   # RSpec導入 fix_2
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'database_cleaner'
 end
 
 group :development do
