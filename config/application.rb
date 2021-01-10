@@ -13,10 +13,12 @@ module Monochords
 
     config.generators do |g|
       g.test_framework :rspec,
-        controller_specs: false,
+        fixtures: true,
+        controller_specs: true,
         view_specs: false,
         helper_specs: false,
-        routing_specs: false
+        routing_specs: false,
+        request_specs: false
     end
 
     # Settings in config/environments/* take precedence over those specified here.

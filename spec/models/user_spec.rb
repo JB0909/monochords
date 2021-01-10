@@ -37,7 +37,6 @@ RSpec.describe User, type: :model do
             end
 
             it '一意であること' do
-                #:confirmableを追加した場合は、saveするとunconfirmed_emailに保存されるためエラー発生
                 test_user.email = 'test1@test.co.jp'
                 test_user.save
                 test_user_2.email = 'test1@test.co.jp'
@@ -47,7 +46,6 @@ RSpec.describe User, type: :model do
             end
 
             it '一意ではない場合エラー発生' do
-                #:confirmableを追加した場合は、saveするとunconfirmed_emailに保存されるためエラー発生
                 test_user.email = 'test1@test.co.jp'
                 test_user.save
                 test_user_2.email = 'test1@test.co.jp'
