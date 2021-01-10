@@ -7,17 +7,17 @@ RSpec.describe User, type: :model do
         let(:user) { create(:user) }
         let(:user_2) { create(:user) }
 
-        context 'nameカラム' do
+        context 'usernameカラム' do
             let(:test_user) { user }
 
             it '空欄ではないこと' do
-                test_user.name = ''
+                test_user.username = ''
                 is_expected.to eq false
             end
             it '空欄時エラー発生' do
-                test_user.name = ''
+                test_user.username = ''
                 test_user.valid?
-                expect(test_user.errors[:name]).to include("can't be blank")
+                expect(test_user.errors[:username]).to include("can't be blank")
             end
         end
 
@@ -37,18 +37,20 @@ RSpec.describe User, type: :model do
             end
 
             it '一意であること' do
-                test_user.email = 'test_1@example.co.jp'
+                #:confirmableを追加した場合は、saveするとunconfirmed_emailに保存されるためエラー発生
+                test_user.email = 'test1@test.co.jp'
                 test_user.save
-                test_user_2.email = 'test_1@example.co.jp'
+                test_user_2.email = 'test1@test.co.jp'
                 test_user_2.save
                 test_user_2.valid?
                 expect(test_user_2).to be_invalid
             end
 
             it '一意ではない場合エラー発生' do
-                test_user.email = 'test_1@example.co.jp'
+                #:confirmableを追加した場合は、saveするとunconfirmed_emailに保存されるためエラー発生
+                test_user.email = 'test1@test.co.jp'
                 test_user.save
-                test_user_2.email = 'test_1@example.co.jp'
+                test_user_2.email = 'test1@test.co.jp'
                 test_user_2.save
                 test_user_2.valid?
                 expect(test_user_2.errors[:email]).to include("has already been taken")
