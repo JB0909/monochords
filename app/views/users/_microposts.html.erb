@@ -1,0 +1,13 @@
+<% @microposts.each do |micropost| %>
+    <div class="post_container">
+        <div>
+            <%= link_to micropost.user.username, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
+        </div>
+        <div>
+            <p><%= micropost.body %></p>
+        </div>
+        <span class="timestamp">
+            <%= time_ago_in_words(micropost.created_at) %> 前の投稿
+        </span>
+    </div>
+<% end %>
