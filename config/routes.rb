@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   resources :users, only: [:show, :edit, :index, :update] do
+    member do
+      get :following, :followers
+    end
   end
+
+  resources :relationships, only: [:create, :destroy]
 
   resources :microposts,        only: [:index, :create, :destroy] do
     resource :likes, only: [:create, :destroy]
