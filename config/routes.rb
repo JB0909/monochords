@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :index, :update] do
   end
 
-  resources :microposts,        only: [:index, :create, :destroy]
+  resources :microposts,        only: [:index, :create, :destroy] do
+    resource :likes, only: [:create, :destroy]
+  end
   
 end

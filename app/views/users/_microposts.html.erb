@@ -9,5 +9,8 @@
         <span class="timestamp">
             <%= time_ago_in_words(micropost.created_at) %> 前の投稿
         </span>
+        <div id="like-btn-<%= micropost.id %>">
+            <%= render 'likes/like', micropost: micropost %>
+        </div>
     </div>
 <% end %>

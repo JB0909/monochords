@@ -6,6 +6,7 @@ class User < ApplicationRecord
     #=====アソシエーション=====
     #Micropost
     has_many :microposts, dependent: :destroy
+    has_many :likes, dependent: :destroy
 
     #=====バリデーション=====
     validates :username, presence: true
