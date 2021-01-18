@@ -69,3 +69,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #Bootstrap + jQuery
 gem 'bootstrap', '~> 4.5.0'
 gem 'jquery-rails'
+
+gem 'sinatra', github: 'sinatra/sinatra'
+gem 'refile', require: 'refile/rails', github: 'refile/refile', branch: 'master'
+gem 'refile-mini_magick', github: 'refile/refile-mini_magick', branch: 'master'
