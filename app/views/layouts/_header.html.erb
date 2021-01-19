@@ -1,0 +1,12 @@
+<% if user_signed_in? %>
+    <div class="header">
+        <ul class="header_nav">
+            <li><i class="fa fa-home"></i><%= link_to "トップ", root_path, {class: "nav-item"} %></li>  
+            <li><i class="fas fa-user"></i><%= link_to "#{current_user.username}さんのマイページ", user_path(current_user.id) %></li>
+            <li><i class="fas fa-user-edit"></i><%= link_to "編集", edit_user_path(current_user.id) %></li>
+            <li><i class="fas fa-sign-out-alt"></i><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></a></li>
+        </ul>
+    </div>
+<% else %>
+    <li><%= link_to 'ログイン', new_user_session_path %></li>
+<% end %>
