@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if current_user == @user
       if @user.update(user_params)
         flash[:success] = 'ユーザー情報を編集しました。'
-        render :edit
+        redirect_to user_path(current_user.id)
       else
         flash.now[:danger] = 'ユーザー情報の編集に失敗しました。'
         render :edit

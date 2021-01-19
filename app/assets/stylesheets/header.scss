@@ -1,0 +1,22 @@
+.header{
+    width: 100%;
+    background-color: #333333;
+    height: 36px;
+}
+
+.header_nav{
+    height: 36px;
+    display: block;
+    width:1004px;
+    margin-right: auto;
+    margin-left : auto;
+}
+
+.header_nav li{
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    padding-top: 5px;
+    padding-left: 15px;
+    color: white;
+}
