@@ -1,5 +1,21 @@
 <% if user_signed_in? %>
-<h1>Hello User</h1>
+    <% @following_microposts.each do |micropost| %>
+        <div class="post_container">
+            <div>
+                <%= link_to micropost.user.username, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
+            </div>
+            <div>
+                <p><%= micropost.body %></p>
+            </div>
+            <span class="timestamp">
+                <%= time_ago_in_words(micropost.created_at) %> 前の投稿
+            </span>
+            <div id="like-btn-<%= micropost.id %>">
+                <%= render 'likes/like', micropost: micropost %>
+            </div>
+        </div>
+    <% end %>
+
 <% else %>
     <div>
         <%= link_to "ログイン", new_user_session_path %>
