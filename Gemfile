@@ -73,3 +73,6 @@ gem 'jquery-rails'
 gem 'sinatra', github: 'sinatra/sinatra'
 gem 'refile', require: 'refile/rails', github: 'refile/refile', branch: 'master'
 gem 'refile-mini_magick', github: 'refile/refile-mini_magick', branch: 'master'
+
+gem 'rspotify'
+gem 'dotenv-rails'

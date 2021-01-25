@@ -1,0 +1,26 @@
+<h1>検索結果</h1>
+<div>
+    <% if @s_tracks.present? %>
+        <% @s_tracks.each do |s_track| %>
+            <div>
+                <h3>曲名:<%= s_track.name %></h3>
+                <h3>アーティスト名:<%= s_track.artists[0].name %></h3>
+                <h3>アルバム名:<%= s_track.album.name %></h3>
+                <% s_track.external_ids["isrc"] %>
+                <% if s_track.album.images.any?%>
+                    <%image = s_track.album.images[1]%>
+                    <%= image_tag(image["url"])%>
+                <%else%>
+                    <%= image_tag("default.jpg")%>
+                <%end%>
+            </div>
+            <%if Music.exists?(external_id: s_track.external_ids["isrc"], album_name: s_track.album.name) %>
+                <% find = Music.find_by(external_id: s_track.external_ids["isrc"], album_name: s_track.album.name) %>
+                <%= link_to "詳細", search_path(find.id) %>
+            <% else %>
+                <% @detail = {song_name:s_track.name, artist_name: s_track.artists[0].name, album_name: s_track.album.name, image_url: image["url"], external_id: s_track.external_ids["isrc"] } %>
+                <%= link_to "詳細", create_path(detail: @detail), method: :post %>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>
