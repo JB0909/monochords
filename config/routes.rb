@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'static_pages#home'
   get  "/search", to:"searchs#search"
-  get  "/search/:id", to:"searchs#show", as: :song
-  post  "/search", to:"searchs#create", as: :create
+
+  resources :musics, as: :music, only: [:show, :create] do
+    resources :reviews, only: [:create]
+  end
 
   resources :users, only: [:show, :edit, :index, :update] do
     member do

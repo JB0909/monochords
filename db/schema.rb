@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_225725) do
+ActiveRecord::Schema.define(version: 2021_01_27_135541) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 2021_01_25_225725) do
     t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.string "content"
+    t.integer "user_id", null: false
+    t.integer "music_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_reviews_on_music_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,4 +83,6 @@ ActiveRecord::Schema.define(version: 2021_01_25_225725) do
   add_foreign_key "likes", "microposts"
   add_foreign_key "likes", "users"
   add_foreign_key "microposts", "users"
+  add_foreign_key "reviews", "musics"
+  add_foreign_key "reviews", "users"
 end
