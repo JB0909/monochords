@@ -16,10 +16,10 @@
             </div>
             <%if Music.exists?(external_id: s_track.external_ids["isrc"], album_name: s_track.album.name) %>
                 <% find = Music.find_by(external_id: s_track.external_ids["isrc"], album_name: s_track.album.name) %>
-                <%= link_to "詳細", search_path(find.id) %>
+                <%= link_to "詳細 true", music_path(find.id) %>
             <% else %>
                 <% @detail = {song_name:s_track.name, artist_name: s_track.artists[0].name, album_name: s_track.album.name, image_url: image["url"], external_id: s_track.external_ids["isrc"] } %>
-                <%= link_to "詳細", create_path(detail: @detail), method: :post %>
+                <%= link_to "詳細", music_index_path(detail: @detail), method: :post %>
             <% end %>
         <% end %>
     <% end %>
