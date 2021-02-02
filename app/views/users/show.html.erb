@@ -23,6 +23,17 @@
     <%= render "follow_form" %>
 </div>
 
+<!-- =====練習したい曲===== --> 
+<%= link_to "練習したい曲", wish_user_path(user_id: @user.id) %>
+<p><%= @user.wishes.count %>曲</p>
+
+<!-- =====練習中の曲===== --> 
+<%= link_to "練習中の曲", practicing_user_path(user_id: @user.id) %>
+<p><%= @user.practicings.count %>曲</p>
+
+<!-- =====練習した曲===== --> 
+<%= link_to "練習した曲", practiced_user_path(user_id: @user.id) %>
+<p><%= @user.practiceds.count %>曲</p>
 
 <!--=====つぶやく=====-->
 <% if @user.id == current_user.id%>

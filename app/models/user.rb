@@ -17,6 +17,12 @@ class User < ApplicationRecord
     has_many :followers, through: :follower_relationships
     #Review
     has_many :reviews, dependent: :destroy
+    #Wish
+    has_many :wishes, dependent: :destroy
+    #Practicing
+    has_many :practicings, dependent: :destroy
+    #Practiced
+    has_many :practiceds, dependent: :destroy
 
     #=====バリデーション=====
     validates :username, presence: true

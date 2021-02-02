@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_27_135541) do
+ActiveRecord::Schema.define(version: 2021_02_02_072457) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -38,6 +38,24 @@ ActiveRecord::Schema.define(version: 2021_01_27_135541) do
     t.string "external_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "practiceds", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "music_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_practiceds_on_music_id"
+    t.index ["user_id"], name: "index_practiceds_on_user_id"
+  end
+
+  create_table "practicings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "music_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_practicings_on_music_id"
+    t.index ["user_id"], name: "index_practicings_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -80,9 +98,24 @@ ActiveRecord::Schema.define(version: 2021_01_27_135541) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wishes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "music_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["music_id"], name: "index_wishes_on_music_id"
+    t.index ["user_id"], name: "index_wishes_on_user_id"
+  end
+
   add_foreign_key "likes", "microposts"
   add_foreign_key "likes", "users"
   add_foreign_key "microposts", "users"
+  add_foreign_key "practiceds", "musics"
+  add_foreign_key "practiceds", "users"
+  add_foreign_key "practicings", "musics"
+  add_foreign_key "practicings", "users"
   add_foreign_key "reviews", "musics"
   add_foreign_key "reviews", "users"
+  add_foreign_key "wishes", "musics"
+  add_foreign_key "wishes", "users"
 end
