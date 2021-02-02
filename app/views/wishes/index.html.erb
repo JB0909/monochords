@@ -1,0 +1,31 @@
+<% @wishes.each do |wish| %>
+    <%= wish.music.song_name %>
+    <%= image_tag(wish.music.image_url) %>
+    <%= link_to "詳細", music_path(wish.music_id) %>
+    <%= wish.music_id %>
+    <%= wish.id %>
+
+    <div>
+        <% if Wish.where(user_id: current_user, music_id: wish.music_id).exists? %>
+            <%= link_to "練習したい曲から解除", music_wish_path(music_id: wish.music_id), method: :delete %>
+        <% else %>
+            <%= link_to "練習したい曲に登録", music_wishes_path(music_id: wish.music_id), method: :post %>
+        <% end %>
+    </div>
+    <div>
+        <% if Practicing.where(user_id: current_user, music_id: wish.music_id).exists? %>
+            <%= link_to "練習中の曲から解除", music_practicing_path(music_id: wish.music_id), method: :delete %>
+        <% else %>
+            <% @detail = wish.music_id %>
+            <%= link_to "練習中の曲に登録", music_practicings_path(music_id: @detail), method: :post %>
+        <% end %>
+    </div>
+    <div>
+        <% if Practiced.where(user_id: current_user, music_id: wish.music_id).exists? %>
+            <%= link_to "練習した曲から解除", music_practiced_path(music_id: wish.music_id), method: :delete %>
+        <% else %>
+            <% @detail = wish.music_id %>
+            <%= link_to "練習した曲に登録", music_practiceds_path(music_id: @detail), method: :post %>
+        <% end %>
+    </div>
+<% end %>

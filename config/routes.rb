@@ -10,11 +10,17 @@ Rails.application.routes.draw do
 
   resources :musics, as: :music, only: [:show, :create] do
     resources :reviews, only: [:create]
+    resources :wishes, only: [:create, :destroy]
+    resources :practicings, only: [:create, :destroy]
+    resources :practiceds, only: [:create, :destroy]
   end
 
   resources :users, only: [:show, :edit, :index, :update] do
     member do
       get :following, :followers
+      get :wish, to:"wishes#index"
+      get :practicing, to:"practicings#index"
+      get :practiced, to:"practiceds#index"
     end
   end
 
