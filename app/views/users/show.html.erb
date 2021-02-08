@@ -66,6 +66,16 @@
     </div>
 <% end %>
 
+<!-- 練習投稿 -->
+<%= form_for [@record], local: true do |f| %>
+    <%= f.text_area :body, id: "content" %>
+    <%= f.collection_select :practicing_id, @practicing, :id, :song_name %>
+    <%= f.select :time, [['1時間', 1], ['2時間', 2]] %>
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>
+
 
 
 <!--=====自分の投稿=====-->

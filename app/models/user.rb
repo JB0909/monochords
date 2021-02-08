@@ -23,6 +23,8 @@ class User < ApplicationRecord
     has_many :practicings, dependent: :destroy
     #Practiced
     has_many :practiceds, dependent: :destroy
+    #Record
+    has_many :records, dependent: :destroy
 
     #=====バリデーション=====
     validates :username, presence: true

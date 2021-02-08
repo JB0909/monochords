@@ -4,7 +4,9 @@ class UsersController < ApplicationController
     if user_signed_in?
       @micropost = current_user.microposts.build
       @microposts = current_user.microposts.all
+      @record = current_user.records.build
     end
+    @practicing = current_user.practicings.all
   end
 
   def edit 

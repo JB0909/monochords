@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_072457) do
+ActiveRecord::Schema.define(version: 2021_02_08_082724) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -54,8 +54,22 @@ ActiveRecord::Schema.define(version: 2021_02_02_072457) do
     t.integer "music_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "song_name"
+    t.string "artist_name"
     t.index ["music_id"], name: "index_practicings_on_music_id"
     t.index ["user_id"], name: "index_practicings_on_user_id"
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "time"
+    t.string "song_name"
+    t.string "artist_name"
+    t.string "body"
+    t.integer "practicing_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -114,6 +128,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_072457) do
   add_foreign_key "practiceds", "users"
   add_foreign_key "practicings", "musics"
   add_foreign_key "practicings", "users"
+  add_foreign_key "records", "users"
   add_foreign_key "reviews", "musics"
   add_foreign_key "reviews", "users"
   add_foreign_key "wishes", "musics"

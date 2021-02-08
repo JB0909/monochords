@@ -7,7 +7,7 @@ class PracticingsController < ApplicationController
     def create
         @user = current_user
         @music = Music.find(params[:music_id])
-        @practicing = Practicing.create(user_id: @user.id, music_id: @music.id)
+        @practicing = Practicing.create(user_id: @user.id, music_id: @music.id, song_name: @music.song_name, artist_name: @music.artist_name)
         @detail = params[:music_id]
         if Wish.where(user_id: current_user, music_id: @detail).exists?
             Wish.find_by(user_id: current_user, music_id: @detail).destroy
