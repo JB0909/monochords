@@ -23,6 +23,23 @@
     <%= render "follow_form" %>
 </div>
 
+<!-- 練習プロフィール -->
+<p>登録日:<%= @create %>(<%= @difference.to_i %>日経過)</p>
+<% if @first == nil %>
+    <p>記録初日:記録はありません。</p>
+<% else %>
+    <p>記録初日:<%= @first['created_at'] %></p>
+<% end %>
+<p>総練習時間:<%= @practice_time %>時間</p>
+<% if @average == nil %>  
+    <p>練習した曲:練習した曲はありません。</p>
+<% elsif @average == 0 %>
+    <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</p>
+<% else %>
+    <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</p>
+<% end %>
+
+
 <!-- =====練習したい曲===== --> 
 <%= link_to "練習したい曲", wish_user_path(user_id: @user.id) %>
 <p><%= @user.wishes.count %>曲</p>

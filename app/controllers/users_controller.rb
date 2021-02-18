@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  require 'date'
   def show
     @user = User.find(params[:id])
     if user_signed_in?
@@ -7,9 +8,20 @@ class UsersController < ApplicationController
       @record = current_user.records.build
     end
     @practicing = current_user.practicings.all
+    @first = @user.practiceds.all[0]
+    if @first == nil
+      @average = nil
+    else
+      @average = Date.today - Date.parse(@first['created_at'].to_s)
+    end
+
+    @practice_time = @user.records.all.sum(:time)
+    @create = Date.parse(@user["created_at"].to_s)
+    @difference = Date.today - @create
+
   end
 
-  def edit 
+  def edit
     @user = User.find_by(:id => params[:id])
     if @user.id == current_user.id
       render "edit"
