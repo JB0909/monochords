@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_082724) do
+ActiveRecord::Schema.define(version: 2021_02_27_132640) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_082724) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "song_name"
     t.string "artist_name"
+    t.string "image_url"
     t.index ["music_id"], name: "index_practicings_on_music_id"
     t.index ["user_id"], name: "index_practicings_on_user_id"
   end
@@ -69,6 +70,8 @@ ActiveRecord::Schema.define(version: 2021_02_08_082724) do
     t.integer "practicing_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "music_id"
+    t.string "image_url"
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 

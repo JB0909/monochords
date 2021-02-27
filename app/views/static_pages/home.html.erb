@@ -1,20 +1,62 @@
 <% if user_signed_in? %>
-    <% @following_microposts.each do |micropost| %>
-        <div class="post_container">
-            <div>
-                <%= link_to micropost.user.username, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
-            </div>
-            <div>
-                <p><%= micropost.body %></p>
-            </div>
-            <span class="timestamp">
-                <%= time_ago_in_words(micropost.created_at) %> 前の投稿
-            </span>
-            <div id="like-btn-<%= micropost.id %>">
-                <%= render 'likes/like', micropost: micropost %>
-            </div>
+    <div class="tab-wrap">
+        <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
+        <div class="tab-content">
+            <% @following_microposts.each do |micropost| %>
+                <div class="post_container">
+                    <div>
+                        <%= link_to micropost.user.username, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
+                    </div>
+                    <div>
+                        <p><%= micropost.body %></p>
+                    </div>
+                    <span class="timestamp">
+                        <%= time_ago_in_words(micropost.created_at) %> 前の投稿
+                    </span>
+                    <div id="like-btn-<%= micropost.id %>">
+                        <%= render 'likes/like', micropost: micropost %>
+                    </div>
+                </div>
+            <% end %>
         </div>
-    <% end %>
+        <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">練習記録</label>
+        <div class="tab-content">
+            <% @following_records.each do |record| %>
+                <div class="post_container">
+                    <div>
+                        <%= link_to record.user.username, user_path(record.user) %> <span class="text-muted">posted at <%= record.created_at %></span>
+                    </div>
+                    <div>
+                        <%= link_to record.song_name, music_path(record.music_id) %>
+                        <%= image_tag(record.image_url) %>
+                        <p><%= record.time %></p>
+                        <p><%= record.body %></p>
+                    </div>
+                    <span class="timestamp">
+                        <%= time_ago_in_words(record.created_at) %> 前の投稿
+                    </span>
+                </div>
+            <% end %>
+        </div>
+        <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
+        <div class="tab-content">
+            <% @following_reviews.each do |review| %>
+                <div class="post_container">
+                    <div>
+                        <%= image_tag(review.music.image_url) %>
+                        <%= link_to review.user.username, user_path(review.user) %> <span class="text-muted">posted at <%= review.created_at %></span>
+                    </div>
+                    <div>
+                        <%= link_to review.music.song_name, music_path(review.music) %>
+                        <p><%= review.content %></p>
+                    </div>
+                    <span class="timestamp">
+                        <%= time_ago_in_words(review.created_at) %> 前の投稿
+                    </span>
+                </div>
+            <% end %>
+        </div>
+    </div>
 
 <% else %>
     <div>
@@ -22,5 +64,3 @@
         <%= link_to "サインアップ", new_user_registration_path %>
     </div>
 <% end %>
-
-
