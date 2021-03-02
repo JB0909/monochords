@@ -76,3 +76,5 @@ gem 'refile-mini_magick', github: 'refile/refile-mini_magick', branch: 'master'
 
 gem 'rspotify'
 gem 'dotenv-rails'
+
+gem 'chart-js-rails', '~> 0.1.4'

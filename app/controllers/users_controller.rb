@@ -19,6 +19,19 @@ class UsersController < ApplicationController
     @create = Date.parse(@user["created_at"].to_s)
     @difference = Date.today - @create
 
+    #グラフ
+    @artist_groups = Practiced.group(:artist_name).order("count_artist_name DESC").count(:artist_name)
+    
+    @artistline = Array.new
+    @artist_groups.each do |artist|
+      @artistline.push(artist[0])
+    end
+
+    @countline = Array.new
+    @artist_groups.each do |count|
+      @countline.push(count[1])
+    end
+
   end
 
   def edit
