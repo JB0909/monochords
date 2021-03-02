@@ -1,3 +1,47 @@
+<canvas id="myChart"></canvas>
+<script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+<script>
+
+var artistline = <%== @artistline %>;
+var countline = <%= @countline %>;
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: artistline,
+        datasets: [{
+            data: countline,
+            backgroundColor: ['tomato', 'skyblue', 'gray']
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'アーティストグラフ'
+        },
+        legend: {
+            display: false
+        },
+        plugins: {
+            labels: [
+                {
+                    render: 'label',
+                    position: 'outside',
+                    textMargin: 10
+                },
+                {
+                    render: 'percentage',
+                    fontSize: 18,
+                    fontColor: 'white',
+                    precision: 1
+                }
+            ]
+        },
+    },
+});
+</script>
+
+
 <div class="content-center">
 <h1><%= @user.username %></h1>
 <!-- =====プロフィール画像===== -->

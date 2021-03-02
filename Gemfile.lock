@@ -110,6 +110,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    chart-js-rails (0.1.7)
+      railties (> 3.1)
     childprocess (3.0.0)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
@@ -357,6 +359,7 @@ DEPENDENCIES
   bootstrap (~> 4.5.0)
   byebug
   capybara (>= 2.15)
+  chart-js-rails (~> 0.1.4)
   database_cleaner
   devise
   dotenv-rails
