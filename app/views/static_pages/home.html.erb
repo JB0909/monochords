@@ -16,6 +16,24 @@
                     <div id="like-btn-<%= micropost.id %>">
                         <%= render 'likes/like', micropost: micropost %>
                     </div>
+
+                    <%# いいねしたユーザー一覧表示%>
+                    <div>
+                        <% @likes = Like.where(micropost_id: micropost.id) %>
+                        <% if @likes.present? %>
+                            <p>いいねしたユーザー</p>
+                            <% @likes.each do |like| %>
+                                <%= link_to like.user.username, user_path(like.user.id) %>
+                                <% if like.user.profile_image.present? %>
+                                    <%= image_tag attachment_url(like.user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
+                                <% else %>
+                                    <%= image_tag ("default.png"), :size => '100x100' %>
+                                <% end %>
+                            <%end%>
+                        <% else %>
+                        <% end %>
+                    </div>
+
                 </div>
             <% end %>
         </div>
