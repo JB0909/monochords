@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @difference = Date.today - @create
 
     #グラフ
-    @artist_groups = Practiced.group(:artist_name).order("count_artist_name DESC").count(:artist_name)
+    @artist_groups = @user.practiceds.all.group(:artist_name).order("count_artist_name DESC").count(:artist_name)
     
     @artistline = Array.new
     @artist_groups.each do |artist|
