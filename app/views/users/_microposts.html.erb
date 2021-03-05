@@ -1,3 +1,5 @@
+<!--@commentを生成することでcommentのform_forを動かせるようにしている-->
+<% @comment = Comment.new %>
 <% @microposts.each do |micropost| %>
     <div class="post_container">
         <div>
@@ -21,14 +23,37 @@
                 <% @likes.each do |like| %>
                     <%= link_to like.user.username, user_path(like.user.id) %>
                     <% if like.user.profile_image.present? %>
-                        <%= image_tag attachment_url(like.user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
+                        <%= image_tag attachment_url(like.user, :profile_image, :fill, 50, 50, format: "jpg"), {class: "mypage-image"} %>
                     <% else %>
-                        <%= image_tag ("default.png"), :size => '100x100' %>
+                        <%= image_tag ("default.png"), :size => '50x50' %>
                     <% end %>
                 <%end%>
             <% else %>
             <% end %>
         </div>
+
+        <!--コメント一覧-->
+        <div>
+            <% micropost.comments.each do |c| %>
+                <div>
+                    <%= link_to c.user.username, user_path(c.user.id) %>
+                    <%= c.content %>
+                    <%= c.created_at %>
+                </div>
+            <% end %>
+        </div>
+
+        <!--コメント投稿-->
+        <div>
+            <%= form_for [@comment] do |f| %>
+                <%= f.text_field :content %>
+                <br>
+                <%= f.hidden_field :micropost_id, value: micropost.id %>
+                <%= f.submit %>
+            <% end %>
+        </div> 
+
+
 
     </div>
 <% end %>
