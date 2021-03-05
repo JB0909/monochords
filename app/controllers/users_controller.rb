@@ -6,7 +6,9 @@ class UsersController < ApplicationController
       @micropost = current_user.microposts.build
       @microposts = current_user.microposts.all
       @record = current_user.records.build
+      @comment = current_user.comments.build
     end
+    #プロフィール
     @practicing = current_user.practicings.all
     @first = @user.practiceds.all[0]
     if @first == nil

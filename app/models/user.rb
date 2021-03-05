@@ -25,6 +25,8 @@ class User < ApplicationRecord
     has_many :practiceds, dependent: :destroy
     #Record
     has_many :records, dependent: :destroy
+    #Comment
+    has_many :comments, dependent: :destroy
 
     #=====バリデーション=====
     validates :username, presence: true

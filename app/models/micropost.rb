@@ -3,6 +3,8 @@ class Micropost < ApplicationRecord
     #User
     belongs_to :user
     has_many :likes, dependent: :destroy
+    #Comment
+    has_many :comments, dependent: :destroy
 
     #=====バリデーション=====
     validates :user_id, presence: true
