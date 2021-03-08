@@ -4,12 +4,16 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if user_signed_in?
       @micropost = current_user.microposts.build
-      @microposts = current_user.microposts.all
       @record = current_user.records.build
       @comment = current_user.comments.build
+      #プロフィール
+      @practicing = current_user.practicings.all
     end
+
+    #投稿一覧
+    @microposts = @user.microposts.all
+    
     #プロフィール
-    @practicing = current_user.practicings.all
     @first = @user.practiceds.all[0]
     if @first == nil
       @average = nil

@@ -43,68 +43,66 @@ var myChart = new Chart(ctx, {
 
 
 <div class="content-center">
-<h1><%= @user.username %></h1>
-<!-- =====プロフィール画像===== -->
-<% if @user.profile_image.present? %>
-    <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
-<% else %>
-    <%= image_tag ("default.png"), :size => '100x100' %>
-<% end %>
-
-
-<!-- =====フォロー・アンフォロー===== -->
-<div class="follower">
-    <%= link_to followers_user_path(@user.id) do %>
-        <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
+    <h1><%= @user.username %></h1>
+    <!-- =====プロフィール画像===== -->
+    <% if @user.profile_image.present? %>
+        <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
+    <% else %>
+        <%= image_tag ("default.png"), :size => '100x100' %>
     <% end %>
-</div>
-<div class="follow">
-    <%= link_to following_user_path(@user.id) do %>
-        <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
+
+
+    <!-- =====フォロー・アンフォロー===== -->
+    <div class="follower">
+        <%= link_to followers_user_path(@user.id) do %>
+            <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
+        <% end %>
+    </div>
+    <div class="follow">
+        <%= link_to following_user_path(@user.id) do %>
+            <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
+        <% end %>
+    </div>
+    <div>
+        <%= render "follow_form" %>
+    </div>
+
+    <!-- 練習プロフィール -->
+    <p>登録日:<%= @create %>(<%= @difference.to_i %>日経過)</p>
+    <% if @first == nil %>
+        <p>記録初日:記録はありません。</p>
+    <% else %>
+        <p>記録初日:<%= @first['created_at'] %></p>
     <% end %>
-</div>
-<div>
-    <%= render "follow_form" %>
-</div>
-
-<!-- 練習プロフィール -->
-<p>登録日:<%= @create %>(<%= @difference.to_i %>日経過)</p>
-<% if @first == nil %>
-    <p>記録初日:記録はありません。</p>
-<% else %>
-    <p>記録初日:<%= @first['created_at'] %></p>
-<% end %>
-<p>総練習時間:<%= @practice_time %>時間</p>
-<% if @average == nil %>  
-    <p>練習した曲:練習した曲はありません。</p>
-<% elsif @average == 0 %>
-    <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</p>
-<% else %>
-    <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</p>
-<% end %>
+    <p>総練習時間:<%= @practice_time %>時間</p>
+    <% if @average == nil %>  
+        <p>練習した曲:練習した曲はありません。</p>
+    <% elsif @average == 0 %>
+        <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</p>
+    <% else %>
+        <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</p>
+    <% end %>
 
 
-<!-- =====練習したい曲===== --> 
-<%= link_to "練習したい曲", wish_user_path(user_id: @user.id) %>
-<p><%= @user.wishes.count %>曲</p>
+    <!-- =====練習したい曲===== --> 
+    <%= link_to "練習したい曲", wish_user_path(user_id: @user.id) %>
+    <p><%= @user.wishes.count %>曲</p>
 
-<!-- =====練習中の曲===== --> 
-<%= link_to "練習中の曲", practicing_user_path(user_id: @user.id) %>
-<p><%= @user.practicings.count %>曲</p>
+    <!-- =====練習中の曲===== --> 
+    <%= link_to "練習中の曲", practicing_user_path(user_id: @user.id) %>
+    <p><%= @user.practicings.count %>曲</p>
 
-<!-- =====練習した曲===== --> 
-<%= link_to "練習した曲", practiced_user_path(user_id: @user.id) %>
-<p><%= @user.practiceds.count %>曲</p>
+    <!-- =====練習した曲===== --> 
+    <%= link_to "練習した曲", practiced_user_path(user_id: @user.id) %>
+    <p><%= @user.practiceds.count %>曲</p>
 
 
-<% if @user.id == current_user.id %>
     <!--=====つぶやく=====-->
-    <% if @user.id == current_user.id%>
+    <% if user_signed_in? && @user.id == current_user.id%>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             つぶやく
         </button>
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -127,22 +125,19 @@ var myChart = new Chart(ctx, {
                 </div>
             </div>
         </div>
+
+        <!--===== 練習投稿 =====-->
+        <%= form_for [@record], local: true do |f| %>
+            <%= f.text_area :body, id: "content" %>
+            <%= f.collection_select :practicing_id, @practicing, :id, :song_name %>
+            <%= f.select :time, [['1時間', 1], ['2時間', 2]] %>
+            <div class="actions">
+                <%= f.submit %>
+            </div>
+        <% end %>     
     <% end %>
 
-    <!-- 練習投稿 -->
-    <%= form_for [@record], local: true do |f| %>
-        <%= f.text_area :body, id: "content" %>
-        <%= f.collection_select :practicing_id, @practicing, :id, :song_name %>
-        <%= f.select :time, [['1時間', 1], ['2時間', 2]] %>
-        <div class="actions">
-            <%= f.submit %>
-        </div>
-    <% end %>
-<% end %>
-
-
-
-<!--=====自分の投稿=====-->
+    <!--===== 自分の投稿 =====-->
     <div id="partial-micropost">
         <%= render 'users/microposts', microposts: @microposts %>
     </div>

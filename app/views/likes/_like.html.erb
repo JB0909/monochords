@@ -1,4 +1,4 @@
-<% if micropost.liked_by?(current_user) %>
+<% if user_signed_in? && micropost.liked_by?(current_user) %>
     <%= link_to micropost_likes_path(micropost_id: micropost.id), method: :delete, remote: true, id: :"like-button-#{micropost.id}" do %>
         <i class="fas fa-heart"></i>
     <% end %>
