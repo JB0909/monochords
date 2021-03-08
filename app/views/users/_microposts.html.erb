@@ -1,5 +1,3 @@
-<!--@commentを生成することでcommentのform_forを動かせるようにしている-->
-<% @comment = Comment.new %>
 <% @microposts.each do |micropost| %>
     <div class="post_container">
         <div>
@@ -43,6 +41,8 @@
             <% end %>
         </div>
 
+        <!--@commentを生成することでcommentのform_forを動かせるようにしている-->
+        <% @comment = Comment.new %>
         <!--コメント投稿-->
         <div>
             <%= form_for [@comment] do |f| %>
