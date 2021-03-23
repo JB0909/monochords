@@ -1,145 +1,234 @@
-<canvas id="myChart"></canvas>
-<script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-<script>
-
-var artistline = <%== @artistline %>;
-var countline = <%= @countline %>;
-var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: artistline,
-        datasets: [{
-            data: countline,
-            backgroundColor: ['tomato', 'skyblue', 'gray']
-        }]
-    },
-    options: {
-        title: {
-            display: true,
-            text: 'アーティストグラフ'
-        },
-        legend: {
-            display: false
-        },
-        plugins: {
-            labels: [
-                {
-                    render: 'label',
-                    position: 'outside',
-                    textMargin: 10
-                },
-                {
-                    render: 'percentage',
-                    fontSize: 18,
-                    fontColor: 'white',
-                    precision: 1
-                }
-            ]
-        },
-    },
-});
-</script>
+<div class="row">
 
 
-<div class="content-center">
-    <h1><%= @user.username %></h1>
-    <!-- =====プロフィール画像===== -->
-    <% if @user.profile_image.present? %>
-        <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
-    <% else %>
-        <%= image_tag ("default.png"), :size => '100x100' %>
-    <% end %>
 
-
-    <!-- =====フォロー・アンフォロー===== -->
-    <div class="follower">
-        <%= link_to followers_user_path(@user.id) do %>
-            <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
-        <% end %>
-    </div>
-    <div class="follow">
-        <%= link_to following_user_path(@user.id) do %>
-            <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
-        <% end %>
-    </div>
-    <div>
-        <%= render "follow_form" %>
-    </div>
-
-    <!-- 練習プロフィール -->
-    <p>登録日:<%= @create %>(<%= @difference.to_i %>日経過)</p>
-    <% if @first == nil %>
-        <p>記録初日:記録はありません。</p>
-    <% else %>
-        <p>記録初日:<%= @first['created_at'] %></p>
-    <% end %>
-    <p>総練習時間:<%= @practice_time %>時間</p>
-    <% if @average == nil %>  
-        <p>練習した曲:練習した曲はありません。</p>
-    <% elsif @average == 0 %>
-        <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</p>
-    <% else %>
-        <p>練習した曲:<%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</p>
-    <% end %>
-
-
-    <!-- =====練習したい曲===== --> 
-    <%= link_to "練習したい曲", wish_user_path(user_id: @user.id) %>
-    <p><%= @user.wishes.count %>曲</p>
-
-    <!-- =====練習中の曲===== --> 
-    <%= link_to "練習中の曲", practicing_user_path(user_id: @user.id) %>
-    <p><%= @user.practicings.count %>曲</p>
-
-    <!-- =====練習した曲===== --> 
-    <%= link_to "練習した曲", practiced_user_path(user_id: @user.id) %>
-    <p><%= @user.practiceds.count %>曲</p>
-
-
-    <!--=====つぶやく=====-->
-    <% if user_signed_in? && @user.id == current_user.id%>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            つぶやく
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">つぶやく</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="col-4 side-wrapper">
+        <section class="side-column-wrapper">
+            <!-- ===ユーザーデータ=== -->
+            <section>
+                <div class="userdata-container">
+                    <!-- ユーザーネーム -->
+                    <div class="userdata-name">
+                        <%= @user.username %>
                     </div>
-                    <%= form_for(@micropost, remote:true) do |f| %>
-                        <div class="modal-body">
-                            <%= f.text_area :body%>
+
+                    <!-- プロフィール画像 -->
+                    <figure class="userdata-avatar">
+                        <% if @user.profile_image.present? %>
+                            <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
+                        <% else %>
+                            <%= image_tag ("default.png"), :size => '100x100' %>
+                        <% end %>
+                    </figure>
+
+                    <!-- フォロワー -->
+                    <div class="userdata-followers">
+                        <%= link_to followers_user_path(@user.id) do %>
+                            <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
+                        <% end %>
+                    </div>
+
+                    <!-- フォロー -->
+                    <div class="userdata-following">
+                        <%= link_to following_user_path(@user.id) do %>
+                            <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
+                        <% end %>
+                    </div>
+
+                    <!-- フォローフォーム -->
+                    <div class="userdata-follow_form">
+                        <%= render "follow_form" %>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ===練習データ=== -->
+            <section>
+                <div class="practice-container">
+                    <header class="practice-title">
+                        <h2>
+                            <span>練習データ</span>
+                        </h2>
+                    </header>
+                    <ul class="practice-nav">
+                        <li>
+                            <!-- 練習した曲 -->
+                            <%= link_to practiced_user_path(user_id: @user.id) do %>
+                                <span class="practice-nav-text">練習した曲</span>
+                                <span class="practice-nav-count"><%= @user.practiceds.count %>曲</span>
+                            <% end %>
+                        </li>
+
+                        <li>
+                            <!-- 練習中の曲 -->
+                            <%= link_to practicing_user_path(user_id: @user.id) do %>
+                                <span class="practice-nav-text">練習中の曲</span>
+                                <span class="practice-nav-count"><%= @user.practicings.count %>曲</span>
+                            <% end %>
+                        </li>
+
+                        <li>
+                            <!-- 練習したい曲 -->
+                            <%= link_to wish_user_path(user_id: @user.id) do %>
+                                <span class="practice-nav-text">練習したい曲</span>
+                                <span class="practice-nav-count"><%= @user.wishes.count %>曲</span>
+                            <% end %>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ===プロフィール=== -->
+            <section>
+                <header class="profile-title">
+                    <h2>
+                        <span>プロフィール</span>
+                    </h2>
+                </header>
+                <div class="profile-container">
+                    <dl>
+                        <dt>
+                            <!-- 登録日 -->
+                            <span class="profile-side-title">登録日:</span>
+                            <span class="profile-item"><%= @create %>(<%= @difference.to_i %>日経過)</span>
+                        </dt>
+
+                        <dt>
+                            <!-- 記録初日 -->
+                            <span class="profile-side-title">記録初日:</span>
+                            <span class="profile-item"><%= @first['created_at'] %></span>
+                        </dt>
+
+                        <dt>
+                            <!-- 練習した曲 -->
+                            <% if @average == 0 %>  
+                                <span class="profile-side-title">練習した曲:</span>
+                                <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</span>
+                            <% else %>
+                                <span class="profile-side-title">練習した曲:</span>
+                                <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</span>
+                            <% end %>
+                        </dt>
+
+                        <dt>
+                            <!-- 総練習時間 -->
+                            <span class="profile-side-title">総練習時間:</span>
+                            <span class="profile-item"><%= @practice_time %>時間</span>
+                        </dt>
+                    </dl>
+                </div>
+            </section>
+        </section>
+
+
+
+
+        <!--=====つぶやく=====-->
+        <% if user_signed_in? && @user.id == current_user.id%>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                つぶやく
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">つぶやく</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                            <%= f.submit "つぶやく", class: "btn btn-primary btn-block" %>
-                        </div>
-                    <% end %>
+                        <%= form_for(@micropost, remote:true) do |f| %>
+                            <div class="modal-body">
+                                <%= f.text_area :body%>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                <%= f.submit "つぶやく", class: "btn btn-primary btn-block" %>
+                            </div>
+                        <% end %>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!--===== 練習投稿 =====-->
-        <%= form_for [@record], local: true do |f| %>
-            <%= f.text_area :body, id: "content" %>
-            <%= f.collection_select :practicing_id, @practicing, :id, :song_name %>
-            <%= f.select :time, [['1時間', 1], ['2時間', 2]] %>
-            <div class="actions">
-                <%= f.submit %>
-            </div>
-        <% end %>     
-    <% end %>
 
-    <!--===== 自分の投稿 =====-->
-    <div id="partial-micropost">
-        <%= render 'users/microposts', microposts: @microposts %>
+
+            <!-- 練習投稿 -->
+            <%= form_for [@record], local: true do |f| %>
+                <%= f.text_area :body, id: "content" %>
+                <%= f.collection_select :practicing_id, @practicing, :id, :song_name %>
+                <%= f.select :time, [['1時間', 1], ['2時間', 2]] %>
+                <div class="actions">
+                    <%= f.submit %>
+                </div>
+            <% end %>
+
+        <% end %>
+
+        
+
     </div>
 
+    <div class="col-8">
+        <canvas id="myChart"></canvas>
+        <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+        <script>
+        var artistline = <%== @artistline %>;
+        var countline = <%= @countline %>;
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: artistline,
+                datasets: [{
+                    data: countline,
+                    backgroundColor: ['tomato', 'skyblue', 'gray']
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'アーティストグラフ'
+                },
+                legend: {
+                    display: false
+                },
+                plugins: {
+                    labels: [
+                        {
+                            render: 'label',
+                            position: 'outside',
+                            textMargin: 10
+                        },
+                        {
+                            render: 'percentage',
+                            fontSize: 18,
+                            fontColor: 'white',
+                            precision: 1
+                        }
+                    ]
+                },
+            },
+        });
+        </script>
+
+
+        <!--=====自分の投稿=====-->
+        <section>
+            <header>
+                <h2>
+                    <span>最近のつぶやき</span>
+                </h2>
+            </header>
+            <div id="partial-micropost">
+                <%= render 'users/microposts', microposts: @microposts %>
+            </div>
+        </section>
+
+
+    </div>
 </div>
