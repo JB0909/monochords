@@ -1,35 +1,67 @@
-<h1>曲名：<%= @music.song_name %></h1>
-<h1>アーティスト名：<%= @music.artist_name %></h1>
-<h1>アルバム名：<%= @music.album_name %></h1>
-<%= image_tag(@music.image_url) %>
-<% @music.external_id %>
-
-<% if @music.already_wishes?(current_user) %>
-    <%= link_to "練習したい曲から解除", music_wish_path(music_id: @music.id), method: :delete %>
-<% else %>
-    <%= link_to "練習したい曲に登録", music_wishes_path(music_id: @music.id), method: :post %>
-<% end %>
-
-<% if @music.already_practicings?(current_user) %>
-    <%= link_to "練習中の曲から解除", music_practicing_path(music_id: @music.id), method: :delete %>
-<% else %>
-    <%= link_to "練習中の曲に登録", music_practicings_path(music_id: @music.id), method: :post %>
-<% end %>
-
-<% if @music.already_practiceds?(current_user) %>
-    <%= link_to "練習した曲から解除", music_practiced_path(music_id: @music.id), method: :delete %>
-<% else %>
-    <%= link_to "練習した曲に登録", music_practiceds_path(music_id: @music.id), method: :post %>
-<% end %>
-
-
-<%= form_for [@music,@review], remote: true do |f| %>
-    <%= f.text_area :content, id: "content" %>
-    <div class="actions">
-        <%= f.submit %>
+<div class="row">
+    <div class="col-4 side-wrapper">
+        <section class="side-column-wrapper">
+            <section>
+                <div class="musicdata-container">
+                    <div class="musicdata-image">
+                        <%= image_tag (@music.image_url), :size => '200x200' %>
+                    </div>
+                    <div class="musicdata-song">
+                        <span>曲名：<%= @music.song_name %></span>
+                    </div>
+                    <div class="musicdata-artist">
+                        <span>アーティスト名：<%= @music.artist_name %></span>
+                    </div>
+                    <div class="musicdata-album">
+                        <span>アルバム名：<%= @music.album_name %></span>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="registration-container">
+                    <header class="registration-title">
+                        <h2>
+                            <span>楽曲の登録</span>
+                        </h2>
+                    </header>
+                    <ul class="registration-nav">
+                        <li>
+                            <% if @music.already_wishes?(current_user) %>
+                                <%= link_to "練習したい曲から解除", music_wish_path(music_id: @music.id), method: :delete %>
+                            <% else %>
+                                <%= link_to "練習したい曲に登録", music_wishes_path(music_id: @music.id), method: :post %>
+                            <% end %>
+                        </li>
+                        <li>
+                            <% if @music.already_practicings?(current_user) %>
+                                <%= link_to "練習中の曲から解除", music_practicing_path(music_id: @music.id), method: :delete %>
+                            <% else %>
+                                <%= link_to "練習中の曲に登録", music_practicings_path(music_id: @music.id), method: :post %>
+                            <% end %>
+                        </li>
+                        <li>
+                            <% if @music.already_practiceds?(current_user) %>
+                                <%= link_to "練習した曲から解除", music_practiced_path(music_id: @music.id), method: :delete %>
+                            <% else %>
+                                <%= link_to "練習した曲に登録", music_practiceds_path(music_id: @music.id), method: :post %>
+                            <% end %>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </section>   
     </div>
-<% end %>
 
-<div id="review">
-    <%= render 'musics/reviews', reviews: @reviews %>
+    <div class="col-8">
+        <%= form_for [@music,@review], remote: true do |f| %>
+            <%= f.text_area :content, id: "content" %>
+            <div class="actions">
+                <%= f.submit %>
+            </div>
+        <% end %>
+
+        <div id="review">
+            <%= render 'musics/reviews', reviews: @reviews %>
+        </div>
+    </div>
 </div>
