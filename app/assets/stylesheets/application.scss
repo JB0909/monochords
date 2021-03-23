@@ -290,3 +290,30 @@ input:focus {
 .comment-body{
     margin-top: 4px;
 }
+
+/*楽曲ページ*/
+.musicdata-container{
+    background-color: white;
+    text-align: center;
+    padding: 20px 0 10px 0;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.registration-container{
+    background-color: white;
+}
+
+.registration-title{
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.registration-nav{
+    list-style: none;
+}
+
+.registration-nav li{
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
