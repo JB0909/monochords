@@ -14,3 +14,279 @@
  *= require_self
  */
 @import "bootstrap";
+
+/*リセット*/
+ul{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+h2{
+    margin-bottom: 0;
+}
+
+/*共通*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    color: rgb(1, 1, 1);
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(1, 1, 1);
+}
+
+input:focus {
+    outline: 0;
+}
+
+/*Navbar*/
+.navbar{
+    background: #dbfffe;
+    min-height: 8vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo{
+    font-weight: bold;
+    font-size: 23px;
+    letter-spacing: 3px;
+}
+
+.navitems{
+    display: flex;
+    width: 500px;
+    max-width: 40%;
+    justify-content: space-around;
+    list-style: none;
+}
+
+.navitem{
+    font-size: 19px;
+    font-weight: bold;
+    opacity: 0.7;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+/*Wrapper*/
+// .wrapper{
+//     width: 1000px;
+//     max-width: 85%;
+//     margin: 20px auto;
+// }
+
+.outer-wrapper{
+    background-color: #f0f0f0;
+}
+
+
+/*side column*/
+.side-colmun-wrapper{
+    width: 100%;
+}
+
+.side-wrapper{
+    margin-top: 20px;
+}
+
+/*ユーザーデータ*/
+.userdata-container{
+    background-color: white;
+    text-align: center;
+    padding: 0 0 10px 0;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.userdata-container a{
+    text-decoration: none;
+}
+
+.userdata-name{
+    font-size:30px;
+    padding: 15px 0;
+}
+
+.userdata-followers,
+.userdata-followers::before,
+.userdata-followers::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.userdata-followers{
+    width: 70%;
+    margin: 10px auto;
+    padding: 10px 0px 5px;
+    background-color: #f8f8f8;
+    border: solid 1px;
+    border-radius: 1em;
+}
+
+.userdata-followers:hover {
+    letter-spacing: 5px;
+}
+
+.userdata-following,
+.userdata-following::before,
+.userdata-following::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.userdata-following{
+    width: 70%;
+    margin: 10px auto;
+    padding: 10px 0px 5px;
+    background-color: #f8f8f8;
+    border: solid 1px;
+    border-radius: 1em;
+}
+
+.userdata-following:hover {
+    letter-spacing: 5px;
+}
+
+/*練習データ*/
+.practice-container{
+    background-color: white;
+}
+
+.practice-title{
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.practice-nav{
+    list-style: none;
+}
+
+.practice-nav li{
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.practice-nav-count{
+    float: right;
+}
+
+/*プロフィール*/
+.profile-title{
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.profile-container{
+    background-color: white;
+}
+
+.profile-container dt{
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-side-title{
+    color: gray;
+}
+
+.profile-item{
+    float: right;
+}
+
+/* 自分の投稿 */
+.post_container{
+    background-color: white;
+    padding: 15px;
+    border-bottom: 1px solid #dcdcdc;
+    display: flex;
+}
+
+.post-side-frame{
+    margin-right: 13px;
+}
+
+.post-main-frame{
+    width: 100%;
+    padding-right: 15px;
+    font-size: 18px;
+}
+
+.post-name a{
+    font-weight: bold;
+}
+
+.post-body{
+    margin-top: 4px;
+}
+
+.frame-details{
+    display: flex;
+    margin-top: 5px;
+}
+
+.post-date{
+    margin-left: 15px;
+}
+
+.post-timestamp{
+    margin-left: 15px;
+}
+
+.like-container{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.like-users{
+    margin-right: 15px;
+}
+
+.comment-container{
+    display: flex;
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+    margin-bottom: 7px;
+}
+
+.comment-side-frame{
+    margin-right: 13px;
+}
+
+.comment-main-frame{
+    width: 100%;
+    padding-right: 15px;
+    font-size: 18px;
+}
+
+.comment-name a{
+    font-weight: bold;
+}
+
+.comment-body{
+    margin-top: 4px;
+}
