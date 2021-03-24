@@ -97,7 +97,10 @@
                         <dt>
                             <!-- 記録初日 -->
                             <span class="profile-side-title">記録初日:</span>
-                            <span class="profile-item"><%= @first['created_at'] %></span>
+                            <% if @first_regi == nil %>
+                            <% else %>
+                                <span class="profile-item"><%= @first_regi %></span>
+                            <% end %>
                         </dt>
 
                         <dt>
