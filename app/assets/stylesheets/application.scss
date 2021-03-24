@@ -52,6 +52,51 @@ input:focus {
     outline: 0;
 }
 
+.common-main-title{
+    text-align: left;
+    padding: 15px;
+    border-bottom: 1px solid #666666;
+    h2{
+        font-size: 18px;
+    }
+}
+
+/* 練習登録 */
+.practice-regi-wrapper{
+    background-color: white;
+}
+
+.practice-regi-container{
+    text-align: center;
+    padding: 10px;
+}
+
+.practice-list{
+    list-style: none;
+    display: flex;
+    width: 100%;
+}
+
+.practice-list-song{
+    width: 25%;
+}
+
+.practice-regi-down-frame{
+    text-align: left;
+    margin-top: 3px;
+    span {
+        font-size: 75%;
+        display: block;
+    }
+    .practice-regi-title{
+        height: 30px;
+        margin-bottom: 10px;
+    }
+    .practice-regi-artist{
+        margin-bottom: 5px;
+    }
+}
+
 /*Navbar*/
 .navbar{
     background: #dbfffe;
