@@ -1,154 +1,34 @@
-<% if user_signed_in? %>
-    <div class="tab-wrap">
-        <!-- つぶやき -->
-        <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
-        <div class="tab-content">
-            <% @following_microposts.each do |micropost| %>
-                <div class="post_container">
-                    <div>
-                        <%= link_to micropost.user.username, user_path(micropost.user) %> <span class="text-muted">posted at <%= micropost.created_at %></span>
-                    </div>
-                    <div>
-                        <p><%= micropost.body %></p>
-                    </div>
-                    <span class="timestamp">
-                        <%= time_ago_in_words(micropost.created_at) %> 前の投稿
-                    </span>
-                    <div id="like-btn-<%= micropost.id %>">
-                        <%= render 'likes/like', micropost: micropost %>
-                    </div>
-
-                    <%# いいねしたユーザー一覧表示%>
-                    <div>
-                        <% @likes = Like.where(micropost_id: micropost.id) %>
-                        <% if @likes.present? %>
-                            <p>いいねしたユーザー</p>
-                            <% @likes.each do |like| %>
-                                <%= link_to like.user.username, user_path(like.user.id) %>
-                                <% if like.user.profile_image.present? %>
-                                    <%= image_tag attachment_url(like.user, :profile_image, :fill, 50, 50, format: "jpg"), {class: "mypage-image"} %>
-                                <% else %>
-                                    <%= image_tag ("default.png"), :size => '50x50' %>
-                                <% end %>
-                            <%end%>
-                        <% else %>
-                        <% end %>
-                    </div>
-
-                    <!--コメント一覧-->
-                    <div>
-                        <% micropost.comments.each do |c| %>
-                            <div>
-                                <%= link_to c.user.username, user_path(c.user.id) %>
-                                <%= c.content %>
-                                <%= c.created_at %>
-                            </div>
-                        <% end %>
-                    </div>
-
-                    <!--コメント投稿-->
-                    <div>
-                        <%= form_for [@comment] do |f| %>
-                            <%= f.text_field :content %>
-                            <br>
-                            <%= f.hidden_field :micropost_id, value: micropost.id %>
-                            <%= f.submit %>
-                        <% end %>
-                    </div>
-
-                </div>
-            <% end %>
-        </div>
-
-        <!-- 練習記録 -->
-        <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">練習記録</label>
-        <div class="tab-content">
-            <% @following_records.each do |record| %>
-                <div class="post_container">
-                    <div>
-                        <%= link_to record.user.username, user_path(record.user) %> <span class="text-muted">posted at <%= record.created_at %></span>
-                    </div>
-                    <div>
-                        <%= link_to record.song_name, music_path(record.music_id) %>
-                        <%= image_tag(record.image_url) %>
-                        <p><%= record.time %></p>
-                        <p><%= record.body %></p>
-                    </div>
-                    <span class="timestamp">
-                        <%= time_ago_in_words(record.created_at) %> 前の投稿
-                    </span>
-
-                    <!--コメント一覧-->
-                    <div>
-                        <% record.comments.each do |r| %>
-                            <div>
-                                <%= link_to r.user.username, user_path(r.user.id) %>
-                                <%= r.content %>
-                                <%= r.created_at %>
-                            </div>
-                        <% end %>
-                    </div>
-
-                    <!--コメント投稿-->
-                    <div>
-                        <%= form_for [@comment] do |f| %>
-                            <%= f.text_field :content %>
-                            <br>
-                            <%= f.hidden_field :record_id, value: record.id %>
-                            <%= f.submit %>
-                        <% end %>
-                    </div>
-
-                </div>
-            <% end %>
-        </div>
-
-        <!-- レビュー -->
-        <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
-        <div class="tab-content">
-            <% @following_reviews.each do |review| %>
-                <div class="post_container">
-                    <div>
-                        <%= image_tag(review.music.image_url) %>
-                        <%= link_to review.user.username, user_path(review.user) %> <span class="text-muted">posted at <%= review.created_at %></span>
-                    </div>
-                    <div>
-                        <%= link_to review.music.song_name, music_path(review.music) %>
-                        <p><%= review.content %></p>
-                    </div>
-                    <span class="timestamp">
-                        <%= time_ago_in_words(review.created_at) %> 前の投稿
-                    </span>
-
-                    <!--コメント一覧-->
-                    <div>
-                        <% review.comments.each do |r| %>
-                            <div>
-                                <%= link_to r.user.username, user_path(r.user.id) %>
-                                <%= r.content %>
-                                <%= r.created_at %>
-                            </div>
-                        <% end %>
-                    </div>
-
-                    <!--コメント投稿-->
-                    <div>
-                        <%= form_for [@comment] do |f| %>
-                            <%= f.text_field :content %>
-                            <br>
-                            <%= f.hidden_field :review_id, value: review.id %>
-                            <%= f.submit %>
-                        <% end %>
-                    </div>
-
-                </div>
-            <% end %>
-        </div>
+<div class="row">
+    <div class="col-4">
     </div>
+    
+    <div class="col-8">
+        <% if user_signed_in? %>
+            <div class="tab-wrap">
+                <!-- つぶやき -->
+                <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
+                <div class="tab-content">
+                    <%= render 'static_pages/microposts' %>
+                </div>
 
-<% else %>
-    <div>
-        <%= link_to "ログイン", new_user_session_path %>
-        <%= link_to "サインアップ", new_user_registration_path %>
+                <!-- 練習記録 -->
+                <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">練習記録</label>
+                <div class="tab-content">
+                    <%= render 'static_pages/records' %>
+                </div>
+
+                <!-- レビュー -->
+                <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
+                <div class="tab-content">
+                    <%= render 'static_pages/reviews' %>
+                </div>
+            </div>
+
+        <% else %>
+            <div>
+                <%= link_to "ログイン", new_user_session_path %>
+                <%= link_to "サインアップ", new_user_registration_path %>
+            </div>
+        <% end %>
     </div>
-<% end %>
+</div>

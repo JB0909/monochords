@@ -1,0 +1,84 @@
+<% @following_records.each do |record| %>
+    <div class="post_container">
+        <div class="post-side-frame">
+            <figure class="post-avatar">
+                <%= link_to user_path(record.user) do %>
+                    <% if record.user.profile_image.present? %>
+                        <%= image_tag attachment_url(record.user, :profile_image, :fill, 50, 50, format: "jpg"), {class: "mypage-image"} %>
+                    <% else %>
+                        <%= image_tag ("default.png"), :size => '50x50' %>
+                    <% end %>
+                <% end %>
+            </figure>
+        </div>
+
+        <div class="post-main-frame">
+            <div class="post-name">
+                <%= link_to record.user.username, user_path(record.user) %>
+            </div>
+            <div class="post-body">
+                <span><%= record.body %></span>
+            </div>
+            <div class="song-details">
+                <div class="song-side-frame">
+                    <%= image_tag (record.image_url), :size => '150x150' %>
+                </div>
+                <div class="song-main-frame">
+                    <div class="song-title">
+                        <%= link_to record.song_name, music_path(record.music_id) %>
+                    </div>
+                    <div class="song-practice">
+                        <span>練習時間 : <span class="song-practice-time">＋ <%= record.time %>時間</span></span>
+                    </div>
+                </div>               
+            </div>
+            <div class="frame-details">
+                <div class="post-date">
+                    <span class="text-muted"><%= record.created_at %></span>
+                </div>
+                <div class="post-timestamp">
+                    <span class="timestamp">
+                        <%= time_ago_in_words(record.created_at) %> 前の投稿
+                    </span>
+                </div>
+            </div>
+
+            <!--コメント一覧-->
+            <% record.comments.each do |r| %>
+                <div class="comment-container">
+                    <div class="comment-side-frame">
+                        <div class="comment-avatar">
+                            <% if r.user.profile_image.present? %>
+                                <%= image_tag attachment_url(r.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
+                            <% else %>
+                                <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
+                            <% end %>
+                        </div>
+                    </div>
+
+                    <div class="comment-main-frame">
+                        <div class="comment-name">
+                            <%= link_to r.user.username, user_path(r.user.id) %>
+                        </div>
+
+                        <div class="comment-body">
+                            <span><%= r.content %></span>
+                        </div>
+                        <span class="comment-date"><%= r.created_at %></span>
+                    </div>
+                </div>
+            <% end %>
+
+            <!--コメント投稿-->
+            <div class="comment-create">
+                <%= form_for [@comment] do |f| %>
+                    <%= f.text_field :content %>
+                    <br>
+                    <%= f.hidden_field :record_id, value: record.id %>
+                    <%= f.submit %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+
+<% end %>

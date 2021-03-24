@@ -291,6 +291,30 @@ input:focus {
     margin-top: 4px;
 }
 
+/*練習記録*/
+.song-details{
+    display: flex;
+    background-color: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    padding: 15px;
+}
+
+.song-main-frame{
+    margin-left: 15px;
+}
+
+.song-title a{
+    font-weight: bold;
+}
+
+.song-practice{
+    margin-top: 15px;
+}
+
+.song-practice-time{
+    font-weight: bold;
+}
+
 /*楽曲ページ*/
 .musicdata-container{
     background-color: white;
