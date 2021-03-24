@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :practiceds, only: [:create, :destroy]
   end
 
-  resources :users, only: [:show, :edit, :index, :update] do
+  resources :users, only: [:show, :edit, :update] do
     member do
       get :following, :followers
       get :wish, to:"wishes#index"
