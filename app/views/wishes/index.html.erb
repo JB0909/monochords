@@ -9,53 +9,62 @@
                 </h2>
             </header>
             <div class="practice-regi-container">
-                <% @wishes.each_slice(4) do |wishes| %>
-                    <ul class="practice-list">
-                        <% wishes.each do |w| %>
-                            <li class="practice-list-song">
-                                <div class="practice-regi-container">
-                                    <div class="practice-regi-up-frame">
-                                        <div class="practive-regi-image">
-                                            <%= image_tag (w.music.image_url), :size => "150x150" %>
+                <% if @wishes.blank? %>
+                    <div class="practice-regi-blank">
+                        <span>表示項目がありません。</span>
+                    </div>
+                <% else %>
+                    <% @wishes.each_slice(4) do |wishes| %>
+                        <ul class="practice-list">
+                            <% wishes.each do |w| %>
+                                <li class="practice-list-song">
+                                    <div class="practice-regi-container">
+                                        <div class="practice-regi-up-frame">
+                                            <div class="practive-regi-image">
+                                                <%= image_tag (w.music.image_url), :size => "150x150" %>
+                                            </div>
+                                        </div>
+                                        <div class="practice-regi-down-frame">
+                                            <div class="practice-regi-title">
+                                                <%= link_to music_path(w.music_id) do %>
+                                                    <span><%= w.music.song_name %><span>
+                                                <% end %>
+                                            </div>
+                                            <div class="practice-regi-artist">
+                                                <span><%= w.music.artist_name %></span>
+                                            </div>
+                                            <div class="practice-regi">
+                                                <% if Wish.where(user_id: current_user, music_id: w.music_id).exists? %>
+                                                    <span><%= link_to "練習したい曲から解除", music_wish_path(music_id: w.music_id), method: :delete %></span>
+                                                <% else %>
+                                                    <span><%= link_to "練習したい曲に登録", music_wishes_path(music_id: w.music_id), method: :post %></span>
+                                                <% end %>
+                                            </div>
+                                            <div class="practice-regi">
+                                                <% if Practicing.where(user_id: current_user, music_id: w.music_id).exists? %>
+                                                    <span><%= link_to "練習中の曲から解除", music_practicing_path(music_id: w.music_id), method: :delete %></span>
+                                                <% else %>
+                                                    <% @detail = w.music_id %>
+                                                    <span><%= link_to "練習中の曲に登録", music_practicings_path(music_id: @detail), method: :post %></span>
+                                                <% end %>
+                                            </div>
+                                            <div class="practice-regi">
+                                                <% if Practiced.where(user_id: current_user, music_id: w.music_id).exists? %>
+                                                    <span><%= link_to "練習した曲から解除", music_practiced_path(music_id: w.music_id), method: :delete %></span>
+                                                <% else %>
+                                                    <% @detail = w.music_id %>
+                                                    <span><%= link_to "練習した曲に登録", music_practiceds_path(music_id: @detail), method: :post %></span>
+                                                <% end %>
+                                            </div>                                       
                                         </div>
                                     </div>
-                                    <div class="practice-regi-down-frame">
-                                        <div class="practice-regi-title">
-                                            <%= link_to music_path(w.music_id) do %>
-                                                <span><%= w.music.song_name %><span>
-                                            <% end %>
-                                        </div>
-                                        <div class="practice-regi-artist">
-                                            <span><%= w.music.artist_name %></span>
-                                        </div>
-                                        <div class="practice-regi">
-                                            <% if Wish.where(user_id: current_user, music_id: w.music_id).exists? %>
-                                                <span><%= link_to "練習したい曲から解除", music_wish_path(music_id: w.music_id), method: :delete %></span>
-                                            <% else %>
-                                                <span><%= link_to "練習したい曲に登録", music_wishes_path(music_id: w.music_id), method: :post %></span>
-                                            <% end %>
-                                        </div>
-                                        <div class="practice-regi">
-                                            <% if Practicing.where(user_id: current_user, music_id: w.music_id).exists? %>
-                                                <span><%= link_to "練習中の曲から解除", music_practicing_path(music_id: w.music_id), method: :delete %></span>
-                                            <% else %>
-                                                <% @detail = w.music_id %>
-                                                <span><%= link_to "練習中の曲に登録", music_practicings_path(music_id: @detail), method: :post %></span>
-                                            <% end %>
-                                        </div>
-                                        <div class="practice-regi">
-                                            <% if Practiced.where(user_id: current_user, music_id: w.music_id).exists? %>
-                                                <span><%= link_to "練習した曲から解除", music_practiced_path(music_id: w.music_id), method: :delete %></span>
-                                            <% else %>
-                                                <% @detail = w.music_id %>
-                                                <span><%= link_to "練習した曲に登録", music_practiceds_path(music_id: @detail), method: :post %></span>
-                                            <% end %>
-                                        </div>                                       
-                                    </div>
-                                </div>
-                            </li>
-                        <% end %>
-                    </ul>
+                                </li>
+                            <% end %>
+                        </ul>
+                    <% end %>
+                    <div class="practice-regi-count">
+                        <span>全<%= @wishes.count %>件を表示</span>
+                    </div>
                 <% end %>
             </div>
         </div>
