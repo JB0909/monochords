@@ -1,9 +1,6 @@
 <div class="row">
-
-
-
     <div class="col-4 side-wrapper">
-        <section class="side-column-wrapper">
+        <div class="side-column-wrapper">
             <!-- ===ユーザーデータ=== -->
             <section>
                 <div class="userdata-container">
@@ -11,7 +8,6 @@
                     <div class="userdata-name">
                         <%= @user.username %>
                     </div>
-
                     <!-- プロフィール画像 -->
                     <figure class="userdata-avatar">
                         <% if @user.profile_image.present? %>
@@ -20,29 +16,24 @@
                             <%= image_tag ("default.png"), :size => '100x100' %>
                         <% end %>
                     </figure>
-
                     <!-- フォロワー -->
                     <div class="userdata-followers">
                         <%= link_to followers_user_path(@user.id) do %>
-                            <h5 style="color: black;">フォロワー<%= @user.followers.count %>人</h5>
+                            <span>フォロワー<%= @user.followers.count %>人</span>
                         <% end %>
                     </div>
-
                     <!-- フォロー -->
                     <div class="userdata-following">
                         <%= link_to following_user_path(@user.id) do %>
-                            <h5 style="color: black;">フォロー<%= @user.following.count %>人</h5>
+                            <span>フォロー<%= @user.following.count %>人</span>
                         <% end %>
                     </div>
-
                     <!-- フォローフォーム -->
                     <div class="userdata-follow_form">
                         <%= render "follow_form" %>
                     </div>
-
                 </div>
             </section>
-
             <!-- ===練習データ=== -->
             <section>
                 <div class="practice-container">
@@ -59,7 +50,6 @@
                                 <span class="practice-nav-count"><%= @user.practiceds.count %>曲</span>
                             <% end %>
                         </li>
-
                         <li>
                             <!-- 練習中の曲 -->
                             <%= link_to practicing_user_path(user_id: @user.id) do %>
@@ -67,7 +57,6 @@
                                 <span class="practice-nav-count"><%= @user.practicings.count %>曲</span>
                             <% end %>
                         </li>
-
                         <li>
                             <!-- 練習したい曲 -->
                             <%= link_to wish_user_path(user_id: @user.id) do %>
@@ -78,22 +67,20 @@
                     </ul>
                 </div>
             </section>
-
             <!-- ===プロフィール=== -->
             <section>
-                <header class="profile-title">
-                    <h2>
-                        <span>プロフィール</span>
-                    </h2>
-                </header>
                 <div class="profile-container">
+                    <header class="profile-title">
+                        <h2>
+                            <span>プロフィール</span>
+                        </h2>
+                    </header>
                     <dl>
                         <dt>
                             <!-- 登録日 -->
                             <span class="profile-side-title">登録日:</span>
                             <span class="profile-item"><%= @create %>(<%= @difference.to_i %>日経過)</span>
                         </dt>
-
                         <dt>
                             <!-- 記録初日 -->
                             <span class="profile-side-title">記録初日:</span>
@@ -102,7 +89,6 @@
                                 <span class="profile-item"><%= @first_regi %></span>
                             <% end %>
                         </dt>
-
                         <dt>
                             <!-- 練習した曲 -->
                             <% if @average == 0 %>  
@@ -113,7 +99,6 @@
                                 <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</span>
                             <% end %>
                         </dt>
-
                         <dt>
                             <!-- 総練習時間 -->
                             <span class="profile-side-title">総練習時間:</span>
@@ -122,18 +107,13 @@
                     </dl>
                 </div>
             </section>
-        </section>
-
-
-
-
+        </div>
         <!--=====つぶやく=====-->
         <% if user_signed_in? && @user.id == current_user.id%>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 つぶやく
             </button>
-
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -156,9 +136,6 @@
                     </div>
                 </div>
             </div>
-
-
-
             <!-- 練習投稿 -->
             <%= form_for [@record], local: true do |f| %>
                 <%= f.text_area :body, id: "content" %>
@@ -168,17 +145,11 @@
                     <%= f.submit %>
                 </div>
             <% end %>
-
         <% end %>
-
-        
-
     </div>
-
     <div class="col-8">
         <canvas id="myChart"></canvas>
         <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-
         <script>
         var artistline = <%== @artistline %>;
         var countline = <%= @countline %>;
@@ -218,20 +189,18 @@
             },
         });
         </script>
-
-
         <!--=====自分の投稿=====-->
         <section>
-            <header>
-                <h2>
-                    <span>最近のつぶやき</span>
-                </h2>
-            </header>
-            <div id="partial-micropost">
-                <%= render 'users/microposts', microposts: @microposts %>
+            <div class="post-wrapper">
+                <header class="common-main-title">
+                    <h2>
+                        <span>最近のつぶやき</span>
+                    </h2>
+                </header>
+                <div id="partial-micropost">
+                    <%= render 'users/microposts', microposts: @microposts %>
+                </div>
             </div>
         </section>
-
-
     </div>
 </div>
