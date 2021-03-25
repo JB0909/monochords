@@ -64,37 +64,51 @@ input:focus {
 /* 練習登録 */
 .practice-regi-wrapper{
     background-color: white;
-}
-
-.practice-regi-container{
-    text-align: center;
-    padding: 10px;
-}
-
-.practice-list{
-    list-style: none;
-    display: flex;
-    width: 100%;
-}
-
-.practice-list-song{
-    width: 25%;
-}
-
-.practice-regi-down-frame{
-    text-align: left;
-    margin-top: 3px;
-    span {
-        font-size: 75%;
-        display: block;
-    }
-    .practice-regi-title{
-        height: 33px;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-    .practice-regi-artist{
-        margin-bottom: 5px;
+    border-radius: 4px;
+    border: 1px solid #D4DACB;
+    .practice-regi-container{
+        text-align: center;
+        padding: 10px;
+        .practice-regi-blank{
+            margin: 15px;
+            span{
+                color: #999;
+                font-size: 80%;
+            }
+        }
+        .practice-list{
+            list-style: none;
+            display: flex;
+            width: 100%;
+            .practice-list-song{
+                width: 25%;
+            }
+        }
+        .practice-regi-down-frame{
+            text-align: left;
+            margin-top: 3px;
+            span {
+                font-size: 75%;
+                display: block;
+            }
+            .practice-regi-title{
+                height: 33px;
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+            .practice-regi-artist{
+                margin-bottom: 5px;
+            }
+        }  
+        .practice-regi-count{
+            border-top: 1px solid #efefef;
+            padding-top: 7px;
+            margin-top: 15px;
+            span{
+                color: #999;
+                font-size: 80%;
+            }
+        }     
     }
 }
 
