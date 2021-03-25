@@ -10,6 +10,8 @@ class User < ApplicationRecord
     has_many :microposts, dependent: :destroy
     #Like
     has_many :likes, dependent: :destroy
+    has_many :record_likes, dependent: :destroy
+    has_many :review_likes, dependent: :destroy
     #Relationship
     has_many :following_relationships, foreign_key: "follower_id", class_name: "Relationship",  dependent: :destroy
     has_many :following, through: :following_relationships

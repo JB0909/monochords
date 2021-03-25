@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get  "/search", to:"searchs#search"
 
   resources :musics, as: :music, only: [:show, :create] do
-    resources :reviews, only: [:create]
+    resources :reviews, only: [:create] do
+      resource :review_likes, only: [:create, :destroy]
+    end
     resources :wishes, only: [:create, :destroy]
     resources :practicings, only: [:create, :destroy]
     resources :practiceds, only: [:create, :destroy]
@@ -26,7 +28,9 @@ Rails.application.routes.draw do
 
   resources :relationships, only: [:create, :destroy]
 
-  resources :records, only: [:create, :destroy]
+  resources :records, only: [:create, :destroy] do
+    resource :record_likes, only: [:create, :destroy]
+  end
   resources :comments, only: [:create]
 
   resources :microposts,        only: [:index, :create, :destroy] do

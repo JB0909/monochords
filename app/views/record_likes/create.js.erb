@@ -1,0 +1,1 @@
+$('#record-like-btn-<%= @record.id %>').html("<%= escape_javascript(render partial: "record_likes/like", locals: { record: @record }) %>");

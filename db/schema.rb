@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_060334) do
+ActiveRecord::Schema.define(version: 2021_03_25_035737) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 2021_03_05_060334) do
     t.index ["user_id"], name: "index_practicings_on_user_id"
   end
 
+  create_table "record_likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_id"], name: "index_record_likes_on_record_id"
+    t.index ["user_id"], name: "index_record_likes_on_user_id"
+  end
+
   create_table "records", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "time"
@@ -96,6 +105,15 @@ ActiveRecord::Schema.define(version: 2021_03_05_060334) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
+  end
+
+  create_table "review_likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "review_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_review_likes_on_review_id"
+    t.index ["user_id"], name: "index_review_likes_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -150,7 +168,11 @@ ActiveRecord::Schema.define(version: 2021_03_05_060334) do
   add_foreign_key "practiceds", "users"
   add_foreign_key "practicings", "musics"
   add_foreign_key "practicings", "users"
+  add_foreign_key "record_likes", "records"
+  add_foreign_key "record_likes", "users"
   add_foreign_key "records", "users"
+  add_foreign_key "review_likes", "reviews"
+  add_foreign_key "review_likes", "users"
   add_foreign_key "reviews", "musics"
   add_foreign_key "reviews", "users"
   add_foreign_key "wishes", "musics"
