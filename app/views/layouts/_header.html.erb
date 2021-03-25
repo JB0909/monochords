@@ -1,15 +1,61 @@
 <% if user_signed_in? %>
-    <nav class="navbar">
-        <div class="logo">
-            MONOCHORDS
+    <header class="header-container">
+        <div class="header-global">
+            <div class="global-inner">
+                <div class="personal-account">
+                    <%= link_to user_path(current_user.id) do %>
+                        <% if current_user.profile_image.present? %>
+                            <div class="personal-account-data">
+                                <div class="personal-account-image">
+                                    <%= image_tag attachment_url(current_user, :profile_image, :fill, 28, 28, format: "jpg"), {class: "mypage-image"} %>
+                                </div>
+                                <div class="personal-account-name">
+                                    <%= current_user.username %>さんのマイページ
+                                </div>
+                            </div>
+                        <% else %>
+                            <div class="personal-account-data">
+                                <%= image_tag ("default.png"), :size => '28x28' %><%= current_user.username %>さんのマイページ
+                            </div>
+                            
+                        <% end %>
+                        
+                    <% end %>
+                    
+                    
+                    <div class="personal-account-menu">
+                        <a href="">メニュー</a>
+                        <ul class="peronal-account-menu-drop-items">
+                            <li class="personal-account-menu-drop-item"><i class="navitem fas fa-user-edit"></i><%= link_to "編集", edit_user_path(current_user.id) %></li>
+                            <li class="personal-account-menu-drop-item"><i class="navitem fas fa-sign-out-alt"></i><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                        </ul>
+                    </div>  
+                </div>
+            </div>
         </div>
-        <ul class="navitems">
-            <li><i class="navitem fa fa-home"></i><%= link_to "トップ", root_path, {class: "nav-item"} %></li>  
-            <li><i class="navitem fas fa-user"></i><%= link_to "#{current_user.username}さんのマイページ", user_path(current_user.id) %></li>
-            <li><i class="navitem fas fa-user-edit"></i><%= link_to "編集", edit_user_path(current_user.id) %></li>
-            <li><i class="navitem fas fa-sign-out-alt"></i><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></a></li>
-        </ul>
-    </nav>
+        <div class="header-main">
+            <%= link_to root_path do %>
+                <div class="main-logo">
+                    MONOCHORDS
+                </div>
+            <% end %>
+            <div class="main-search">
+                <%= form_with url: search_path, method: :get, local: true do |form| %>
+                    <div class="search-fill">
+                        <%= form.text_field :search, placeholder: "曲名で検索", class: 'form-control' %>
+                    </div>
+                    <div class="search-btn">
+                        <%= form.submit '検索', name: nil, class: 'btn btn-primary' %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+        <div class="header-nav">
+            <div class="nav-inner">
+            </div>
+        </div>
+        
+    </header>
 <% else %>
     <li><%= link_to 'ログイン', new_user_session_path %></li>
 <% end %>
