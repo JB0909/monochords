@@ -1,0 +1,1 @@
+$('#review-like-btn-<%= @review.id %>').html("<%= escape_javascript(render partial: "review_likes/like", locals: { review: @review }) %>");

@@ -30,6 +30,9 @@
                 </div>               
             </div>
             <div class="frame-details">
+                <div id="review-like-btn-<%= review.id %>">
+                    <%= render 'review_likes/like', review: review %>
+                </div>
                 <div class="post-date">
                     <span class="text-muted"><%= review.created_at %></span>
                 </div>
@@ -38,6 +41,23 @@
                         <%= time_ago_in_words(review.created_at) %> 前の投稿
                     </span>
                 </div>
+            </div>
+            <div class="like-container">
+                <% @likes = ReviewLike.where(review_id: review.id) %>
+                <% if @likes.present? %>
+                    <% @likes.each do |like| %>
+                        <div class="like-users">
+                            <%= link_to user_path(like.user.id) do %>
+                                <% if like.user.profile_image.present? %>
+                                    <%= image_tag attachment_url(like.user, :profile_image, :fill, 40, 40, format: "jpg"), {class:"liked-user-icon"} %>
+                                <% else %>
+                                    <%= image_tag ("default.png"), :size => '40x40', class:"liked-user-icon" %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    <%end%>
+                <% else %>
+                <% end %>
             </div>
             <!--コメント一覧-->
             <% review.comments.each do |r| %>

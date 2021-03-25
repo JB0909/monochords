@@ -33,6 +33,9 @@
                 </div>               
             </div>
             <div class="frame-details">
+                <div id="record-like-btn-<%= record.id %>">
+                    <%= render 'record_likes/like', record: record %>
+                </div>
                 <div class="post-date">
                     <span class="text-muted"><%= record.created_at %></span>
                 </div>
@@ -41,6 +44,24 @@
                         <%= time_ago_in_words(record.created_at) %> 前の投稿
                     </span>
                 </div>
+            </div>
+
+            <div class="like-container">
+                <% @likes = RecordLike.where(record_id: record.id) %>
+                <% if @likes.present? %>
+                    <% @likes.each do |like| %>
+                        <div class="like-users">
+                            <%= link_to user_path(like.user.id) do %>
+                                <% if like.user.profile_image.present? %>
+                                    <%= image_tag attachment_url(like.user, :profile_image, :fill, 40, 40, format: "jpg"), {class:"liked-user-icon"} %>
+                                <% else %>
+                                    <%= image_tag ("default.png"), :size => '40x40', class:"liked-user-icon" %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    <%end%>
+                <% else %>
+                <% end %>
             </div>
 
             <!--コメント一覧-->

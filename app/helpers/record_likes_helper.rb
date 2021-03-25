@@ -1,0 +1,2 @@
+module RecordLikesHelper
+end
