@@ -19,7 +19,7 @@
             </section>
             <section>
                 <div class="registration-container">
-                    <header class="registration-title">
+                    <header class="common-side-title">
                         <h2>
                             <span>楽曲の登録</span>
                         </h2>
@@ -60,8 +60,21 @@
             </div>
         <% end %>
 
-        <div id="review">
-            <%= render 'musics/reviews', reviews: @reviews %>
+        <div class="post-wrapper">
+            <header class="common-main-title">
+                <h2>
+                    <span>感想・レビュー</span>
+                </h2>
+            </header>
+            <% if @reviews.blank? %>
+                <div class="common-blank">
+                    <span>表示項目がありません。</span>
+                </div>
+            <% else %>
+                <div id="review">
+                    <%= render 'musics/reviews', reviews: @reviews %>
+                </div>
+            <% end %>
         </div>
     </div>
 </div>
