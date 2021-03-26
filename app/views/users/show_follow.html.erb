@@ -1,8 +1,16 @@
-<% @user.following.each do |user| %>
-    <table>
-        <tr>
-            <td>  <%= user.username %> </td>
-            <td><%= link_to '詳細', user_path(user) %></td>
-        </tr>
-    </table>
-<% end %>
+<div class="row">
+    <div class="col-4">
+        <%= render "users/profile" %>
+    </div>
+
+    <div class="col-8">
+        <% @user.following.each do |user| %>
+            <table>
+                <tr>
+                    <td>  <%= user.username %> </td>
+                    <td><%= link_to '詳細', user_path(user) %></td>
+                </tr>
+            </table>
+        <% end %>
+    </div>
+</div>
