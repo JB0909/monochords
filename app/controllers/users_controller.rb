@@ -74,6 +74,18 @@ class UsersController < ApplicationController
       #@userがフォローしているユーザー
       @user  = User.find(params[:id])
       @users = @user.following
+      #profile(side_colmun)
+      @first = @user.practiceds.all[0]
+      if @first == nil
+        @average = 0
+      else
+        @average = Date.today - Date.parse(@first['created_at'].to_s)
+        @first_regi = @first['created_at']
+      end
+      @practice_time = @user.records.all.sum(:time)
+      @create = Date.parse(@user["created_at"].to_s)
+      @difference = Date.today - @create
+      #render
       render 'show_follow'
   end
 
@@ -81,6 +93,18 @@ class UsersController < ApplicationController
     #@userをフォローしているユーザー
     @user  = User.find(params[:id])
     @users = @user.followers
+    #profile(side_colmun)
+    @first = @user.practiceds.all[0]
+    if @first == nil
+      @average = 0
+    else
+      @average = Date.today - Date.parse(@first['created_at'].to_s)
+      @first_regi = @first['created_at']
+    end
+    @practice_time = @user.records.all.sum(:time)
+    @create = Date.parse(@user["created_at"].to_s)
+    @difference = Date.today - @create
+    #render
     render 'show_follower'
   end
 end

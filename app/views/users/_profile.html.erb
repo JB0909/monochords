@@ -1,0 +1,108 @@
+<div class="side-column-wrapper">
+    <!-- ===ユーザーデータ=== -->
+    <section>
+        <div class="userdata-container">
+            <!-- ユーザーネーム -->
+            <div class="userdata-name">
+                <%= @user.username %>
+            </div>
+            <!-- プロフィール画像 -->
+            <figure class="userdata-avatar">
+                <% if @user.profile_image.present? %>
+                    <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
+                <% else %>
+                    <%= image_tag ("default.png"), :size => '100x100' %>
+                <% end %>
+            </figure>
+            <!-- フォロワー -->
+            <div class="userdata-followers">
+                <%= link_to followers_user_path(@user.id) do %>
+                    <span>フォロワー<%= @user.followers.count %>人</span>
+                <% end %>
+            </div>
+            <!-- フォロー -->
+            <div class="userdata-following">
+                <%= link_to following_user_path(@user.id) do %>
+                    <span>フォロー<%= @user.following.count %>人</span>
+                <% end %>
+            </div>
+            <!-- フォローフォーム -->
+            <div class="userdata-follow_form">
+                <%= render "users/follow_form" %>
+            </div>
+        </div>
+    </section>
+    <!-- ===練習データ=== -->
+    <section>
+        <div class="practice-container">
+            <header class="practice-title">
+                <h2>
+                    <span>練習データ</span>
+                </h2>
+            </header>
+            <ul class="practice-nav">
+                <li>
+                    <!-- 練習した曲 -->
+                    <%= link_to practiced_user_path(user_id: @user.id, id: @user.id) do %>
+                        <span class="practice-nav-text">練習した曲</span>
+                        <span class="practice-nav-count"><%= @user.practiceds.count %>曲</span>
+                    <% end %>
+                </li>
+                <li>
+                    <!-- 練習中の曲 -->
+                    <%= link_to practicing_user_path(user_id: @user.id, id: @user.id) do %>
+                        <span class="practice-nav-text">練習中の曲</span>
+                        <span class="practice-nav-count"><%= @user.practicings.count %>曲</span>
+                    <% end %>
+                </li>
+                <li>
+                    <!-- 練習したい曲 -->
+                    <%= link_to wish_user_path(user_id: @user.id, id: @user.id) do %>
+                        <span class="practice-nav-text">練習したい曲</span>
+                        <span class="practice-nav-count"><%= @user.wishes.count %>曲</span>
+                    <% end %>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!-- ===プロフィール=== -->
+    <section>
+        <div class="profile-container">
+            <header class="profile-title">
+                <h2>
+                    <span>プロフィール</span>
+                </h2>
+            </header>
+            <dl>
+                <dt>
+                    <!-- 登録日 -->
+                    <span class="profile-side-title">登録日:</span>
+                    <span class="profile-item"><%= @create %>(<%= @difference.to_i %>日経過)</span>
+                </dt>
+                <dt>
+                    <!-- 記録初日 -->
+                    <span class="profile-side-title">記録初日:</span>
+                    <% if @first_regi == nil %>
+                    <% else %>
+                        <span class="profile-item"><%= @first_regi %></span>
+                    <% end %>
+                </dt>
+                <dt>
+                    <!-- 練習した曲 -->
+                    <% if @average == 0 %>  
+                        <span class="profile-side-title">練習した曲:</span>
+                        <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</span>
+                    <% else %>
+                        <span class="profile-side-title">練習した曲:</span>
+                        <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</span>
+                    <% end %>
+                </dt>
+                <dt>
+                    <!-- 総練習時間 -->
+                    <span class="profile-side-title">総練習時間:</span>
+                    <span class="profile-item"><%= @practice_time %>時間</span>
+                </dt>
+            </dl>
+        </div>
+    </section>
+</div>

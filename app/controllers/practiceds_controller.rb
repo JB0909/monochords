@@ -2,6 +2,18 @@ class PracticedsController < ApplicationController
     def index
         @user = User.find(params[:id])
         @practiceds = @user.practiceds.all
+
+        #profile(side_colmun)
+        @first = @user.practiceds.all[0]
+        if @first == nil
+            @average = 0
+        else
+            @average = Date.today - Date.parse(@first['created_at'].to_s)
+            @first_regi = @first['created_at']
+        end
+        @practice_time = @user.records.all.sum(:time)
+        @create = Date.parse(@user["created_at"].to_s)
+        @difference = Date.today - @create
     end
 
     def create

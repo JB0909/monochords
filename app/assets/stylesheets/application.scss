@@ -56,6 +56,15 @@ ul li {
     list-style: none;
 }
 
+.col-4,
+.col-8{
+    margin-top: 20px;
+}
+
+.outer-wrapper{
+    background-color: #F5F6F2;
+}
+
 input:focus {
     outline: 0;
 }
@@ -234,41 +243,7 @@ input:focus {
     }
 }
 
-/*Navbar*/
-.navbar{
-    background: #dbfffe;
-    min-height: 8vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.logo{
-    font-weight: bold;
-    font-size: 23px;
-    letter-spacing: 3px;
-}
-
-.navitems{
-    display: flex;
-    width: 500px;
-    max-width: 40%;
-    justify-content: space-around;
-    list-style: none;
-}
-
-.navitem{
-    font-size: 19px;
-    font-weight: bold;
-    opacity: 0.7;
-    &:hover {
-        opacity: 1;
-    }
-}
-
-.outer-wrapper{
-    background-color: #F5F6F2;
-}
 
 /*side column*/
 .side-column-wrapper{
@@ -276,10 +251,6 @@ input:focus {
     background-color: white;
     border: 1px solid #D4DACB;
     border-radius: 4px;
-}
-
-.side-wrapper{
-    margin-top: 20px;
 }
 
 /*ユーザーデータ*/
