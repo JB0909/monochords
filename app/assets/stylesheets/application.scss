@@ -109,6 +109,50 @@ input:focus {
     }
 }
 
+/* フッター */
+.footer-container{
+    margin-top: 20px;
+    .footer-contents{
+        min-height: 100px;
+        width: 100%;
+        border-top: 1px solid #D4DACB;
+        background-color: #fff;
+        .footer-nav{
+            margin: 0 auto;
+            padding: 25px 0 50px 0;
+            text-align: left;
+            width: 1140px;
+            .footer-nav-title{
+                clear: both;
+                float: left;
+                width: 150px;
+                margin-bottom: 12px;
+                color: #aaa;
+                font-size: 12px;
+                line-height: 1;
+            }
+            .footer-nav-list{
+                float: right;
+                width: 850px;
+                margin-bottom: 12px;
+                .footer-nav-item{
+                    float: left;
+                    margin-right: 20px;
+                    margin-bottom: 5px;
+                    a{
+                        display: inline-block;
+                        vertical-align: top;
+                        font-size: 12px;
+                        line-height: 1;
+                        cursor: pointer;
+                        color: #219315
+                    }
+                }
+            }
+        }
+    }
+}
+
 /*ヘッダー*/
 .header-container{
     width: 100%;
