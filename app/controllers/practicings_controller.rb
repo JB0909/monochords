@@ -14,6 +14,26 @@ class PracticingsController < ApplicationController
         @practice_time = @user.records.all.sum(:time)
         @create = Date.parse(@user["created_at"].to_s)
         @difference = Date.today - @create
+        #年齢
+        if @user.birth_date.nil?
+        else
+            @birth_date = Date.parse(@user["birth_date"].to_s)
+            @age = (Date.today.strftime("%Y%m%d").to_i - @birth_date.strftime("%Y%m%d").to_i)/10000
+        end
+        #ギター
+        if @user.history_date.nil?
+        else
+            #ギター開始日
+            @start_date = Date.parse(@user["history_date"].to_s)
+            #ギター歴
+            @history_date = Date.parse(@user["history_date"].to_s)
+            @today = Date.today
+            @today -= @history_date - Date.new( @history_date.year, @history_date.month, 1)
+            @diff_months = @today.year * 12 + @today.month - @history_date.year * 12 - @history_date.month
+            @diff_years = @diff_months / 12
+            @diff_months -= @diff_years * 12
+            @diff_days = @today.day - 1
+        end
     end
 
     def create

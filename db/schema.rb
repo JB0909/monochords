@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_035737) do
+ActiveRecord::Schema.define(version: 2021_03_28_094718) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -144,6 +144,17 @@ ActiveRecord::Schema.define(version: 2021_03_25_035737) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.text "profile_image_id"
+    t.date "history_date"
+    t.integer "history_date_status", limit: 1, default: 0, null: false
+    t.date "birth_date"
+    t.integer "birth_date_status", limit: 1, default: 0, null: false
+    t.string "sex"
+    t.integer "sex_status", limit: 1, default: 0, null: false
+    t.string "add"
+    t.integer "add_status", limit: 1, default: 0, null: false
+    t.string "blood"
+    t.integer "blood_status", limit: 1, default: 0, null: false
+    t.string "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
