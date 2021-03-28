@@ -77,14 +77,14 @@
                 <dt>
                     <!-- 登録日 -->
                     <span class="profile-side-title">登録日:</span>
-                    <span class="profile-item"><%= @create %>(<%= @difference.to_i %>日経過)</span>
+                    <span class="profile-item"><%= @create.strftime("%Y/%m/%d") %>(<%= @difference.to_i %>日経過)</span>
                 </dt>
                 <dt>
                     <!-- 記録初日 -->
                     <span class="profile-side-title">記録初日:</span>
                     <% if @first_regi == nil %>
                     <% else %>
-                        <span class="profile-item"><%= @first_regi %></span>
+                        <span class="profile-item"><%= l @first_regi %></span>
                     <% end %>
                 </dt>
                 <dt>
