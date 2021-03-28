@@ -107,7 +107,11 @@
                     <dt>
                         <!-- 性別 -->
                         <span class="profile-side-title">性別:</span>
-                        <span class="profile-item"><%= @user.sex %></span>
+                        <% if @user.sex == "male" %>
+                            <span class="profile-item">男</span>
+                        <% else %>
+                            <span class="profile-item">女</span>
+                        <% end %>
                     </dt>
                 <% end %>
                 <% if @user.blood_status == 0 %>

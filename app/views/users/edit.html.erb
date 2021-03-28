@@ -1,57 +1,122 @@
-<%= form_for (@user) do |f| %>
-    <div class="field">
-        <%= f.label :username %>
-        <%= f.text_field :username, class: "form-control" %>
-    </div>
+<div class="row">
+    <div class="col-12">
+        <div class="edit-container">
+            <header class="common-main-title">
+                <h2>
+                    <span>アカウント設定</span>
+                </h2>
+            </header>
+            <div class="edit-form">
+                <%= form_for (@user) do |f| %>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :username, "ユーザーネーム" %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.text_field :username, class: "form-control" %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="field">
-        <%= f.label :sex, '性別' %>
-        <%= f.select :sex, {'男': '男', '女': '女'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
-    </div>
-    <div class="field">
-        <%= f.select :sex_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
-    </div>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :sex, '性別' %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <label><%= f.radio_button :sex, :male %>男</label>
+                                <label><%= f.radio_button :sex, :female %>女</label>
+                            </div>
+                            <div class="inpu-item-privacy">
+                                <%= f.select :sex_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="field">
-        <%= f.label :blood, '血液型' %>
-        <%= f.select :blood, {'A型': 'A型', 'B型': 'B型', 'O型': 'O型', 'AB型': 'AB型'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
-    </div>
-    <div class="field">
-        <%= f.select :blood_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
-    </div>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :blood, '血液型' %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.select :blood, {'A型': 'A型', 'B型': 'B型', 'O型': 'O型', 'AB型': 'AB型'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+                            </div>
+                            <div class="inpu-item-privacy">
+                                <%= f.select :blood_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="field">
-        <%= f.label :add, '現住所' %>
-        <%= f.select :add, {'東京都': '東京都', '大阪府': '大阪府', '兵庫県': '兵庫県', '沖縄県': '沖縄県'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
-    </div>
-    <div class="field">
-        <%= f.select :add_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
-    </div>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :add, '現住所' %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.select :add, {'東京都': '東京都', '大阪府': '大阪府', '兵庫県': '兵庫県', '沖縄県': '沖縄県'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+                            </div>
+                            <div class="inpu-item-privacy">
+                                <%= f.select :add_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="field">
-        <%= f.label :birth_date, '生年月日' %>
-        <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
-    </div>
-    <div class="field">
-        <%= f.select :birth_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
-    </div>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :birth_date, '生年月日' %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
+                            </div>
+                            <div class="inpu-item-privacy">
+                                <%= f.select :birth_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="field">
-        <%= f.label :history_date, 'ギター開始日' %>
-        <%= f.date_select :history_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
-    </div>
-    <div class="field">
-        <%= f.select :history_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
-    </div>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :history_date, 'ギター開始日' %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.date_select :history_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
+                            </div>
+                            <div class="inpu-item-privacy">
+                                <%= f.select :history_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="field">
-        <%= f.label :introduction %>
-        <%= f.text_field :introduction, class: "form-control" %>
-    </div>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :introduction, "自己紹介" %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.text_field :introduction, class: "form-control" %>
+                            </div>
+                        </div>
+                    </div>
 
-    <%= f.attachment_field :profile_image %>
+                    <div class="form-field">
+                        <div class="field-capition">
+                            <%= f.label :profile_image, "プロフィール画像" %>
+                        </div>
+                        <div class="field-input">
+                            <div class="input-item">
+                                <%= f.attachment_field :profile_image %>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="actions">
-        <%= f.submit %>
+                    <div class="form-action">
+                        <%= f.submit "更新する" %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
     </div>
-<% end %>
+</div>

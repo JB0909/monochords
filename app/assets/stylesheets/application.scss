@@ -57,7 +57,8 @@ ul li {
 }
 
 .col-4,
-.col-8{
+.col-8,
+.col-12{
     margin-top: 20px;
 }
 
@@ -106,6 +107,49 @@ input:focus {
     span{
         color: #999;
         font-size: 80%;
+    }
+}
+
+/* 編集 */
+.edit-container{
+    border: 1px solid #D4DACB;
+    background-color: #fff;
+    .edit-form{
+        width: 900px;
+        margin: 0 auto;
+        padding: 20px 0 15px 0;
+        text-align: left;
+        .form-field{
+            border-bottom: 1px solid #f0f0f0;
+            padding: 10px 0 10px;
+            overflow: auto;
+            .field-capition{
+                width: 180px;
+                float: left;
+                text-align: right;
+                margin-right: 15px;
+            }
+            .field-input{
+                float: left;
+                width: 670px;
+                text-align: left;
+                position: relative;
+                .input-item{
+                    width: 530px;
+                }
+                .inpu-item-privacy{
+                    width: 120px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+            }
+        }
+        .form-action{
+            width: 100%;
+            text-align: center;
+            padding-top: 15px;
+        }
     }
 }
 
