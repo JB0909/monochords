@@ -28,11 +28,11 @@
                 </div>
 
                 <div class="post-date">
-                    <span class="text-muted"><%= micropost.created_at %></span>
+                    <span class="text-muted"><%= l micropost.created_at %></span>
                 </div>
 
                 <div class="post-timestamp">
-                    <span class="timestamp">
+                    <span class="timestamp text-muted">
                         <%= time_ago_in_words(micropost.created_at) %> 前の投稿
                     </span>
                 </div>
@@ -77,7 +77,7 @@
                         <div class="comment-body">
                             <span><%= c.content %></span>
                         </div>
-                        <span class="comment-date"><%= c.created_at %></span>
+                        <span class="comment-date text-muted"><%= l c.created_at %></span>
                     </div>
                 </div> 
                             

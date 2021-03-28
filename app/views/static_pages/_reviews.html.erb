@@ -39,10 +39,10 @@
                     <%= render 'review_likes/like', review: review %>
                 </div>
                 <div class="post-date">
-                    <span class="text-muted"><%= review.created_at %></span>
+                    <span class="text-muted"><%= l review.created_at %></span>
                 </div>
                 <div class="post-timestamp">
-                    <span class="timestamp">
+                    <span class="timestamp text-muted">
                         <%= time_ago_in_words(review.created_at) %> 前の投稿
                     </span>
                 </div>
@@ -84,7 +84,7 @@
                         <div class="comment-body">
                             <span><%= r.content %></span>
                         </div>
-                        <span class="comment-date"><%= r.created_at %></span>
+                        <span class="comment-date text-muted"><%= l r.created_at %></span>
                     </div>
                 </div>
             <% end %>
