@@ -1,5 +1,56 @@
 <%= form_for (@user) do |f| %>
+    <div class="field">
+        <%= f.label :username %>
+        <%= f.text_field :username, class: "form-control" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :sex, '性別' %>
+        <%= f.select :sex, {'男': '男', '女': '女'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+    </div>
+    <div class="field">
+        <%= f.select :sex_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+    </div>
+
+    <div class="field">
+        <%= f.label :blood, '血液型' %>
+        <%= f.select :blood, {'A型': 'A型', 'B型': 'B型', 'O型': 'O型', 'AB型': 'AB型'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+    </div>
+    <div class="field">
+        <%= f.select :blood_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+    </div>
+
+    <div class="field">
+        <%= f.label :add, '現住所' %>
+        <%= f.select :add, {'東京都': '東京都', '大阪府': '大阪府', '兵庫県': '兵庫県', '沖縄県': '沖縄県'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+    </div>
+    <div class="field">
+        <%= f.select :add_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+    </div>
+
+    <div class="field">
+        <%= f.label :birth_date, '生年月日' %>
+        <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
+    </div>
+    <div class="field">
+        <%= f.select :birth_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+    </div>
+
+    <div class="field">
+        <%= f.label :history_date, 'ギター開始日' %>
+        <%= f.date_select :history_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
+    </div>
+    <div class="field">
+        <%= f.select :history_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+    </div>
+
+    <div class="field">
+        <%= f.label :introduction %>
+        <%= f.text_field :introduction, class: "form-control" %>
+    </div>
+
     <%= f.attachment_field :profile_image %>
+
     <div class="actions">
         <%= f.submit %>
     </div>

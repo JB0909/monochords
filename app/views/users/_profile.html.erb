@@ -102,6 +102,60 @@
                     <span class="profile-side-title">総練習時間:</span>
                     <span class="profile-item"><%= @practice_time %>時間</span>
                 </dt>
+                <% if @user.sex_status == 0 %>
+                <% else %>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">性別:</span>
+                        <span class="profile-item"><%= @user.sex %></span>
+                    </dt>
+                <% end %>
+                <% if @user.blood_status == 0 %>
+                <% else %>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">血液型:</span>
+                        <span class="profile-item"><%= @user.blood %></span>
+                    </dt>
+                <% end %>
+                <% if @user.add_status == 0 %>
+                <% else %>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">現住所:</span>
+                        <span class="profile-item"><%= @user.add %></span>
+                    </dt>
+                <% end %>
+                <% if @user.birth_date_status == 0 %>
+                <% else %>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">年齢:</span>
+                        <span class="profile-item"><%= @age %>歳</span>
+                    </dt>
+                <% end %>
+                <% if @user.history_date_status == 0 %>
+                <% else %>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">ギター開始日:</span>
+                        <span class="profile-item"><%= l @start_date %></span>
+                    </dt>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">ギター歴:</span>
+                        <span class="profile-item"><%= @diff_years %>年<%= @diff_months %>ヶ月<%= @diff_days %>日目</span>
+                    </dt>
+                <% end %>
+                <% if @user.introduction.blank? %>
+                <% else %>
+                    <dt>
+                        <!-- 性別 -->
+                        <span class="profile-side-title">自己紹介:</span>
+                        <span class="profile-item"><%= @user.introduction %></span>
+                    </dt>
+                <% end %>
+                
             </dl>
         </div>
     </section>
