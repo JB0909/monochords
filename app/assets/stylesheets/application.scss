@@ -112,8 +112,46 @@ input:focus {
     }
 }
 
-/* TOP 未ログイン時 */
+/* フォーム */
+.form-container{
+    text-align: center;
+    height: 750px;
+    .form-title{
+        h2{
+            font-weight: bold;
+            font-size: 200%;
+        }
+    }
+    .form-subtitle{
+        margin-top: 20px;
+    }
+    .email-field{
+        .field{
+            margin-top: 20px;
+            width: 300px;
+        }
+    }
+    .password-field{
+        .field{
+            margin-top: 20px;
+            width: 300px;
+        }
+    }
+    .remember-field{
+        margin-top: 20px;
+    }
+    .field-action{
+        margin-top: 20px;
+        .action{
+            width: 150px;
+        }
+    }
+    .link-container{
+        margin-top: 20px;
+    }
+}
 
+/* TOP 未ログイン時 */
 .menu-right-container{
     .menu-right-login{
         overflow: auto;
