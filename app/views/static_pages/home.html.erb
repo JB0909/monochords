@@ -28,8 +28,49 @@
         </div>
     </div>
 <% else %>
-    <div>
-        <%= link_to "ログイン", new_user_session_path %>
-        <%= link_to "サインアップ", new_user_registration_path %>
+    <div class="row">
+        <div class="col-7">
+            <div class="top-side-container">
+                <%= image_tag ("top.jpg"), :size => '635x760' %>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="menu-right-container">
+                <div class="menu-right-login">
+                    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                        <div class="menu-right-email-field">
+                            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'メールアドレス', class: "field" %>
+                        </div>
+
+                        <div class="menu-right-password-field">
+                            <%= f.password_field :password, autocomplete: "current-password", placeholder: 'パスワード', class: "field" %>
+                        </div>
+
+                        <div class="menu-right-actions">
+                            <%= f.submit "ログイン" %>
+                        </div>
+
+                    <% end %>
+                </div>
+
+                <div class="menu-right-explain">
+                    <span>
+                        練習した曲を記録して練習量を管理したり、<br>
+                        日本中のギタリストと練習を通じて<br>
+                        コミュニケーションができるサービスです。
+                    </span>
+                </div>
+                <div class="menu-right-start">
+                    <span>MONOCHORDSをはじめよう</span>
+                </div>
+                <div class="menu-right-btn">
+                    <%= link_to "アカウント作成", new_user_registration_path, class: 'btn-item' %>
+                </div>
+                <div class="menu-right-btn">
+                    <%= link_to "ログイン", new_user_session_path, class: 'btn-item' %>
+                </div>
+            </div>
+        </div>
     </div>
 <% end %>
