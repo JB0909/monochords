@@ -115,7 +115,7 @@ input:focus {
 /* フォーム */
 .form-container{
     text-align: center;
-    height: 750px;
+    height: 81vh;
     .form-title{
         h2{
             font-weight: bold;
@@ -126,6 +126,12 @@ input:focus {
         margin-top: 20px;
     }
     .email-field{
+        .field{
+            margin-top: 20px;
+            width: 300px;
+        }
+    }
+    .username-field{
         .field{
             margin-top: 20px;
             width: 300px;
