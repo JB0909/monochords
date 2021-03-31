@@ -65,38 +65,70 @@
                 <% end %>
             </div>
             <!--コメント一覧-->
-            <% review.comments.each do |r| %>
-                <div class="comment-container">
-                    <div class="comment-side-frame">
-                        <div class="comment-avatar">
-                            <% if r.user.profile_image.present? %>
-                                <%= image_tag attachment_url(r.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
-                            <% else %>
-                                <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
-                            <% end %>
+            <% if review.comments.count > 2 %>
+                <% review.comments.first(2).each do |r| %>
+                    <div class="comment-container">
+                        <div class="comment-side-frame">
+                            <div class="comment-avatar">
+                                <% if r.user.profile_image.present? %>
+                                    <%= image_tag attachment_url(r.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
+                                <% else %>
+                                    <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
+                                <% end %>
+                            </div>
                         </div>
-                    </div>
-                    <div class="comment-main-frame">
-                        <div class="comment-name">
-                            <%= link_to r.user.username, user_path(r.user.id) %>
+                        <div class="comment-main-frame">
+                            <div class="comment-name">
+                                <%= link_to r.user.username, user_path(r.user.id) %>
+                            </div>
+                            <div class="comment-body">
+                                <span><%= r.content %></span>
+                            </div>
+                            <span class="comment-date text-muted"><%= l r.created_at %></span>
                         </div>
-
-                        <div class="comment-body">
-                            <span><%= r.content %></span>
-                        </div>
-                        <span class="comment-date text-muted"><%= l r.created_at %></span>
-                    </div>
+                    </div> 
+                <% end %>
+                <div class="comment-moreview">
+                    <%= link_to music_review_path(music_id: review.music.id, id: review.id) do %>
+                        <span><%= review.comments.count %>件のコメントを見る</span>
+                    <% end %>
                 </div>
+            <% else %>
+                <% review.comments.each do |r| %>
+                    <div class="comment-container">
+                        <div class="comment-side-frame">
+                            <div class="comment-avatar">
+                                <% if r.user.profile_image.present? %>
+                                    <%= image_tag attachment_url(r.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
+                                <% else %>
+                                    <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="comment-main-frame">
+                            <div class="comment-name">
+                                <%= link_to r.user.username, user_path(r.user.id) %>
+                            </div>
+                            <div class="comment-body">
+                                <span><%= r.content %></span>
+                            </div>
+                            <span class="comment-date text-muted"><%= l r.created_at %></span>
+                        </div>
+                    </div>
+                <% end %>
             <% end %>
             <!--コメント投稿-->
-            <div class="comment-create">
-                <%= form_for [@comment] do |f| %>
-                    <%= f.text_field :content %>
-                    <br>
-                    <%= f.hidden_field :review_id, value: review.id %>
-                    <%= f.submit %>
-                <% end %>
-            </div>
+            <% if user_signed_in? %>
+                <div class="comment-create">
+                    <%= form_for [@comment] do |f| %>
+                        <%= f.text_field :content %>
+                        <br>
+                        <%= f.hidden_field :review_id, value: review.id %>
+                        <%= f.submit %>
+                    <% end %>
+                </div>
+            <% else %>
+            <% end %>
         </div>
     </div>
 <% end %>

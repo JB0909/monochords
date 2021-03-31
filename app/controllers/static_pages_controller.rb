@@ -4,8 +4,8 @@ class StaticPagesController < ApplicationController
             @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids])
             @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids])
             @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids])
+            #コメント投稿
             @comment = current_user.comments.build
-
             #profile(side_colmun)
             @user  = current_user
             @first = @user.practiceds.all[0]

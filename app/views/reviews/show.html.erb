@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-4">
+    </div>
+    <div class="col-8">
+        <div class="post-container">
+            <div class="post-side-frame">
+                <figure class="post-avatar">
+                    <%= link_to user_path(@review.user) do %>
+                        <% if @review.user.profile_image.present? %>
+                            <%= image_tag attachment_url(@review.user, :profile_image, :fill, 50, 50, format: "jpg"), {class: "mypage-image"} %>
+                        <% else %>
+                            <%= image_tag ("default.png"), :size => '50x50' %>
+                        <% end %>
+                    <% end %>
+                </figure>
+            </div>
+            <div class="post-main-frame">
+                <div class="post-name">
+                    <%= link_to @review.user.username, user_path(@review.user) %>
+                </div>
+                <div class="post-body">
+                    <span><%= @review.content %></span>
+                </div>
+                
+                <div class="song-details">
+                    <div class="song-side-frame">
+                        <%= image_tag (@review.music.image_url), :size => '150x150' %>
+                    </div>
+                    <div class="song-main-frame">
+                        <div class="song-title">
+                            <%= link_to @review.music.song_name, music_path(@review.music) %>
+                        </div>
+                    </div>               
+                </div>
+                <div class="frame-details">
+                    <div id="review-like-btn-<%= @review.id %>">
+                        <%= render 'review_likes/like', review: @review %>
+                    </div>
+                    <div class="post-date">
+                        <span class="text-muted"><%= l @review.created_at %></span>
+                    </div>
+                    <div class="post-timestamp">
+                        <span class="timestamp text-muted">
+                            <%= time_ago_in_words(@review.created_at) %> 前の投稿
+                        </span>
+                    </div>
+                </div>
+                <div class="like-container">
+                    <% @likes = ReviewLike.where(review_id: @review.id) %>
+                    <% if @likes.present? %>
+                        <% @likes.each do |like| %>
+                            <div class="like-users">
+                                <%= link_to user_path(like.user.id) do %>
+                                    <% if like.user.profile_image.present? %>
+                                        <%= image_tag attachment_url(like.user, :profile_image, :fill, 40, 40, format: "jpg"), {class:"liked-user-icon"} %>
+                                    <% else %>
+                                        <%= image_tag ("default.png"), :size => '40x40', class:"liked-user-icon" %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        <%end%>
+                    <% else %>
+                    <% end %>
+                </div>
+                <!--コメント一覧-->
+                <% @review.comments.each do |r| %>
+                    <div class="comment-container">
+                        <div class="comment-side-frame">
+                            <div class="comment-avatar">
+                                <% if r.user.profile_image.present? %>
+                                    <%= image_tag attachment_url(r.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
+                                <% else %>
+                                    <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="comment-main-frame">
+                            <div class="comment-name">
+                                <%= link_to r.user.username, user_path(r.user.id) %>
+                            </div>
+                            <div class="comment-body">
+                                <span><%= r.content %></span>
+                            </div>
+                            <span class="comment-date text-muted"><%= l r.created_at %></span>
+                        </div>
+                    </div>
+                <% end %>
+                <!--コメント投稿-->
+                <% if user_signed_in? %>
+                    <div class="comment-create">
+                        <%= form_for [@comment] do |f| %>
+                            <%= f.text_field :content %>
+                            <br>
+                            <%= f.hidden_field :review_id, value: @review.id %>
+                            <%= f.submit %>
+                        <% end %>
+                    </div>
+                <% else %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,11 @@
 class RecordsController < ApplicationController
+    def show
+        @record = Record.find(params[:id])
+        if user_signed_in?
+            @comment = current_user.comments.build
+        end
+    end
+    
     def create
         @user = current_user
         @music = Practicing.find(record_params[:practicing_id])
