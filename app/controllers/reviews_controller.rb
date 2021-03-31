@@ -1,4 +1,11 @@
 class ReviewsController < ApplicationController
+    def show
+        @review = Review.find(params[:id])
+        if user_signed_in?
+            @comment = current_user.comments.build
+        end
+    end
+    
     def create
         @user = current_user
         @music = Music.find(params[:music_id])

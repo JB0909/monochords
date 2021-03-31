@@ -1,4 +1,10 @@
 class MicropostsController < ApplicationController
+    def show
+        @micropost = Micropost.find(params[:id])
+        if user_signed_in?
+            @comment = current_user.comments.build
+        end
+    end
 
     def create
         @micropost = current_user.microposts.build(micropost_params)
