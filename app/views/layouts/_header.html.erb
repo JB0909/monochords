@@ -15,14 +15,15 @@
                             </div>
                         <% else %>
                             <div class="personal-account-data">
-                                <%= image_tag ("default.png"), :size => '28x28' %><%= current_user.username %>さんのマイページ
+                                <div class="personal-account-image">
+                                    <%= image_tag ("default.png"), :size => '28x28' %>
+                                </div>
+                                <div class="personal-account-name">
+                                    <%= current_user.username %>さんのマイページ
+                                </div>
                             </div>
-                            
                         <% end %>
-                        
                     <% end %>
-                    
-                    
                     <div class="personal-account-menu">
                         <a href="">メニュー</a>
                         <ul class="peronal-account-menu-drop-items">
