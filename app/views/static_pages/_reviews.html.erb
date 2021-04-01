@@ -50,7 +50,7 @@
             <div class="like-container">
                 <% @likes = ReviewLike.where(review_id: review.id) %>
                 <% if @likes.present? %>
-                    <% @likes.each do |like| %>
+                    <% @likes.first(11).each do |like| %>
                         <div class="like-users">
                             <%= link_to user_path(like.user.id) do %>
                                 <% if like.user.profile_image.present? %>

@@ -647,6 +647,18 @@ input:focus {
     margin-top: 4px;
 }
 
+/* post-show */
+.like-list-container{
+    width: 100%;
+    .like-list{
+        display: flex;
+        margin-bottom: 10px;
+        .like-item{
+            margin-right: 15px;
+        }
+    }
+}
+
 /*練習記録*/
 .song-details{
     display: flex;
