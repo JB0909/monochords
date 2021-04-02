@@ -1,5 +1,9 @@
 class MusicsController < ApplicationController
     def show
+        if user_signed_in?
+            #コメント投稿
+            @comment = current_user.comments.build
+        end
         @music = Music.find(params[:id])
         @review = Review.new(music_id: @music)
         @reviews = Review.where(music_id: [@music])
