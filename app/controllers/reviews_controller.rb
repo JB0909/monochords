@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
     def show
         @review = Review.find(params[:id])
+        @review_comment = Comment.where(review_id: [@review])
         if user_signed_in?
             @comment = current_user.comments.build
         end
