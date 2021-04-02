@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'comment' %>
 <div class="row">
     <div class="col-4">
     </div>
@@ -81,10 +82,13 @@
                 <% end %>
                 <div class="comment-create">
                     <%= form_for [@comment] do |f| %>
-                        <%= f.text_field :content %>
+                        <div class="js-text" id="<%= @micropost.id %>">
+                            <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field" %>
+                        </div>
+                        <span class="text-count"></span><span class="js-text-count"></span>
                         <br>
                         <%= f.hidden_field :micropost_id, value: @micropost.id %>
-                        <%= f.submit %>
+                        <%= f.submit "コメントする", class: "js-submit btn btn-primary" %>
                     <% end %>
                 </div>
             </div>
