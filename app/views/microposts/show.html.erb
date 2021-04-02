@@ -58,32 +58,16 @@
                     <% else %>
                     <% end %>
                 </div>
-                <% @micropost.comments.each do |c| %>
-                    <div class="comment-container">
-                        <div class="comment-side-frame">
-                            <div class="comment-avatar">
-                                <% if c.user.profile_image.present? %>
-                                    <%= image_tag attachment_url(c.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
-                                <% else %>
-                                    <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
-                                <% end %>
-                            </div>
-                        </div>
-                        <div class="comment-main-frame">
-                            <div class="comment-name">
-                                <%= link_to c.user.username, user_path(c.user.id) %>
-                            </div>
-                            <div class="comment-body">
-                                <span><%= c.content %></span>
-                            </div>
-                            <span class="comment-date text-muted"><%= l c.created_at %></span>
-                        </div>
-                    </div> 
-                <% end %>
+
+                <div id="micropost_comment">
+                    <%= render 'microposts/comments_list', micropost: @micropost_comment %>
+                </div>
+                
+                
                 <div class="comment-create">
-                    <%= form_for [@comment] do |f| %>
+                    <%= form_for [@comment], remote: true do |f| %>
                         <div class="js-text" id="<%= @micropost.id %>">
-                            <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field" %>
+                            <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field", id: "content" %>
                         </div>
                         <span class="text-count"></span><span class="js-text-count"></span>
                         <br>

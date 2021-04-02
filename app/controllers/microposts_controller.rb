@@ -1,6 +1,7 @@
 class MicropostsController < ApplicationController
     def show
         @micropost = Micropost.find(params[:id])
+        @micropost_comment = Comment.where(micropost_id: [@micropost])
         if user_signed_in?
             @comment = current_user.comments.build
         end

@@ -1,6 +1,7 @@
 class RecordsController < ApplicationController
     def show
         @record = Record.find(params[:id])
+        @record_comment = Comment.where(record_id: [@record])
         if user_signed_in?
             @comment = current_user.comments.build
         end

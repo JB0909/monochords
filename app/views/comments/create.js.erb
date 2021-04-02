@@ -1,0 +1,8 @@
+$('#record_comment').html("<%= j(render 'records/comments_list', record: @record_comment) %>");
+$('#review_comment').html("<%= j(render 'reviews/comments_list', review: @review_comment) %>");
+$('#micropost_comment').html("<%= j(render 'microposts/comments_list', micropost: @micropost_comment) %>");
+$("#content").val("");
+$('.js-text-field').css({ 'height' : 'auto'});
+$('.js-submit').css({ 'display' : 'none'});
+$(".js-text-count").text("");
+$(".text-count").text("");
