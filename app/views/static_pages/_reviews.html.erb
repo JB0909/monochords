@@ -47,22 +47,8 @@
                     </span>
                 </div>
             </div>
-            <div class="like-container">
-                <% @likes = ReviewLike.where(review_id: review.id) %>
-                <% if @likes.present? %>
-                    <% @likes.first(11).each do |like| %>
-                        <div class="like-users">
-                            <%= link_to user_path(like.user.id) do %>
-                                <% if like.user.profile_image.present? %>
-                                    <%= image_tag attachment_url(like.user, :profile_image, :fill, 40, 40, format: "jpg"), {class:"liked-user-icon"} %>
-                                <% else %>
-                                    <%= image_tag ("default.png"), :size => '40x40', class:"liked-user-icon" %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    <%end%>
-                <% else %>
-                <% end %>
+            <div class="like-container" id="review-like-avatar-<%= review.id %>">
+                <%= render 'review_likes/like_avatar', review: review %>
             </div>
             <!--コメント一覧-->
             <% if review.comments.count > 2 %>

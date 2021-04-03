@@ -1,1 +1,2 @@
 $('#review-like-btn-<%= @review.id %>').html("<%= escape_javascript(render partial: "review_likes/like", locals: { review: @review }) %>");
+$('#review-like-avatar-<%= @review.id %>').html("<%= escape_javascript(render partial: "review_likes/like_avatar", locals: { review: @review }) %>");
