@@ -1,0 +1,5 @@
+<div class="comment-moreview">
+    <%= link_to micropost_path(micropost.id) do %>
+        <span><%= micropost.comments.count %>件のコメントを見る</span>
+    <% end %>
+</div>

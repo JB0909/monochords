@@ -91,40 +91,19 @@
                         </div>
                     </div> 
                 <% end %>
-                <div class="comment-moreview">
-                    <%= link_to record_path(record.id) do %>
-                        <span><%= record.comments.count %>件のコメントを見る</span>
-                    <% end %>
+                <div id="record-comment-count-<%= record.id %>">
+                    <%= render 'static_pages/record_comment_count', record: record %>
                 </div>
             <% else %>
-                <% record.comments.each do |r| %>
-                    <div class="comment-container">
-                        <div class="comment-side-frame">
-                            <div class="comment-avatar">
-                                <% if r.user.profile_image.present? %>
-                                    <%= image_tag attachment_url(r.user, :profile_image, :fill, 50, 50, format: "jpg"), {class:"comment-user-icon"} %>
-                                <% else %>
-                                    <%= image_tag ("default.png"), :size => '50x50', class:"comment-user-icon" %>
-                                <% end %>
-                            </div>
-                        </div>
-                        <div class="comment-main-frame">
-                            <div class="comment-name">
-                                <%= link_to r.user.username, user_path(r.user.id) %>
-                            </div>
-                            <div class="comment-body">
-                                <span><%= r.content %></span>
-                            </div>
-                            <span class="comment-date text-muted"><%= l r.created_at %></span>
-                        </div>
-                    </div>
-                <% end %>
+                <div id="record-comment-view-<%= record.id %>">
+                    <%= render 'static_pages/record_comment_view', record: record %>
+                </div>
             <% end %>
             <!--コメント投稿-->
             <% if user_signed_in? %>
                 <div class="comment-create">
-                    <%= form_for [@comment] do |f| %>
-                        <div class="js-text" id="<%= record.id %>">
+                    <%= form_for [@comment], remote: true do |f| %>
+                        <div class="js-text" id="record-val-<%= record.id %>">
                             <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field" %>
                         </div>
                         <span class="text-count"></span><span class="js-text-count"></span>

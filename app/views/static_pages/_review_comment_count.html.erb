@@ -1,0 +1,5 @@
+<div class="comment-moreview">
+    <%= link_to music_review_path(music_id: review.music.id, id: review.id) do %>
+        <span><%= review.comments.count %>件のコメントを見る</span>
+    <% end %>
+</div>
