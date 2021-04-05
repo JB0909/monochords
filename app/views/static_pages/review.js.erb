@@ -1,0 +1,3 @@
+$('#more-review').remove();
+$('#review').append("<%= j(render 'static_pages/reviews') %>");
+$('.more-review-container').append("<%= j(link_to_next_page @following_reviews, 'もっと見る', id: "more-review", params: { type: :review }, remote: true) %>");

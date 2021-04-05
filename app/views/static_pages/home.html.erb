@@ -11,19 +11,47 @@
                 <!-- つぶやき -->
                 <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
                 <div class="tab-content">
-                    <%= render 'static_pages/microposts' %>
+                    <header class="common-main-title">
+                        <h2>
+                            <span>最近のつぶやき</span>
+                        </h2>
+                    </header>
+                    <div id="micropost">
+                        <%= render 'static_pages/microposts' %>
+                    </div>
+                    <div class="more-micropost-container more-container">
+                        <%= link_to_next_page @following_microposts, 'もっと見る', id: "more-micropost", params: { type: :micropost }, remote: true %>
+                    </div>
                 </div>
-
                 <!-- 練習記録 -->
                 <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">練習記録</label>
                 <div class="tab-content">
-                    <%= render 'static_pages/records' %>
+                    <header class="common-main-title">
+                        <h2>
+                            <span>練習記録</span>
+                        </h2>
+                    </header>
+                    <div id="record">
+                        <%= render 'static_pages/records' %>
+                    </div>
+                    <div class="more-record-container more-container">
+                        <%= link_to_next_page @following_records, 'もっと見る', id: "more-record", params: { type: :record }, remote: true %>
+                    </div>
                 </div>
-
                 <!-- レビュー -->
                 <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
                 <div class="tab-content">
-                    <%= render 'static_pages/reviews' %>
+                    <header class="common-main-title">
+                        <h2>
+                            <span>レビュー・感想</span>
+                        </h2>
+                    </header>
+                    <div id="review">
+                        <%= render 'static_pages/reviews' %>
+                    </div>
+                    <div class="more-review-container more-container">
+                        <%= link_to_next_page @following_reviews, 'もっと見る', id: "more-review", params: { type: :review }, remote: true %>
+                    </div>
                 </div>
             </div>
         </div>

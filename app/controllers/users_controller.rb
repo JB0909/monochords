@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     end
 
     #投稿一覧
-    @microposts = @user.microposts.all
+    @microposts = @user.microposts.all.page(params[:page]).without_count.per(12)
     
     ##profile(side_colmun)
     @first = @user.practiceds.all[0]

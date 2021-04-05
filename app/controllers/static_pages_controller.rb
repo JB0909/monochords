@@ -1,9 +1,9 @@
 class StaticPagesController < ApplicationController
     def home
         if user_signed_in?
-            @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids])
-            @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids])
-            @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids])
+            @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(2)
+            @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(2)
+            @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(2)
             #コメント投稿
             @comment = current_user.comments.build
             #profile(side_colmun)
@@ -37,6 +37,10 @@ class StaticPagesController < ApplicationController
                 @diff_years = @diff_months / 12
                 @diff_months -= @diff_years * 12
                 @diff_days = @today.day - 1
+            end
+            case params[:type]
+            when 'micropost', 'record', 'review'
+                render "static_pages/#{params[:type]}"
             end
         end
     end

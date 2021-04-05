@@ -1,0 +1,3 @@
+$('#more-review').remove();
+$('#review').append("<%= j(render 'musics/reviews', reviews: @reviews) %>");
+$('.more-container').append("<%= j(link_to_next_page @reviews, 'もっと見る', id: "more-review", remote: true) %>");
