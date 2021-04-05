@@ -723,3 +723,16 @@ input:focus {
 .js-submit{
     display: none;
 }
+
+/*ページネーションデザイン*/
+.more-container{
+    text-align: center;
+    margin-top: 20px;
+    a{
+        display: inline-block;
+        width: 50%;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 20px;
+    }
+}

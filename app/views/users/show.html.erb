@@ -95,6 +95,9 @@
                     <%= render 'users/microposts', microposts: @microposts %>
                 </div>
             </div>
+            <div class="more-container">
+                <%= link_to_next_page @microposts, 'もっと見る', id: "more-micropost", remote: true %>
+            </div>
         </section>
     </div>
 </div>

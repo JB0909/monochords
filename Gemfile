@@ -78,3 +78,5 @@ gem 'rspotify'
 gem 'dotenv-rails'
 
 gem 'chart-js-rails', '~> 0.1.4'
+
+gem 'kaminari'

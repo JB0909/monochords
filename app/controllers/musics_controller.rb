@@ -6,7 +6,7 @@ class MusicsController < ApplicationController
         end
         @music = Music.find(params[:id])
         @review = Review.new(music_id: @music)
-        @reviews = Review.where(music_id: [@music])
+        @reviews = Review.where(music_id: [@music]).page(params[:page]).without_count.per(12)
     end
 
     def create
