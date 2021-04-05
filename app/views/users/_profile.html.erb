@@ -117,7 +117,7 @@
                 <% if @user.blood_status == 0 %>
                 <% else %>
                     <dt>
-                        <!-- 性別 -->
+                        <!-- 血液型 -->
                         <span class="profile-side-title">血液型:</span>
                         <span class="profile-item"><%= @user.blood %></span>
                     </dt>
@@ -125,7 +125,7 @@
                 <% if @user.add_status == 0 %>
                 <% else %>
                     <dt>
-                        <!-- 性別 -->
+                        <!-- 現住所 -->
                         <span class="profile-side-title">現住所:</span>
                         <span class="profile-item"><%= @user.add %></span>
                     </dt>
@@ -133,7 +133,7 @@
                 <% if @user.birth_date_status == 0 %>
                 <% else %>
                     <dt>
-                        <!-- 性別 -->
+                        <!-- 年齢 -->
                         <span class="profile-side-title">年齢:</span>
                         <span class="profile-item"><%= @age %>歳</span>
                     </dt>
@@ -141,12 +141,12 @@
                 <% if @user.history_date_status == 0 %>
                 <% else %>
                     <dt>
-                        <!-- 性別 -->
+                        <!-- ギター開始日 -->
                         <span class="profile-side-title">ギター開始日:</span>
                         <span class="profile-item"><%= l @start_date %></span>
                     </dt>
                     <dt>
-                        <!-- 性別 -->
+                        <!-- ギター歴 -->
                         <span class="profile-side-title">ギター歴:</span>
                         <span class="profile-item"><%= @diff_years %>年<%= @diff_months %>ヶ月<%= @diff_days %>日目</span>
                     </dt>
@@ -154,9 +154,9 @@
                 <% if @user.introduction.blank? %>
                 <% else %>
                     <dt>
-                        <!-- 性別 -->
+                        <!-- 自己紹介 -->
                         <span class="profile-side-title">自己紹介:</span>
-                        <span class="profile-item"><%= @user.introduction %></span>
+                        <span class="profile-introduction"><%= @user.introduction %></span>
                     </dt>
                 <% end %>
                 
