@@ -20,7 +20,7 @@
                     <%= link_to @record.user.username, user_path(@record.user) %>
                 </div>
                 <div class="post-body">
-                    <span><%= @record.body %></span>
+                    <span><%= safe_join(@record.body.split("\n"), tag(:br)) %></span>
                 </div>
                 <div class="song-details">
                     <div class="song-side-frame">
@@ -81,7 +81,7 @@
                     <div class="comment-create">
                         <%= form_for [@comment], remote: true do |f| %>
                             <div class="js-text" id="<%= @record.id %>">
-                                <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field", id: "content" %>
+                                <%= f.text_area :content, placeholder: "コメントする", :size => "30x1", class: "form-control js-text-field" %>
                             </div>
                             <span class="text-count"></span><span class="js-text-count"></span>
                             <br>

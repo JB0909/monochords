@@ -17,7 +17,7 @@ $('#micropost_comment').html("<%= j(render 'microposts/comments_list', micropost
     $("#review-val-<%= @review.id %>").find('input').val("");
 <% end %>
 //共通
-$("#content").val("");
+$('.js-text-field').val("");
 $('.js-text-field').css({ 'height' : 'auto'});
 $('.js-submit').css({ 'display' : 'none'});
 $(".js-text-count").text("");

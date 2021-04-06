@@ -1,2 +1,6 @@
 $('#review').html("<%= j(render 'musics/reviews', reviews: @reviews) %>");
-$("#content").val("");
+$('.js-text-field').val("");
+$('.js-text-field').css({ 'height' : 'auto'});
+$('.js-submit').css({ 'display' : 'none'});
+$(".js-text-count").text("");
+$(".text-count").text("");

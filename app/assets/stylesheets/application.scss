@@ -236,6 +236,10 @@ input:focus {
                 position: relative;
                 .input-item{
                     width: 530px;
+                    .introduction-area{
+                        resize: none;
+                        height: 250px;
+                    }
                 }
                 .inpu-item-privacy{
                     width: 120px;
@@ -730,6 +734,10 @@ input:focus {
 
 .js-submit{
     display: none;
+}
+
+.js-text-field{
+    resize: none;
 }
 
 /*ページネーションデザイン*/
