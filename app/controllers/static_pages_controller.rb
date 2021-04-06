@@ -1,11 +1,16 @@
 class StaticPagesController < ApplicationController
     def home
         if user_signed_in?
-            @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(2)
-            @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(2)
-            @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(2)
+            @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(12)
+            @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(12)
+            @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).without_count.per(12)
             #コメント投稿
             @comment = current_user.comments.build
+            #つぶやき投稿
+            @micropost = current_user.microposts.build
+            #練習記録
+            @record = current_user.records.build
+            @practicing = current_user.practicings.all
             #profile(side_colmun)
             @user  = current_user
             @first = @user.practiceds.all[0]
@@ -15,7 +20,10 @@ class StaticPagesController < ApplicationController
                 @average = Date.today - Date.parse(@first['created_at'].to_s)
                 @first_regi = @first['created_at']
             end
-            @practice_time = @user.records.all.sum(:time)
+            #総練習時間
+            @hour = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes)))/60
+            @minutes = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes))) - (@hour * 60)
+            
             @create = Date.parse(@user["created_at"].to_s)
             @difference = Date.today - @create
             #年齢
@@ -43,5 +51,17 @@ class StaticPagesController < ApplicationController
                 render "static_pages/#{params[:type]}"
             end
         end
+    end
+
+    def resource_name
+        :user
+    end
+    
+    def resource
+        @resource ||= User.new
+    end
+    
+    def devise_mapping
+        @devise_mapping ||= Devise.mappings[:user]
     end
 end

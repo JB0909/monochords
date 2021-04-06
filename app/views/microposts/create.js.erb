@@ -2,4 +2,4 @@ $("textarea").val("");
 $('#exampleModal').hide();
 $("body").removeClass("modal-open");
 $(".modal-backdrop").remove();
-$('#partial-micropost').html("<%= escape_javascript(render 'users/microposts', microposts: @microposts) %>");
+$('#micropost').html("<%= escape_javascript(render 'static_pages/microposts', following_microposts: @following_microposts) %>");

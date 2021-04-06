@@ -2,48 +2,13 @@
 <div class="row">
     <div class="col-4 side-wrapper">
         <%= render "users/profile" %>
-        <!--=====つぶやく=====-->
-        <% if user_signed_in? && @user.id == current_user.id%>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                つぶやく
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">つぶやく</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <%= form_for(@micropost, remote:true) do |f| %>
-                            <div class="modal-body">
-                                <%= f.text_area :body%>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                                <%= f.submit "つぶやく", class: "btn btn-primary btn-block" %>
-                            </div>
-                        <% end %>
-                    </div>
-                </div>
-            </div>
-            <!-- 練習投稿 -->
-            <%= form_for [@record], local: true do |f| %>
-                <%= f.text_area :body, id: "content" %>
-                <%= f.collection_select :practicing_id, @practicing, :id, :song_name %>
-                <%= f.select :time, [['1時間', 1], ['2時間', 2]] %>
-                <div class="actions">
-                    <%= f.submit %>
-                </div>
-            <% end %>
-        <% end %>
+        
     </div>
+
     <div class="col-8">
         <canvas id="myChart"></canvas>
         <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
         <script>
         var artistline = <%== @artistline %>;
         var countline = <%= @countline %>;
@@ -83,6 +48,8 @@
             },
         });
         </script>
+
+
         <!--=====自分の投稿=====-->
         <section>
             <div class="post-wrapper">
@@ -99,5 +66,7 @@
                 <%= link_to_next_page @microposts, 'もっと見る', id: "more-micropost", remote: true %>
             </div>
         </section>
+
+
     </div>
 </div>

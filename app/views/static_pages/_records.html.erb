@@ -27,7 +27,7 @@
                         <%= link_to record.song_name, music_path(record.music_id) %>
                     </div>
                     <div class="song-practice">
-                        <span>練習時間 : <span class="song-practice-time">＋ <%= record.time %>時間</span></span>
+                        <span>練習時間 : <span class="song-practice-time">＋ <%= record.time %>時間<%= record.time_minutes %>分</span></span>
                     </div>
                 </div>               
             </div>

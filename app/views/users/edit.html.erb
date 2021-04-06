@@ -29,7 +29,7 @@
                                 <label><%= f.radio_button :sex, :female %>女</label>
                             </div>
                             <div class="inpu-item-privacy">
-                                <%= f.select :sex_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                                <%= f.select :sex_status, {'非公開にする': 0, '公開する': 1}, {}, { class: 'form-control' , required: true } %>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                                 <%= f.select :blood, {'A型': 'A型', 'B型': 'B型', 'O型': 'O型', 'AB型': 'AB型'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
                             </div>
                             <div class="inpu-item-privacy">
-                                <%= f.select :blood_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                                <%= f.select :blood_status, {'非公開にする': 0, '公開する': 1}, {}, { class: 'form-control' , required: true } %>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <%= f.select :add, {'東京都': '東京都', '大阪府': '大阪府', '兵庫県': '兵庫県', '沖縄県': '沖縄県'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
                             </div>
                             <div class="inpu-item-privacy">
-                                <%= f.select :add_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                                <%= f.select :add_status, {'非公開にする': 0, '公開する': 1}, {}, { class: 'form-control' , required: true } %>
                             </div>
                         </div>
                     </div>
@@ -68,10 +68,10 @@
                         </div>
                         <div class="field-input">
                             <div class="input-item">
-                                <%= f.date_select :birth_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
+                                <%= f.date_select :birth_date, {use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--"}, {class: "form-control edit-date-select"} %>
                             </div>
                             <div class="inpu-item-privacy">
-                                <%= f.select :birth_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                                <%= f.select :birth_date_status, {'非公開にする': 0, '公開する': 1}, {}, { class: 'form-control' , required: true } %>
                             </div>
                         </div>
                     </div>
@@ -82,10 +82,10 @@
                         </div>
                         <div class="field-input">
                             <div class="input-item">
-                                <%= f.date_select :history_date, use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--" %>
+                                <%= f.date_select :history_date, {use_month_numbers: true, start_year: 1930, end_year: Time.now.year, prompt:"--"}, {class: "form-control edit-date-select"} %>
                             </div>
                             <div class="inpu-item-privacy">
-                                <%= f.select :history_date_status, {'非公開にする': 0, '公開する': 1}, { class: 'form-control' , required: true } %>
+                                <%= f.select :history_date_status, {'非公開にする': 0, '公開する': 1}, {}, { class: 'form-control' , required: true } %>
                             </div>
                         </div>
                     </div>
@@ -107,13 +107,13 @@
                         </div>
                         <div class="field-input">
                             <div class="input-item">
-                                <%= f.attachment_field :profile_image %>
+                                <%= f.attachment_field :profile_image, class:"form-control-file" %>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-action">
-                        <%= f.submit "更新する" %>
+                        <%= f.submit "更新する", class: "btn btn-primary" %>
                     </div>
                 <% end %>
             </div>
