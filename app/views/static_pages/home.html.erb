@@ -3,21 +3,73 @@
     <div class="row">
         <div class="col-4">
             <%= render "users/profile" %>
+            <!--=====つぶやく=====-->
+            <% if user_signed_in? && @user.id == current_user.id%>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#exampleModal">
+                    つぶやく
+                </button>
+                <!-- つぶやき Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">つぶやく</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <%= form_for(@micropost, remote:true) do |f| %>
+                                <div class="modal-body">
+                                    <%= f.text_area :body, placeholder: "つぶやく", :size => "30x1", class: "modal-text-area" %>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                    <%= f.submit "つぶやく", class: "btn btn-primary btn-block" %>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+                <!-- 練習投稿 -->
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#exampleModal-1">
+                    練習記録を投稿する
+                </button>
+                <!-- つぶやき Modal -->
+                <div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">練習記録</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <%= form_for(@record, remote:true) do |f| %>
+                                <div class="modal-body">
+                                    <%= f.text_area :body, placeholder: "練習記録を投稿する", :size => "30x1", class: "modal-text-area" %>
+                                    <%= f.collection_select :practicing_id, @practicing, :id, :song_name, {prompt: false}, {class: "form-control"} %>
+                                    <%= f.select :time, [['0時間', 0], ['1時間', 1], ['2時間', 2], ['3時間', 3], ['4時間', 4], ['5時間', 5], ['6時間', 6], ['7時間', 7], ['8時間', 8], ['9時間', 9], ['10時間', 10], ['11時間', 11], ['12時間', 12]],{}, {class: 'form-control time-select'} %>
+                                    <%= f.select :time_minutes, [['0分', 0], ['5分', 5], ['10分', 10], ['15分', 15], ['20分', 20], ['25分', 25], ['30分', 30], ['35分', 35], ['40分', 40], ['45分', 45], ['50分', 50], ['55分', 55]],{}, {class: 'form-control time-select'} %>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                    <%= f.submit "練習投稿", class: "btn btn-primary btn-block" %>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
         </div>
-        
         <div class="col-8">
-            
             <div class="tab-wrap">
                 <!-- つぶやき -->
                 <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
                 <div class="tab-content">
-                    <header class="common-main-title">
-                        <h2>
-                            <span>最近のつぶやき</span>
-                        </h2>
-                    </header>
                     <div id="micropost">
-                        <%= render 'static_pages/microposts' %>
+                        <%= render 'static_pages/microposts', following_microposts: @following_microposts %>
                     </div>
                     <div class="more-micropost-container more-container">
                         <%= link_to_next_page @following_microposts, 'もっと見る', id: "more-micropost", params: { type: :micropost }, remote: true %>
@@ -26,13 +78,8 @@
                 <!-- 練習記録 -->
                 <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">練習記録</label>
                 <div class="tab-content">
-                    <header class="common-main-title">
-                        <h2>
-                            <span>練習記録</span>
-                        </h2>
-                    </header>
                     <div id="record">
-                        <%= render 'static_pages/records' %>
+                        <%= render 'static_pages/records', following_records: @following_records %>
                     </div>
                     <div class="more-record-container more-container">
                         <%= link_to_next_page @following_records, 'もっと見る', id: "more-record", params: { type: :record }, remote: true %>
@@ -41,11 +88,6 @@
                 <!-- レビュー -->
                 <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
                 <div class="tab-content">
-                    <header class="common-main-title">
-                        <h2>
-                            <span>レビュー・感想</span>
-                        </h2>
-                    </header>
                     <div id="review">
                         <%= render 'static_pages/reviews' %>
                     </div>
@@ -60,7 +102,7 @@
     <div class="row">
         <div class="col-7">
             <div class="top-side-container">
-                <%= image_tag ("top.jpg"), :size => '635x760' %>
+                <%= image_tag ("top.jpg"), :size => '635x750' %>
             </div>
         </div>
         <div class="col-5">

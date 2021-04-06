@@ -1,0 +1,5 @@
+$("textarea").val("");
+$('#exampleModal-1').hide();
+$("body").removeClass("modal-open");
+$(".modal-backdrop").remove();
+$('#record').html("<%= escape_javascript(render 'static_pages/records', following_records: @following_records) %>");

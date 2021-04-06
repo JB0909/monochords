@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_28_094718) do
+ActiveRecord::Schema.define(version: 2021_04_06_111138) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2021_03_28_094718) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "music_id"
     t.string "image_url"
+    t.integer "time_minutes"
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 

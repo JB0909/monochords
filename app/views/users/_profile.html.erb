@@ -100,7 +100,7 @@
                 <dt>
                     <!-- 総練習時間 -->
                     <span class="profile-side-title">総練習時間:</span>
-                    <span class="profile-item"><%= @practice_time %>時間</span>
+                    <span class="profile-item"><%= @hour %>時間<%= @minutes %>分</span>
                 </dt>
                 <% if @user.sex_status == 0 %>
                 <% else %>

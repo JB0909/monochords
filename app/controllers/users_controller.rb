@@ -3,11 +3,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if user_signed_in?
-      @micropost = current_user.microposts.build
-      @record = current_user.records.build
       @comment = current_user.comments.build
       #プロフィール
       @practicing = current_user.practicings.all
+      #コメント投稿
+      @comment = current_user.comments.build
     end
 
     #投稿一覧
@@ -21,7 +21,10 @@ class UsersController < ApplicationController
       @average = Date.today - Date.parse(@first['created_at'].to_s)
       @first_regi = @first['created_at']
     end
-    @practice_time = @user.records.all.sum(:time)
+    #総練習時間
+    @hour = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes)))/60
+    @minutes = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes))) - (@hour * 60)
+
     @create = Date.parse(@user["created_at"].to_s)
     @difference = Date.today - @create
 
@@ -101,7 +104,10 @@ class UsersController < ApplicationController
           @average = Date.today - Date.parse(@first['created_at'].to_s)
           @first_regi = @first['created_at']
       end
-      @practice_time = @user.records.all.sum(:time)
+      #総練習時間
+      @hour = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes)))/60
+      @minutes = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes))) - (@hour * 60)
+
       @create = Date.parse(@user["created_at"].to_s)
       @difference = Date.today - @create
       #年齢
@@ -140,7 +146,10 @@ class UsersController < ApplicationController
         @average = Date.today - Date.parse(@first['created_at'].to_s)
         @first_regi = @first['created_at']
     end
-    @practice_time = @user.records.all.sum(:time)
+    #総練習時間
+    @hour = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes)))/60
+    @minutes = ((@user.records.all.sum(:time)*60) + (@user.records.all.sum(:time_minutes))) - (@hour * 60)
+    
     @create = Date.parse(@user["created_at"].to_s)
     @difference = Date.today - @create
     #年齢
