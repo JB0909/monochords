@@ -56,7 +56,7 @@
     <div class="col-8">
         <%= form_for [@music,@review], remote: true do |f| %>
             <div class="js-text" id="<%= @music.id %>">
-                <%= f.text_field :content, placeholder: "レビュー・感想を投稿する", class: "form-control js-text-field", id: "content" %>
+                <%= f.text_area :content, placeholder: "レビュー・感想を投稿する", :size => "30x1", class: "form-control js-text-field" %>
             </div>
             <span class="text-count"></span><span class="js-text-count"></span>
             <br>

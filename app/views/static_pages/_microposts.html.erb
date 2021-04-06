@@ -16,7 +16,7 @@
                 <%= link_to micropost.user.username, user_path(micropost.user) %>
             </div>
             <div class="post-body">
-                <span><%= micropost.body %></span>
+                <span><%= safe_join(micropost.body.split("\n"), tag(:br)) %></span>
             </div>
             <div class="frame-details">
                 <div id="like-btn-<%= micropost.id %>">
@@ -51,7 +51,7 @@
                                 <%= link_to c.user.username, user_path(c.user.id) %>
                             </div>
                             <div class="comment-body">
-                                <span><%= c.content %></span>
+                                <span><%= safe_join(c.content.split("\n"), tag(:br)) %></span>
                             </div>
                             <span class="comment-date text-muted"><%= l c.created_at %></span>
                         </div>
@@ -69,7 +69,7 @@
                 <div class="comment-create">
                     <%= form_for [@comment], remote: true do |f| %>
                         <div class="js-text" id="micropost-val-<%= micropost.id %>">
-                            <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field" %>
+                            <%= f.text_area :content, placeholder: "コメントする", :size => "30x1", class: "form-control js-text-field" %>
                         </div>
                         <span class="text-count"></span><span class="js-text-count"></span>
                         <br>

@@ -16,7 +16,7 @@
                 <%= link_to review.user.username, user_path(review.user) %>
             </div>
             <div class="post-body">
-                <span><%= review.content %></span>
+                <span><%= safe_join(review.content.split("\n"), tag(:br)) %></span>
             </div>
             
             <div class="song-details">
@@ -63,7 +63,7 @@
                                 <%= link_to r.user.username, user_path(r.user.id) %>
                             </div>
                             <div class="comment-body">
-                                <span><%= r.content %></span>
+                                <span><%= safe_join(r.content.split("\n"), tag(:br)) %></span>
                             </div>
                             <span class="comment-date text-muted"><%= l r.created_at %></span>
                         </div>
@@ -82,7 +82,7 @@
                 <div class="comment-create">
                     <%= form_for [@comment], remote: true do |f| %>
                         <div class="js-text" id="review-val-<%= review.id %>">
-                            <%= f.text_field :content, placeholder: "コメントする", class: "form-control js-text-field" %>
+                            <%= f.text_area :content, placeholder: "コメントする", :size => "30x1", class: "form-control js-text-field" %>
                         </div>
                         <span class="text-count"></span><span class="js-text-count"></span>
                         <br>

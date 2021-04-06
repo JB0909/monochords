@@ -14,7 +14,7 @@
                 <%= link_to c.user.username, user_path(c.user.id) %>
             </div>
             <div class="comment-body">
-                <span><%= c.content %></span>
+                <span><%= safe_join(c.content.split("\n"), tag(:br)) %></span>
             </div>
             <span class="comment-date text-muted"><%= l c.created_at %></span>
         </div>

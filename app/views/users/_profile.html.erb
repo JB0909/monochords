@@ -156,7 +156,7 @@
                     <dt>
                         <!-- 自己紹介 -->
                         <span class="profile-side-title">自己紹介:</span>
-                        <span class="profile-introduction"><%= @user.introduction %></span>
+                        <span class="profile-introduction"><%= safe_join(@user.introduction.split("\n"), tag(:br)) %></span>
                     </dt>
                 <% end %>
                 
