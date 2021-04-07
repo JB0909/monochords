@@ -12,6 +12,34 @@
             </figure>
         </div>
         <div class="post-main-frame">
+            <% if current_user.id == micropost.user_id %>
+                <!-- 削除 -->
+                <button type="button" class="delete-button" data-toggle="modal" data-target="#exampleModal-micropost-<%= micropost.id %>">
+                    <span class="dli-close"></span>
+                </button>
+                <!-- 削除モーダル -->
+                <div class="modal fade" id="exampleModal-micropost-<%= micropost.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">削除の確認</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                                <div class="modal-body">
+                                    <span>削除してもよろしいですか？</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <%= link_to micropost_path(id: micropost.id), method: :delete, remote: true do %>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">はい</button>
+                                    <% end %>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
             <div class="post-name">
                 <%= link_to micropost.user.username, user_path(micropost.user) %>
             </div>
@@ -47,6 +75,34 @@
                             </div>
                         </div>
                         <div class="comment-main-frame">
+                            <% if current_user.id == c.user_id %>
+                                <!-- 削除 -->
+                                <button type="button" class="delete-button" data-toggle="modal" data-target="#exampleModal-micropost-comment-<%= c.id %>">
+                                    <span class="dli-close"></span>
+                                </button>
+                                <!-- 削除モーダル -->
+                                <div class="modal fade" id="exampleModal-micropost-comment-<%= c.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">削除の確認</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <span>削除してもよろしいですか？</span>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <%= link_to comment_path(id: c.id, micropost_id: c.micropost_id), method: :delete, remote: true do %>
+                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">はい</button>
+                                                    <% end %>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% end %>
                             <div class="comment-name">
                                 <%= link_to c.user.username, user_path(c.user.id) %>
                             </div>

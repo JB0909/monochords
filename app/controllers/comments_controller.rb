@@ -14,6 +14,18 @@ class CommentsController < ApplicationController
         end
     end
 
+    def destroy
+        @micropost_comment = Comment.where(micropost_id: params[:micropost_id])
+        @record_comment = Comment.where(record_id: params[:record_id])
+        @review_comment = Comment.where(review_id: params[:review_id])
+        @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids])
+        @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids])
+        @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids])
+        @reviews = Review.where(music_id: params[:music_id])
+        @comment = Comment.find(params[:id])
+        @comment.destroy
+    end
+
     private
     def comment_params
         params.require(:comment).permit(:content, :micropost_id, :record_id, :review_id)

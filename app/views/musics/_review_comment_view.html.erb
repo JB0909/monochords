@@ -1,4 +1,4 @@
-<% record.each do |r| %>
+<% review.comments.each do |r| %>
     <div class="comment-container">
         <div class="comment-side-frame">
             <div class="comment-avatar">
@@ -12,11 +12,11 @@
         <div class="comment-main-frame">
             <% if current_user.id == r.user_id %>
                 <!-- 削除 -->
-                <button type="button" class="delete-button" data-toggle="modal" data-target="#exampleModal-record-comment-<%= r.id %>">
+                <button type="button" class="delete-button" data-toggle="modal" data-target="#exampleModal-review-comment-<%= r.id %>">
                     <span class="dli-close"></span>
                 </button>
                 <!-- 削除モーダル -->
-                <div class="modal fade" id="exampleModal-record-comment-<%= r.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal-review-comment-<%= r.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -29,7 +29,7 @@
                                     <span>削除してもよろしいですか？</span>
                                 </div>
                                 <div class="modal-footer">
-                                    <%= link_to comment_path(id: r.id, record_id: r.record_id), method: :delete, remote: true do %>
+                                    <%= link_to comment_path(id: r.id, music_id: review.music_id), method: :delete, remote: true do %>
                                         <button type="button" class="btn btn-primary" data-dismiss="modal">はい</button>
                                     <% end %>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
@@ -41,6 +41,7 @@
             <div class="comment-name">
                 <%= link_to r.user.username, user_path(r.user.id) %>
             </div>
+
             <div class="comment-body">
                 <span><%= safe_join(r.content.split("\n"), tag(:br)) %></span>
             </div>

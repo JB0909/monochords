@@ -20,9 +20,12 @@ class MicropostsController < ApplicationController
     end
 
     def destroy
-        @micropost.destroy
-        flash[:success] = 'メッセージを削除しました。'
-        redirect_back(fallback_location: root_path)
+        if user_signed_in?
+            @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids])
+            @comment = current_user.comments.build
+            @micropost = Micropost.find(params[:id])
+            @micropost.destroy
+        end
     end
 
     private

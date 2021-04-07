@@ -14,6 +14,7 @@ $('#micropost_comment').html("<%= j(render 'microposts/comments_list', micropost
 <% elsif @review.present? %>
     $('#review-comment-count-<%= @review.id %>').html("<%= escape_javascript(render partial: "static_pages/review_comment_count", locals: { review: @review }) %>");
     $('#review-comment-view-<%= @review.id %>').html("<%= escape_javascript(render partial: "static_pages/review_comment_view", locals: { review: @review }) %>");
+    $('#review-2-comment-view-<%= @review.id %>').html("<%= escape_javascript(render partial: "musics/review_comment_view", locals: { review: @review }) %>");
     $("#review-val-<%= @review.id %>").find('input').val("");
 <% end %>
 //共通

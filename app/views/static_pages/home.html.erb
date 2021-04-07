@@ -89,7 +89,7 @@
                 <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
                 <div class="tab-content">
                     <div id="review">
-                        <%= render 'static_pages/reviews' %>
+                        <%= render 'static_pages/reviews', following_reviews: @following_reviews %>
                     </div>
                     <div class="more-review-container more-container">
                         <%= link_to_next_page @following_reviews, 'もっと見る', id: "more-review", params: { type: :review }, remote: true %>
