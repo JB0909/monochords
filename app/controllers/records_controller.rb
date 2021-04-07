@@ -15,6 +15,12 @@ class RecordsController < ApplicationController
     end
 
     def destroy
+        if user_signed_in?
+            @following_records = Record.where(user_id: [current_user.id, *current_user.following_ids])
+            @comment = current_user.comments.build
+            @record = Record.find(params[:id])
+            @record.destroy
+        end
     end
 
     private

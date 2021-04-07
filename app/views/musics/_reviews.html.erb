@@ -12,6 +12,34 @@
             </figure>
         </div>
         <div class="post-main-frame">
+            <% if current_user.id == review.user_id %>
+                <!-- 削除 -->
+                <button type="button" class="delete-button" data-toggle="modal" data-target="#exampleModal-review-<%= review.id %>">
+                    <span class="dli-close"></span>
+                </button>
+                <!-- 削除モーダル -->
+                <div class="modal fade" id="exampleModal-review-<%= review.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">削除の確認</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                                <div class="modal-body">
+                                    <span>削除してもよろしいですか？</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <%= link_to music_review_path(id: review.id, music_id: review.music_id), method: :delete, remote: true do %>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">はい</button>
+                                    <% end %>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
             <div class="post-name">
                 <%= link_to review.user.username, user_path(review.user) %>
             </div>
@@ -48,6 +76,34 @@
                             </div>
                         </div>
                         <div class="comment-main-frame">
+                            <% if current_user.id == r.user_id %>
+                                <!-- 削除 -->
+                                <button type="button" class="delete-button" data-toggle="modal" data-target="#exampleModal-review-comment-<%= r.id %>">
+                                    <span class="dli-close"></span>
+                                </button>
+                                <!-- 削除モーダル -->
+                                <div class="modal fade" id="exampleModal-review-comment-<%= r.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">削除の確認</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <span>削除してもよろしいですか？</span>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <%= link_to comment_path(id: r.id, music_id: review.music_id), method: :delete, remote: true do %>
+                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">はい</button>
+                                                    <% end %>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% end %>
                             <div class="comment-name">
                                 <%= link_to r.user.username, user_path(r.user.id) %>
                             </div>
@@ -62,8 +118,8 @@
                     <%= render 'static_pages/review_comment_count', review: review %>
                 </div>
             <% else %>
-                <div id="review-comment-view-<%= review.id %>">
-                    <%= render 'static_pages/review_comment_view', review: review %>
+                <div id="review-2-comment-view-<%= review.id %>">
+                    <%= render 'musics/review_comment_view', review: review %>
                 </div>
             <% end %>
             <!--コメント投稿-->
