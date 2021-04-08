@@ -1,55 +1,49 @@
 <%= javascript_pack_tag 'comment' %>
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<script>
+    (function() {
+        'use strict';
+        function drawChart() {
+            var target = document.getElementById('target');
+            var data;
+            var dataArray = [['artist_name','count']];
+            var array = <%== @artist_groups %>;
+            $(array).each(function(i){
+                if( i === 10){
+                    return false;
+                }
+                var data_item = [this[0], this[1]];
+                dataArray.push(data_item);
+            });
+            var options = {
+                title: 'アーティストグラフ(上位10名)',
+                width: 730,
+                height: 330,
+                pieHole: 0.4
+            };
+            var chart = new google.visualization.PieChart(target);
+            data = new google.visualization.arrayToDataTable(dataArray);
+            chart.draw(data, options);
+        }
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+    })();
+</script>
 <div class="row">
     <div class="col-4 side-wrapper">
         <%= render "users/profile" %>
-        
     </div>
 
     <div class="col-8">
-        <canvas id="myChart"></canvas>
-        <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
-
-        <script>
-        var artistline = <%== @artistline %>;
-        var countline = <%= @countline %>;
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: artistline,
-                datasets: [{
-                    data: countline,
-                    backgroundColor: ['tomato', 'skyblue', 'gray']
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'アーティストグラフ'
-                },
-                legend: {
-                    display: false
-                },
-                plugins: {
-                    labels: [
-                        {
-                            render: 'label',
-                            position: 'outside',
-                            textMargin: 10
-                        },
-                        {
-                            render: 'percentage',
-                            fontSize: 18,
-                            fontColor: 'white',
-                            precision: 1
-                        }
-                    ]
-                },
-            },
-        });
-        </script>
-
-
+        <!--=====チャート=====-->
+        <section>
+            <header class="common-main-title">
+                <h2>
+                    <span>アーティストグラフ</span>
+                </h2>
+            </header>
+            <div id="target"></div>
+        </section>
         <!--=====自分の投稿=====-->
         <section>
             <div class="post-wrapper">
