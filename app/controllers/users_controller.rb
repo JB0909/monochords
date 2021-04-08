@@ -51,15 +51,7 @@ class UsersController < ApplicationController
 
 
     #グラフ
-    @artist_groups = @user.practiceds.all.group(:artist_name).order("count_artist_name DESC").count(:artist_name)
-    @artistline = Array.new
-    @artist_groups.each do |artist|
-      @artistline.push(artist[0])
-    end
-    @countline = Array.new
-    @artist_groups.each do |count|
-      @countline.push(count[1])
-    end
+    @artist_groups = @user.practiceds.all.group(:artist_name).order("count_artist_name DESC").count(:artist_name).to_a
 
   end
 
