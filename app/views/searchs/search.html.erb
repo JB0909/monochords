@@ -1,8 +1,7 @@
 <div class="row">
-    <div class="col-4">
+    <div class="col-lg-4">
     </div>
-
-    <div class="col-8">
+    <div class="col-12 col-lg-8">
         <div class="practice-regi-wrapper">
             <header class="common-main-title">
                 <h2>
@@ -15,10 +14,10 @@
                         <ul class="practice-list">
                             <% s_tracks.each do |s_track| %>
                                 <li class="practice-list-song">
-                                    <div class="practice-regi-container">
+                                    <div class="practice-regi-container-2">
                                         <% s_track.external_ids["isrc"] %>
                                         <div class="practice-regi-up-frame">
-                                            <div class="practive-regi-image">
+                                            <div class="practice-regi-image">
                                                 <% if s_track.album.images.any?%>
                                                     <% image = s_track.album.images[1]%>
                                                     <%if Music.exists?(external_id: s_track.external_ids["isrc"], album_name: s_track.album.name) %>

@@ -1,4 +1,92 @@
 <% if user_signed_in? %>
+    <!-- SP画面 -->
+    <header class="sp-header-container">
+        <div class="sp-header-global">
+            <%= link_to root_path do %>
+                <div class="sp-header-logo">
+                    MONOCHORDS
+                </div>
+            <% end %>
+
+            <div class="sp-header-side">
+                <ul class="sp-header-side-list">
+                    <a id="sp-header-search" tabindex="-1"><i class="fas fa-search-plus"></i><li class="sp-header-side-item">検索</li></a>
+                    <a id="sp-header-menu" tabindex="-1"><i class="fas fa-bars"></i><li class="sp-header-side-item">メニュー</li></a>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div id="search-slide" class="off">
+        <div class="main-search">
+            <%= form_with url: search_path, method: :get, local: true do |form| %>
+                <div class="search-fill">
+                    <%= form.text_field :search, placeholder: "曲名で検索", class: 'form-control sp-search-form' %>
+                </div>
+                <div class="search-btn">
+                    <%= form.submit '検索', name: nil, class: 'btn btn-primary' %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <div id="menu-slide" class="off">
+            <div class="main-menu">
+                <header class="common-main-title">
+                    <h2>
+                        <span>メニュー</span>
+                    </h2>
+                </header>
+                <ul class="menu-list top-item">
+                    <li class="menu-item">
+                        <%= link_to user_path(current_user.id) do %>
+                        <% if current_user.profile_image.present? %>
+                            <div class="personal-account-data">
+                                <div class="personal-account-image">
+                                    <%= image_tag attachment_url(current_user, :profile_image, :fill, 28, 28, format: "jpg"), {class: "mypage-image"} %>
+                                </div>
+                                <div class="personal-account-name">
+                                    <%= current_user.username %>さんのマイページ
+                                </div>
+                            </div>
+                        <% else %>
+                            <div class="personal-account-data">
+                                <div class="personal-account-image">
+                                    <%= image_tag ("default.png"), :size => '28x28' %>
+                                </div>
+                                <div class="personal-account-name">
+                                    <%= current_user.username %>さんのマイページ
+                                </div>
+                            </div>
+                            
+                        <% end %>
+                        
+                    <% end %>
+                    </li>
+                </ul>
+                <ul class="menu-list">
+                    <%= link_to wish_user_path(user_id: @user.id, id: @user.id) do %>
+                        <li class="menu-item"><%= current_user.username %>さんの練習したい曲</li>
+                    <% end %>
+                    <%= link_to practicing_user_path(user_id: @user.id, id: @user.id) do %>
+                        <li class="menu-item"><%= current_user.username %>さんの練習中の曲</li>
+                    <% end %>
+                    <%= link_to practiced_user_path(user_id: @user.id, id: @user.id) do %>
+                        <li class="menu-item"><%= current_user.username %>さんの練習した曲</li>
+                    <% end %>
+                </ul>
+                <ul class="menu-list">
+                    <li class="menu-item"><i class="navitem fas fa-user-edit"></i><%= link_to "編集", edit_user_path(current_user.id) %></li>
+                </ul>
+                <ul class="menu-list">
+                    <li class="menu-item"><i class="navitem fas fa-sign-out-alt"></i><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                </ul>
+            </div>
+    </div>
+    <div id="remove">
+        
+    </div>
+
+    <!-- PC画面-->
     <header class="header-container">
         <div class="header-global">
             <div class="global-inner">
@@ -22,10 +110,33 @@
                                     <%= current_user.username %>さんのマイページ
                                 </div>
                             </div>
+                            
                         <% end %>
+                        
                     <% end %>
+                    
+                    <%
+=begin%>
+ <a id="sp-profile" tabindex="-1">
+                        プロフィール
+                    </a>
+                    <div id="sp-user-profile" class="off">
+                        <div class="slide-inner">
+                            <div class="row">
+                                <div class="col-10">
+                                    <%= render "users/profile" %>
+                                </div>
+                                <div id="sp-profile-remove" class="col-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+<%
+=end%>
+                    
+                    
                     <div class="personal-account-menu">
-                        <a href="">メニュー</a>
+                        <a tabindex="-1">メニュー</a>
                         <ul class="peronal-account-menu-drop-items">
                             <li class="personal-account-menu-drop-item"><i class="navitem fas fa-user-edit"></i><%= link_to "編集", edit_user_path(current_user.id) %></li>
                             <li class="personal-account-menu-drop-item"><i class="navitem fas fa-sign-out-alt"></i><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>

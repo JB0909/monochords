@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head lang="ja">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Monochords</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
     <script src="https://kit.fontawesome.com/68c363eefb.js" crossorigin="anonymous"></script>
   </head>
-
   <body>
-    <%= render 'layouts/header' %>
     <div class="outer-wrapper">
+      <%= render 'layouts/header' %>
       <div class="container">
         <%= yield %>
       </div>
       <%= render 'layouts/footer' %>
+      <%= javascript_pack_tag 'slide' %>
     </div>
   </body>
 </html>

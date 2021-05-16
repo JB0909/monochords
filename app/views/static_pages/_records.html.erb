@@ -140,7 +140,7 @@
             <% if user_signed_in? %>
                 <div class="comment-create">
                     <%= form_for [@comment], remote: true do |f| %>
-                        <div class="js-text" id="record-val-<%= record.id %>">
+                        <div class="js-text" id="record-val-<%= record.id %>" >
                             <%= f.text_area :content, placeholder: "コメントする", :size => "30x1", class: "form-control js-text-field" %>
                         </div>
                         <span class="text-count"></span><span class="js-text-count"></span>

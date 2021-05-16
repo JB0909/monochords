@@ -1,166 +1,185 @@
 <div class="side-column-wrapper">
     <!-- ===ユーザーデータ=== -->
-    <section>
+    <section class="userdata-section">
         <div class="userdata-container">
-            <!-- ユーザーネーム -->
-            <div class="userdata-name">
-                <%= @user.username %>
+            <div class="name-avatar-container">
+                <!-- ユーザーネーム -->
+                <div class="userdata-name-pc">
+                    <span><%= @user.username %></span>
+                </div>
+                <!-- プロフィール画像 -->
+                <figure class="userdata-avatar">
+                    <% if @user.profile_image.present? %>
+                        <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
+                    <% else %>
+                        <%= image_tag ("default.png"), :size => '100x100' %>
+                    <% end %>
+                </figure>
+                <!-- ユーザーネーム -->
+                <div class="userdata-name">
+                    <span><%= @user.username %></span>
+                </div>
             </div>
-            <!-- プロフィール画像 -->
-            <figure class="userdata-avatar">
-                <% if @user.profile_image.present? %>
-                    <%= image_tag attachment_url(@user, :profile_image, :fill, 100, 100, format: "jpg"), {class: "mypage-image"} %>
-                <% else %>
-                    <%= image_tag ("default.png"), :size => '100x100' %>
-                <% end %>
-            </figure>
+            <% if @user.introduction.blank? %>
+            <% else %>
+                <!-- 自己紹介 -->
+                <div class="userdata-instroduction">
+                    <span class="profile-introduction"><%= safe_join(@user.introduction.split("\n"), tag(:br)) %></span>
+                </div>
+            <% end %>
             <!-- フォロワー -->
-            <div class="userdata-followers">
-                <%= link_to followers_user_path(@user.id) do %>
-                    <span>フォロワー<%= @user.followers.count %>人</span>
-                <% end %>
-            </div>
-            <!-- フォロー -->
-            <div class="userdata-following">
-                <%= link_to following_user_path(@user.id) do %>
-                    <span>フォロー<%= @user.following.count %>人</span>
-                <% end %>
+            <div class="followers-following-container">
+                <div class="userdata-followers">
+                    <%= link_to followers_user_path(@user.id) do %>
+                        <span class="number"><%= @user.followers.count %></span><span>フォロワー</span>
+                    <% end %>
+                </div>
+                <!-- フォロー -->
+                <div class="userdata-following">
+                    <%= link_to following_user_path(@user.id) do %>
+                        <span class="number"><%= @user.following.count %></span><span>フォロー中</span>
+                    <% end %>
+                </div>
             </div>
             <!-- フォローフォーム -->
             <div class="userdata-follow_form">
                 <%= render "users/follow_form" %>
             </div>
+            <a id="sp-profile" tabindex="-1">プロフィール詳細</a>
         </div>
     </section>
-    <!-- ===練習データ=== -->
-    <section>
-        <div class="practice-container">
-            <header class="common-side-title">
-                <h2>
-                    <span>練習データ</span>
-                </h2>
-            </header>
-            <ul class="practice-nav">
-                <li>
-                    <!-- 練習した曲 -->
-                    <%= link_to practiced_user_path(user_id: @user.id, id: @user.id) do %>
-                        <span class="practice-nav-text">練習した曲</span>
-                        <span class="practice-nav-count"><%= @user.practiceds.count %>曲</span>
-                    <% end %>
-                </li>
-                <li>
-                    <!-- 練習中の曲 -->
-                    <%= link_to practicing_user_path(user_id: @user.id, id: @user.id) do %>
-                        <span class="practice-nav-text">練習中の曲</span>
-                        <span class="practice-nav-count"><%= @user.practicings.count %>曲</span>
-                    <% end %>
-                </li>
-                <li>
-                    <!-- 練習したい曲 -->
-                    <%= link_to wish_user_path(user_id: @user.id, id: @user.id) do %>
-                        <span class="practice-nav-text">練習したい曲</span>
-                        <span class="practice-nav-count"><%= @user.wishes.count %>曲</span>
-                    <% end %>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <!-- ===プロフィール=== -->
-    <section>
-        <div class="profile-container">
-            <header class="common-side-title">
-                <h2>
-                    <span>プロフィール</span>
-                </h2>
-            </header>
-            <dl>
-                <dt>
-                    <!-- 登録日 -->
-                    <span class="profile-side-title">登録日:</span>
-                    <span class="profile-item"><%= @create.strftime("%Y/%m/%d") %>(<%= @difference.to_i %>日経過)</span>
-                </dt>
-                <dt>
-                    <!-- 記録初日 -->
-                    <span class="profile-side-title">記録初日:</span>
-                    <% if @first_regi == nil %>
-                    <% else %>
-                        <span class="profile-item"><%= l @first_regi %></span>
-                    <% end %>
-                </dt>
-                <dt>
-                    <!-- 練習した曲 -->
-                    <% if @average == 0 %>  
-                        <span class="profile-side-title">練習した曲:</span>
-                        <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</span>
-                    <% else %>
-                        <span class="profile-side-title">練習した曲:</span>
-                        <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</span>
-                    <% end %>
-                </dt>
-                <dt>
-                    <!-- 総練習時間 -->
-                    <span class="profile-side-title">総練習時間:</span>
-                    <span class="profile-item"><%= @hour %>時間<%= @minutes %>分</span>
-                </dt>
-                <% if @user.sex_status == 0 %>
-                <% else %>
+    
+    <div id="profile-slide" class="off">
+        <!-- ===練習データ=== -->
+        <section>
+            <div class="practice-container">
+                <header class="common-side-title">
+                    <h2>
+                        <span>練習データ</span>
+                    </h2>
+                </header>
+                <ul class="practice-nav">
+                    <li>
+                        <!-- 練習した曲 -->
+                        <%= link_to practiced_user_path(user_id: @user.id, id: @user.id) do %>
+                            <span class="practice-nav-text">練習した曲</span>
+                            <span class="practice-nav-count"><%= @user.practiceds.count %>曲</span>
+                        <% end %>
+                    </li>
+                    <li>
+                        <!-- 練習中の曲 -->
+                        <%= link_to practicing_user_path(user_id: @user.id, id: @user.id) do %>
+                            <span class="practice-nav-text">練習中の曲</span>
+                            <span class="practice-nav-count"><%= @user.practicings.count %>曲</span>
+                        <% end %>
+                    </li>
+                    <li>
+                        <!-- 練習したい曲 -->
+                        <%= link_to wish_user_path(user_id: @user.id, id: @user.id) do %>
+                            <span class="practice-nav-text">練習したい曲</span>
+                            <span class="practice-nav-count"><%= @user.wishes.count %>曲</span>
+                        <% end %>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <!-- ===プロフィール=== -->
+        <section>
+            <div class="profile-container">
+                <header class="common-side-title">
+                    <h2>
+                        <span>プロフィール</span>
+                    </h2>
+                </header>
+                <dl>
                     <dt>
-                        <!-- 性別 -->
-                        <span class="profile-side-title">性別:</span>
-                        <% if @user.sex == "male" %>
-                            <span class="profile-item">男</span>
+                        <!-- 登録日 -->
+                        <span class="profile-side-title">登録日:</span>
+                        <span class="profile-item"><%= @create.strftime("%Y/%m/%d") %>(<%= @difference.to_i %>日経過)</span>
+                    </dt>
+                    <dt>
+                        <!-- 記録初日 -->
+                        <span class="profile-side-title">記録初日:</span>
+                        <% if @first_regi == nil %>
                         <% else %>
-                            <span class="profile-item">女</span>
+                            <span class="profile-item"><%= l @first_regi %></span>
                         <% end %>
                     </dt>
-                <% end %>
-                <% if @user.blood_status == 0 %>
-                <% else %>
                     <dt>
-                        <!-- 血液型 -->
-                        <span class="profile-side-title">血液型:</span>
-                        <span class="profile-item"><%= @user.blood %></span>
-                    </dt>
-                <% end %>
-                <% if @user.add_status == 0 %>
-                <% else %>
-                    <dt>
-                        <!-- 現住所 -->
-                        <span class="profile-side-title">現住所:</span>
-                        <span class="profile-item"><%= @user.add %></span>
-                    </dt>
-                <% end %>
-                <% if @user.birth_date_status == 0 %>
-                <% else %>
-                    <dt>
-                        <!-- 年齢 -->
-                        <span class="profile-side-title">年齢:</span>
-                        <span class="profile-item"><%= @age %>歳</span>
-                    </dt>
-                <% end %>
-                <% if @user.history_date_status == 0 %>
-                <% else %>
-                    <dt>
-                        <!-- ギター開始日 -->
-                        <span class="profile-side-title">ギター開始日:</span>
-                        <span class="profile-item"><%= l @start_date %></span>
+                        <!-- 練習した曲 -->
+                        <% if @average == 0 %>  
+                            <span class="profile-side-title">練習した曲:</span>
+                            <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= @user.practiceds.count.to_i %>曲)</span>
+                        <% else %>
+                            <span class="profile-side-title">練習した曲:</span>
+                            <span class="profile-item"><%= @user.practiceds.count %>曲(1日平均<%= (@user.practiceds.count.to_i/@average).ceil(2).to_f %>曲)</span>
+                        <% end %>
                     </dt>
                     <dt>
-                        <!-- ギター歴 -->
-                        <span class="profile-side-title">ギター歴:</span>
-                        <span class="profile-item"><%= @diff_years %>年<%= @diff_months %>ヶ月<%= @diff_days %>日目</span>
+                        <!-- 総練習時間 -->
+                        <span class="profile-side-title">総練習時間:</span>
+                        <span class="profile-item"><%= @hour %>時間<%= @minutes %>分</span>
                     </dt>
-                <% end %>
-                <% if @user.introduction.blank? %>
-                <% else %>
-                    <dt>
-                        <!-- 自己紹介 -->
-                        <span class="profile-side-title">自己紹介:</span>
-                        <span class="profile-introduction"><%= safe_join(@user.introduction.split("\n"), tag(:br)) %></span>
-                    </dt>
-                <% end %>
-                
-            </dl>
-        </div>
-    </section>
+                    <% if @user.sex_status == 0 %>
+                    <% else %>
+                        <dt>
+                            <!-- 性別 -->
+                            <span class="profile-side-title">性別:</span>
+                            <% if @user.sex == "male" %>
+                                <span class="profile-item">男</span>
+                            <% else %>
+                                <span class="profile-item">女</span>
+                            <% end %>
+                        </dt>
+                    <% end %>
+                    <% if @user.blood_status == 0 %>
+                    <% else %>
+                        <dt>
+                            <!-- 血液型 -->
+                            <span class="profile-side-title">血液型:</span>
+                            <span class="profile-item"><%= @user.blood %></span>
+                        </dt>
+                    <% end %>
+                    <% if @user.add_status == 0 %>
+                    <% else %>
+                        <dt>
+                            <!-- 現住所 -->
+                            <span class="profile-side-title">現住所:</span>
+                            <span class="profile-item"><%= @user.add %></span>
+                        </dt>
+                    <% end %>
+                    <% if @user.birth_date_status == 0 %>
+                    <% else %>
+                        <dt>
+                            <!-- 年齢 -->
+                            <span class="profile-side-title">年齢:</span>
+                            <span class="profile-item"><%= @age %>歳</span>
+                        </dt>
+                    <% end %>
+                    <% if @user.history_date_status == 0 %>
+                    <% else %>
+                        <dt>
+                            <!-- ギター開始日 -->
+                            <span class="profile-side-title">ギター開始日:</span>
+                            <span class="profile-item"><%= l @start_date %></span>
+                        </dt>
+                        <dt>
+                            <!-- ギター歴 -->
+                            <span class="profile-side-title">ギター歴:</span>
+                            <span class="profile-item"><%= @diff_years %>年<%= @diff_months %>ヶ月<%= @diff_days %>日目</span>
+                        </dt>
+                    <% end %>
+                    <% if @user.introduction.blank? %>
+                    <% else %>
+                        <dt>
+                            <!-- 自己紹介 -->
+                            <span class="profile-side-title">自己紹介</span>
+                            <span class="profile-introduction"><%= safe_join(@user.introduction.split("\n"), tag(:br)) %></span>
+                        </dt>
+                    <% end %>
+                    
+                </dl>
+            </div>
+        </section>
+    </div>
 </div>

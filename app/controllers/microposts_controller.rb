@@ -21,6 +21,7 @@ class MicropostsController < ApplicationController
 
     def destroy
         if user_signed_in?
+            @microposts = Micropost.where(user_id: [current_user.id])
             @following_microposts = Micropost.where(user_id: [current_user.id, *current_user.following_ids])
             @comment = current_user.comments.build
             @micropost = Micropost.find(params[:id])

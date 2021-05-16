@@ -1,0 +1,3 @@
+$('#more-micropost').remove();
+$('#show-micropost').append("<%= j(render 'users/microposts') %>");
+$('.more-micropost-container').append("<%= j(link_to_next_page @microposts, 'もっと見る', id: "more-micropost", remote: true) %>");

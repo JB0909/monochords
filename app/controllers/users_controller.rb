@@ -11,7 +11,9 @@ class UsersController < ApplicationController
     end
 
     #投稿一覧
-    @microposts = @user.microposts.all.page(params[:page]).without_count.per(12)
+    @microposts = Micropost.where(user_id: params[:id]).page(params[:page]).without_count.per(12)
+    @records = Record.where(user_id: params[:id]).page(params[:page]).without_count.per(12)
+    @reviews = Review.where(user_id: params[:id]).page(params[:page]).without_count.per(12)
     
     ##profile(side_colmun)
     @first = @user.practiceds.all[0]
@@ -52,6 +54,19 @@ class UsersController < ApplicationController
 
     #グラフ
     @artist_groups = @user.practiceds.all.group(:artist_name).order("count_artist_name DESC").count(:artist_name).to_a
+    # @artistline = Array.new
+    # @artist_groups.each do |artist|
+    #   @artistline.push(artist[0])
+    # end
+    # @countline = Array.new
+    # @artist_groups.each do |count|
+    #   @countline.push(count[1])
+    # end
+
+    case params[:type]
+    when 'micropost', 'record', 'review'
+        render "users/#{params[:type]}"
+    end
 
   end
 
