@@ -17,50 +17,84 @@
             });
             var options = {
                 title: 'アーティストグラフ(上位10名)',
-                width: 730,
-                height: 330,
-                pieHole: 0.4
+                pieHole: 0.4,
+                chartArea:{left:20,top:60,width:'100%'}
             };
             var chart = new google.visualization.PieChart(target);
             data = new google.visualization.arrayToDataTable(dataArray);
             chart.draw(data, options);
+            
+            function resizeHandler () {
+                chart.draw(data, options);
+            }
+            if (window.addEventListener) {
+                window.addEventListener('resize', resizeHandler, false);
+            }
+            else if (window.attachEvent) {
+                window.attachEvent('onresize', resizeHandler);
+            }
         }
         google.charts.load('current', {packages: ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
     })();
 </script>
 <div class="row">
-    <div class="col-4 side-wrapper">
+    <div class="col-12 col-lg-4 side-wrapper">
         <%= render "users/profile" %>
     </div>
-
-    <div class="col-8">
-        <!--=====チャート=====-->
+    <div class="col-12 col-lg-8">
         <section>
-            <header class="common-main-title">
-                <h2>
-                    <span>アーティストグラフ</span>
-                </h2>
-            </header>
             <div id="target"></div>
         </section>
-        <!--=====自分の投稿=====-->
-        <section>
-            <div class="post-wrapper">
-                <header class="common-main-title">
-                    <h2>
-                        <span>最近のつぶやき</span>
-                    </h2>
-                </header>
-                <div id="partial-micropost">
-                    <%= render 'users/microposts', microposts: @microposts %>
-                </div>
+        <div class="tab-wrap">
+            <!-- つぶやき -->
+            <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
+            <div class="tab-content">
+                <% if @microposts.blank? %>
+                    <div class="post-blank">
+                        <span>表示項目がありません。</span>
+                    </div>
+                <% else %>
+                    <div id="show-micropost">
+                        <%= render 'users/microposts', microposts: @microposts %>
+                    </div>
+                    <div class="more-micropost-container more-container">
+                        <%= link_to_next_page @microposts, 'もっと見る', id: "more-micropost", params: { type: :micropost }, remote: true %>
+                    </div>
+                <% end %>
             </div>
-            <div class="more-container">
-                <%= link_to_next_page @microposts, 'もっと見る', id: "more-micropost", remote: true %>
+            <!-- 練習記録 -->
+            <input id="TAB-02" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-02">練習記録</label>
+            <div class="tab-content">
+                <% if @records.blank? %>
+                    <div class="post-blank">
+                        <span>表示項目がありません。</span>
+                    </div>
+                <% else %>
+                    <div id="show-record">
+                        <%= render 'users/records', records: @records %>
+                    </div>
+                    <div class="more-record-container more-container">
+                        <%= link_to_next_page @records, 'もっと見る', id: "more-record", params: { type: :record }, remote: true %>
+                    </div>
+                <% end %>
             </div>
-        </section>
-
-
+            <!-- レビュー -->
+            <input id="TAB-03" type="radio" name="TAB" class="tab-switch" /><label class="tab-label" for="TAB-03">レビュー</label>
+            <div class="tab-content">
+                <% if @reviews.blank? %>
+                    <div class="post-blank">
+                        <span>表示項目がありません。</span>
+                    </div>
+                <% else %>
+                    <div id="show-review">
+                        <%= render 'users/reviews', reviews: @reviews %>
+                    </div>
+                    <div class="more-review-container more-container">
+                        <%= link_to_next_page @reviews, 'もっと見る', id: "more-review", params: { type: :review }, remote: true %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
     </div>
 </div>

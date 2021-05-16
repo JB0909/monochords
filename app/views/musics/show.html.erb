@@ -1,6 +1,6 @@
 <%= javascript_pack_tag 'comment' %>
 <div class="row">
-    <div class="col-4 side-wrapper">
+    <div class="col-12 col-lg-4 side-wrapper">
         <section class="side-column-wrapper">
             <section>
                 <div class="musicdata-container">
@@ -52,8 +52,7 @@
             </section>
         </section>   
     </div>
-
-    <div class="col-8">
+    <div class="col-12 col-lg-8">
         <%= form_for [@music,@review], remote: true do |f| %>
             <div class="js-text" id="<%= @music.id %>">
                 <%= f.text_area :content, placeholder: "レビュー・感想を投稿する", :size => "30x1", class: "form-control js-text-field" %>
@@ -62,11 +61,6 @@
             <br>
             <%= f.submit "投稿する", class: "js-submit btn btn-primary" %>
         <% end %>
-        <header class="common-main-title">
-            <h2>
-                <span>感想・レビュー</span>
-            </h2>
-        </header>
         <div id="review-2">
             <%= render 'musics/reviews', reviews: @reviews %>
         </div>

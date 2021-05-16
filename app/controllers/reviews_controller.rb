@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
             @comment = current_user.comments.build
         end
     end
-    
+
     def create
         @user = current_user
         @music = Music.find(params[:music_id])
@@ -17,6 +17,7 @@ class ReviewsController < ApplicationController
     def destroy
         @music = Music.find(params[:music_id])
         @reviews = Review.where(music_id: [@music])
+        @show_reviews = Review.where(user_id: [current_user.id])
         @following_reviews = Review.where(user_id: [current_user.id, *current_user.following_ids])
         @comment = current_user.comments.build
         @review = Review.find(params[:id])

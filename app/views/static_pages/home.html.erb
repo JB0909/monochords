@@ -1,69 +1,71 @@
 <%= javascript_pack_tag 'comment' %>
 <% if user_signed_in? %>
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-lg-4">
             <%= render "users/profile" %>
             <!--=====つぶやく=====-->
             <% if user_signed_in? && @user.id == current_user.id%>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#exampleModal">
-                    つぶやく
-                </button>
-                <!-- つぶやき Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">つぶやく</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                <div class="post-record-container">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary modal-button post-button" data-toggle="modal" data-target="#exampleModal">
+                        つぶやく
+                    </button>
+                    <!-- つぶやき Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">つぶやく</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <%= form_for(@micropost, remote:true) do |f| %>
+                                    <div class="modal-body">
+                                        <%= f.text_area :body, placeholder: "つぶやく", :size => "30x1", class: "modal-text-area" %>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                        <%= f.submit "つぶやく", class: "btn btn-primary btn-block" %>
+                                    </div>
+                                <% end %>
                             </div>
-                            <%= form_for(@micropost, remote:true) do |f| %>
-                                <div class="modal-body">
-                                    <%= f.text_area :body, placeholder: "つぶやく", :size => "30x1", class: "modal-text-area" %>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                                    <%= f.submit "つぶやく", class: "btn btn-primary btn-block" %>
-                                </div>
-                            <% end %>
                         </div>
                     </div>
-                </div>
-                <!-- 練習投稿 -->
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary modal-button" data-toggle="modal" data-target="#exampleModal-1">
-                    練習記録を投稿する
-                </button>
-                <!-- つぶやき Modal -->
-                <div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">練習記録</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                    <!-- 練習投稿 -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary modal-button post-button" data-toggle="modal" data-target="#exampleModal-1">
+                        練習記録
+                    </button>
+                    <!-- つぶやき Modal -->
+                    <div class="modal fade" id="exampleModal-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">練習記録</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <%= form_for(@record, remote:true) do |f| %>
+                                    <div class="modal-body">
+                                        <%= f.text_area :body, placeholder: "練習記録を投稿する", :size => "30x1", class: "modal-text-area" %>
+                                        <%= f.collection_select :practicing_id, @practicing, :id, :song_name, {prompt: false}, {class: "form-control"} %>
+                                        <%= f.select :time, [['0時間', 0], ['1時間', 1], ['2時間', 2], ['3時間', 3], ['4時間', 4], ['5時間', 5], ['6時間', 6], ['7時間', 7], ['8時間', 8], ['9時間', 9], ['10時間', 10], ['11時間', 11], ['12時間', 12]],{}, {class: 'form-control time-select'} %>
+                                        <%= f.select :time_minutes, [['0分', 0], ['5分', 5], ['10分', 10], ['15分', 15], ['20分', 20], ['25分', 25], ['30分', 30], ['35分', 35], ['40分', 40], ['45分', 45], ['50分', 50], ['55分', 55]],{}, {class: 'form-control time-select'} %>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                                        <%= f.submit "練習投稿", class: "btn btn-primary btn-block" %>
+                                    </div>
+                                <% end %>
                             </div>
-                            <%= form_for(@record, remote:true) do |f| %>
-                                <div class="modal-body">
-                                    <%= f.text_area :body, placeholder: "練習記録を投稿する", :size => "30x1", class: "modal-text-area" %>
-                                    <%= f.collection_select :practicing_id, @practicing, :id, :song_name, {prompt: false}, {class: "form-control"} %>
-                                    <%= f.select :time, [['0時間', 0], ['1時間', 1], ['2時間', 2], ['3時間', 3], ['4時間', 4], ['5時間', 5], ['6時間', 6], ['7時間', 7], ['8時間', 8], ['9時間', 9], ['10時間', 10], ['11時間', 11], ['12時間', 12]],{}, {class: 'form-control time-select'} %>
-                                    <%= f.select :time_minutes, [['0分', 0], ['5分', 5], ['10分', 10], ['15分', 15], ['20分', 20], ['25分', 25], ['30分', 30], ['35分', 35], ['40分', 40], ['45分', 45], ['50分', 50], ['55分', 55]],{}, {class: 'form-control time-select'} %>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                                    <%= f.submit "練習投稿", class: "btn btn-primary btn-block" %>
-                                </div>
-                            <% end %>
                         </div>
                     </div>
                 </div>
             <% end %>
         </div>
-        <div class="col-8">
+        <div class="col-12 col-lg-8">
             <div class="tab-wrap">
                 <!-- つぶやき -->
                 <input id="TAB-01" type="radio" name="TAB" class="tab-switch" checked="checked" /><label class="tab-label" for="TAB-01">つぶやき</label>
@@ -100,31 +102,26 @@
     </div>
 <% else %>
     <div class="row">
-        <div class="col-7">
+        <div class="col-12 col-lg-7">
             <div class="top-side-container">
                 <%= image_tag ("top.jpg"), :size => '635x750' %>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-12 col-lg-5">
             <div class="menu-right-container">
                 <div class="menu-right-login">
                     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-
                         <div class="menu-right-email-field">
                             <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'メールアドレス', class: "field" %>
                         </div>
-
                         <div class="menu-right-password-field">
                             <%= f.password_field :password, autocomplete: "current-password", placeholder: 'パスワード', class: "field" %>
                         </div>
-
                         <div class="menu-right-actions">
                             <%= f.submit "ログイン" %>
                         </div>
-
                     <% end %>
                 </div>
-
                 <div class="menu-right-explain">
                     <span>
                         練習した曲を記録して練習量を管理したり、<br>

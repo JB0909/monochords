@@ -1,14 +1,12 @@
 <div class="row">
-    <div class="col-4">
+    <div class="col-12 col-lg-4">
         <%= render "users/profile" %>
     </div>
-
-    <div class="col-8">
-
+    <div class="col-12 col-lg-8">
         <div class="post-wrapper">
             <header class="common-main-title">
                 <h2>
-                    <span>フォロー</span>
+                    <span>フォロワー</span>
                 </h2>
             </header>
             <% if @users.blank? %>
@@ -29,12 +27,10 @@
                                 <% end %>
                             </figure>
                         </div>
-
                         <div class="post-main-frame">
                             <div class="post-name">
                                 <%= link_to u.username, user_path(u) %>
                             </div>
-
                             <div class="introduction">
                                 <span></span>
                             </div>
