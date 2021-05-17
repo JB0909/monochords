@@ -4,6 +4,9 @@ class SearchsController < ApplicationController
 
     def search
         #@tracks = Track.all
+        if user_signed_in?
+            @user  = current_user
+        end
         if params[:search].present?
             @s_tracks = RSpotify::Track.search(params[:search])
         end
