@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/refile/refile-mini_magick.git
-  revision: 5c7c30d57a94c4104d84eb4eb9e74ca757c1a773
-  branch: master
-  specs:
-    refile-mini_magick (0.2.0)
-      image_processing (~> 1.1)
-      mini_magick (~> 4.0)
-      refile (~> 0.6)
-
-GIT
   remote: https://github.com/refile/refile.git
   revision: c4ac577c6fdad92bc079a62a0e82888319daedc8
   branch: master
@@ -151,9 +141,6 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
-    image_processing (1.12.1)
-      mini_magick (>= 4.9.5, < 5)
-      ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -258,6 +245,9 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    refile-mini_magick (0.2.0)
+      mini_magick (~> 4.0)
+      refile (~> 0.5)
     regexp_parser (1.8.2)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -303,8 +293,6 @@ GEM
       rack (>= 1.1)
       rubocop (>= 0.90.0, < 2.0)
     ruby-progressbar (1.11.0)
-    ruby-vips (2.0.17)
-      ffi (~> 1.9)
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -384,7 +372,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   refile!
-  refile-mini_magick!
+  refile-mini_magick
   rspec-rails
   rspotify
   rubocop
