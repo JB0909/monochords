@@ -1,0 +1,88 @@
+# version: '3'
+# services:
+#   app:
+#     build:
+#       context: .
+#     command: bundle exec puma -C config/puma.rb
+
+#     volumes:
+#       - .:/monochords
+#       - public-data:/monochords/public
+#       - tmp-data:/monochords/tmp
+#       - log-data:/monochords/log
+#     networks:
+#       - monochords-network
+#     depends_on:
+#       - db
+
+#   db:
+#     image: mysql:5.7
+#     environment:
+#       MYSQL_ROOT_PASSWORD: password
+#       MYSQL_USER: user
+#       MYSQL_PASSWORD: password
+#       MYSQL_DATABASE: monochords_development
+#     volumes:
+#       - db-data:/var/lib/mysql
+#     networks:
+#       - monochords-network
+
+#   web:
+#     build:
+#       context: ./nginx_docker
+#     volumes:
+#       - public-data:/monochords/public
+#       - tmp-data:/fmonochords/tmp
+#     ports:
+#       - 80:80
+#     depends_on:
+#       - app
+#     networks:
+#       - monochords-network
+
+# volumes:
+#   public-data:
+#   tmp-data:
+#   log-data:
+#   db-data:
+
+# networks:
+#   monochords-network:
+#     external: true
+
+version: '3'
+services:
+  app:
+    build:
+      context: .
+    env_file:
+      - ./environments/db.env
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - .:/monochords
+      - public-data:/monochords/public
+      - tmp-data:/monochords/tmp
+      - log-data:/monochords/log
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    env_file:
+      - ./environments/db.env
+    volumes:
+      - db-data:/var/lib/mysql
+  web:
+    build:
+      context: containers/nginx
+    volumes:
+      - public-data:/monochords/public
+      - tmp-data:/monochords/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
+volumes:
+  public-data:
+  tmp-data:
+  log-data:
+  db-data:
