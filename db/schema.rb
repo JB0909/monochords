@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -12,11 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2021_04_06_111138) do
 
-  create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "micropost_id"
-    t.integer "record_id"
-    t.integer "review_id"
+  create_table "comments", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "micropost_id"
+    t.bigint "record_id"
+    t.bigint "review_id"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -26,25 +26,25 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "micropost_id", null: false
+  create_table "likes", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "micropost_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["micropost_id"], name: "index_likes_on_micropost_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "microposts", force: :cascade do |t|
+  create_table "microposts", charset: "utf8", force: :cascade do |t|
     t.text "body"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_microposts_on_user_id"
   end
 
-  create_table "musics", force: :cascade do |t|
+  create_table "musics", charset: "utf8", force: :cascade do |t|
     t.string "artist_name"
     t.string "album_name"
     t.string "image_url"
@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "practiceds", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "music_id", null: false
+  create_table "practiceds", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "music_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "artist_name"
@@ -64,9 +64,9 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.index ["user_id"], name: "index_practiceds_on_user_id"
   end
 
-  create_table "practicings", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "music_id", null: false
+  create_table "practicings", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "music_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "song_name"
@@ -76,17 +76,17 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.index ["user_id"], name: "index_practicings_on_user_id"
   end
 
-  create_table "record_likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "record_id", null: false
+  create_table "record_likes", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "record_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["record_id"], name: "index_record_likes_on_record_id"
     t.index ["user_id"], name: "index_record_likes_on_user_id"
   end
 
-  create_table "records", force: :cascade do |t|
-    t.integer "user_id", null: false
+  create_table "records", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.integer "time"
     t.string "song_name"
     t.string "artist_name"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.index ["user_id"], name: "index_records_on_user_id"
   end
 
-  create_table "relationships", force: :cascade do |t|
+  create_table "relationships", charset: "utf8", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "following_id"
     t.datetime "created_at", precision: 6, null: false
@@ -108,26 +108,26 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.index ["follower_id", "following_id"], name: "index_relationships_on_follower_id_and_following_id", unique: true
   end
 
-  create_table "review_likes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "review_id", null: false
+  create_table "review_likes", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "review_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["review_id"], name: "index_review_likes_on_review_id"
     t.index ["user_id"], name: "index_review_likes_on_user_id"
   end
 
-  create_table "reviews", force: :cascade do |t|
+  create_table "reviews", charset: "utf8", force: :cascade do |t|
     t.string "content"
-    t.integer "user_id", null: false
-    t.integer "music_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "music_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["music_id"], name: "index_reviews_on_music_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -160,9 +160,9 @@ ActiveRecord::Schema.define(version: 2021_04_06_111138) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "wishes", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "music_id", null: false
+  create_table "wishes", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "music_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["music_id"], name: "index_wishes_on_music_id"
