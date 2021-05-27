@@ -1,28 +1,11 @@
-# FROM ruby:2.7.1
-
-# RUN apt-get update -qq && \
-#     apt-get install -y build-essential \
-#     nodejs\
-#     mariadb-server\
-#     mariadb-client\
-#     yarn
-
-# WORKDIR /monochords
-
-# COPY Gemfile /monochords/Gemfile
-# COPY Gemfile.lock /monochords/Gemfile.lock
-
-# RUN gem install bundler -v 2.2.17
-# RUN bundle install
-
-# RUN mkdir -p tmp/sockets
-
 FROM ruby:2.7.1
 
 # リポジトリを更新し依存モジュールをインストール
 RUN apt-get update -qq && \
     apt-get install -y build-essential \
-    nodejs
+    nodejs\
+    default-mysql-client\
+    default-mysql-server
 
 # yarnパッケージ管理ツールインストール
 RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
