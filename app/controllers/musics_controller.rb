@@ -3,6 +3,7 @@ class MusicsController < ApplicationController
         if user_signed_in?
             #コメント投稿
             @comment = current_user.comments.build
+            @user  = current_user
         end
         @music = Music.find(params[:id])
         @review = Review.new(music_id: @music)
