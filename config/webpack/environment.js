@@ -8,4 +8,6 @@ environment.plugins.prepend('Provide',
     })
 )
 
+environment.config.set('resolve.alias', aliasConfig);
+
 module.exports = environment
