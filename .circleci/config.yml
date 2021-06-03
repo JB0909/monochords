@@ -8,8 +8,8 @@ jobs:
                     - RAILS_ENV: test
             - image: circleci/mysql:5.7
               environment:
-                    - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-                    - MYSQL_ROOT_HOST: '%'
+                    - MYSQL_DATABASE: monochords_test
+                    - MYSQL_USER: root
 
         working_directory: ~/monochords
 
