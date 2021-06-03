@@ -1,3 +1,10 @@
+<% if @following_records.blank? %>
+    <div class="common-blank-container">
+        <div class="common-blank">
+            <span>表示項目がありません。</span>
+        </div>
+    </div>
+<% end %>
 <% @following_records.each do |record| %>
     <div class="post-container">
         <div class="post-side-frame">

@@ -61,17 +61,16 @@
             <br>
             <%= f.submit "投稿する", class: "js-submit btn btn-primary" %>
         <% end %>
+        <header class="common-main-title review-title">
+            <h2>
+                <span>レビュー・感想</span>
+            </h2>
+        </header>
         <div id="review-2">
             <%= render 'musics/reviews', reviews: @reviews %>
         </div>
         <div class="more-container">
             <%= link_to_next_page @reviews, 'もっと見る', id: "more-review", remote: true %>
         </div>
-        <% if @reviews.blank? %>
-            <div class="common-blank">
-                <span>表示項目がありません。</span>
-            </div>
-        <% else %>
-        <% end %>
     </div>
 </div>

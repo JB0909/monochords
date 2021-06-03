@@ -1,3 +1,10 @@
+<% if reviews.blank? %>
+    <div class="common-blank-container">
+        <div class="common-blank">
+            <span>表示項目がありません。</span>
+        </div>
+    </div>
+<% end %>
 <% reviews.each do |review| %>
     <div class="post-container">
         <div class="post-side-frame">
