@@ -23,9 +23,9 @@ jobs:
 
                 - run:
                     name: install dependencies
-                        command: |
-                            gem install bundler -v 2.2.17
-                            bundle install --jobs=4 --retry=3 --path vendor/bundle
+                    command: |
+                        gem install bundler -v 2.2.17
+                        bundle install --jobs=4 --retry=3 --path vendor/bundle
     
                 - save_cache:
                     paths:
@@ -36,17 +36,17 @@ jobs:
     
                 - run:
                     name: Databasesetup
-                        command: |
-                            bundle exec rails db:create RAILS_ENV=test
-                            bundle exec rails db:schema:load RAILS_ENV=test
+                    command: |
+                        bundle exec rails db:create RAILS_ENV=test
+                        bundle exec rails db:schema:load RAILS_ENV=test
     
                 - run:
                     name: yarn Install
-                        command: yarn install
+                    command: yarn install
                 - run: bundle exec bin/webpack
                 - run:
                     name: RSpec
-                        command: bundle exec rspec
+                    command: bundle exec rspec
 
 workflows:
     version: 2.1
