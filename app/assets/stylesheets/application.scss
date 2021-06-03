@@ -71,6 +71,31 @@ input:focus {
     margin-top: 20px;
 }
 
+/* レビュー感想タイトル */
+.review-title{
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #D4DACB;
+}
+
+.common-blank-container{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #D4DACB;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    .common-blank{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        span{
+            color: #999;
+            font-size: 1.4rem;
+        }
+    }
+}
+
 /* TOP 未ログイン時 */
 .top-side-container{
     img{
@@ -152,16 +177,7 @@ dl{
     margin-bottom: 0;
 }
 
-/* 表示項目なし */
-.post-blank{
-    width: 100%;
-    background-color: white;
-    text-align: center;
-    font-size: 1.4rem;
-    line-height: 10rem;
-    height: 100px;
-    color: #999;
-}
+
 
 /* モーダルボディ*/
 .modal-body{
@@ -631,6 +647,8 @@ h2{
     }
 }
 
+
+
 /* SP(検索結果) */
 /* 練習登録 */
 .practice-regi-wrapper{
@@ -847,16 +865,7 @@ h2{
         width: 100%;
         height: 350px;
     }
-    /* 表示項目なし */
-    .post-blank{
-        width: 100%;
-        background-color: white;
-        text-align: center;
-        font-size: 1.4rem;
-        line-height: 10rem;
-        height: 100px;
-        color: #999;
-    }
+
     /*ヘッダー*/
     .sp-header-container{
         display: none;
@@ -1659,7 +1668,7 @@ h2{
     padding: 10px;
     span{
         color: #999;
-        font-size: 80%;
+        font-size: 1.4rem;
     }
 }
 
@@ -1680,7 +1689,7 @@ h2{
     text-align: center;
     span{
         color: #999;
-        font-size: 80%;
+        font-size: 1rem;
     }
 }
 
