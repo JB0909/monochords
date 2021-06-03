@@ -21,6 +21,8 @@ jobs:
                     - v1-dependencies-{{ checksum "Gemfile.lock" }}
                     - v1-dependencies-
 
+            - run: mv config/database.yml.ci config/database.yml
+
             - run:
                 name: install dependencies
                 command: |
