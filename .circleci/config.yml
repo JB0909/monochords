@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-    test:
+    rspec:
         docker:
             - image: circleci/ruby:2.7.1-node
               environment:
@@ -15,66 +15,41 @@ jobs:
 
         steps:
             - checkout
-            - run:
-                name: echo
-                command: echo "Hello, world!!"
+
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "Gemfile.lock" }}
+                    - v1-dependencies-
+
+                - run:
+                    name: install dependencies
+                        command: |
+                            gem install bundler -v 2.2.17
+                            bundle install --jobs=4 --retry=3 --path vendor/bundle
+    
+                - save_cache:
+                    paths:
+                        - ./vendor/bundle
+                    key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+    
+                - run: mv ./config/database.yml.ci ./config/database.yml
+    
+                - run:
+                    name: Databasesetup
+                        command: |
+                            bundle exec rails db:create RAILS_ENV=test
+                            bundle exec rails db:schema:load RAILS_ENV=test
+    
+                - run:
+                    name: yarn Install
+                        command: yarn install
+                - run: bundle exec bin/webpack
+                - run:
+                    name: RSpec
+                        command: bundle exec rspec
+
 workflows:
-    test_workflows:
+    version: 2.1
+    rspec_workflow:
         jobs:
-            - test
-
-# version: 2
-# jobs:
-#     rspec:
-#         docker:
-#             - image: circleci/ruby:2.7.1-node
-#                 environment:
-#                     - BUNDLER_VERSION: 2.2.17
-#                     - RAILS_ENV: 'test'
-#             - image: circleci/mysql:5.7
-#                 environment:
-#                     - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-#                     - MYSQL_ROOT_HOST: '%'
-
-#         working_directory: ~/monochords
-
-#         steps:
-#             - checkout
-
-#             - restore_cache:
-#                 keys:
-#                     - v1-dependencies-{{ checksum "Gemfile.lock" }}
-#                     - v1-dependencies-
-
-#             - run:
-#                 name: install dependencies
-#                     command: |
-#                         gem install bundler -v 2.2.17
-#                         bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-#             - save_cache:
-#                 paths:
-#                     - ./vendor/bundle
-#                 key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-#             - run: mv ./config/database.yml.ci ./config/database.yml
-
-#             - run:
-#                 name: Databasesetup
-#                     command: |
-#                         bundle exec rails db:create RAILS_ENV=test
-#                         bundle exec rails db:schema:load RAILS_ENV=test
-
-#             - run:
-#                 name: yarn Install
-#                     command: yarn install
-#             - run: bundle exec bin/webpack
-#             - run:
-#                 name: RSpec
-#                     command: bundle exec rspec
-
-# workflows:
-#     version: 2.1
-#     rspec_and_rubocop_workflow:
-#         jobs:
-#             - rspec
+            - rspec
