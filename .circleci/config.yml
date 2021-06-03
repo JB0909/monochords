@@ -21,32 +21,33 @@ jobs:
                     - v1-dependencies-{{ checksum "Gemfile.lock" }}
                     - v1-dependencies-
 
-                - run:
-                    name: install dependencies
-                    command: |
+            - run:
+                name: install dependencies
+                command: |
                         gem install bundler -v 2.2.17
                         bundle install --jobs=4 --retry=3 --path vendor/bundle
-    
-                - save_cache:
+
+            - save_cache:
                     paths:
                         - ./vendor/bundle
                     key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-    
-                - run: mv ./config/database.yml.ci ./config/database.yml
-    
-                - run:
+
+            - run: mv ./config/database.yml.ci ./config/database.yml
+
+            - run:
                     name: Databasesetup
                     command: |
                         bundle exec rails db:create RAILS_ENV=test
                         bundle exec rails db:schema:load RAILS_ENV=test
-    
-                - run:
-                    name: yarn Install
-                    command: yarn install
-                - run: bundle exec bin/webpack
-                - run:
-                    name: RSpec
-                    command: bundle exec rspec
+
+            - run:
+                name: yarn Install
+                command: yarn install
+            - run: bundle exec bin/webpack
+            - run:
+                name: RSpec
+                command: bundle exec rspec
+ 
 
 workflows:
     version: 2.1
