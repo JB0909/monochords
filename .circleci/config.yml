@@ -6,6 +6,13 @@ jobs:
               environment:
                     - BUNDLER_VERSION: 2.2.17
                     - RAILS_ENV: test
+            - image: circleci/mysql:5.7
+              environment:
+                    - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+                    - MYSQL_ROOT_HOST: '%'
+
+        working_directory: ~/monochords
+
         steps:
             - checkout
             - run:
