@@ -49,18 +49,18 @@ jobs:
                 command: bundle exec rspec
 
     deploy:
-        machine:
+        machine:xs
             enabled: true
         steps:
             - add_ssh_keys:
                 fingerprints:
-                    - b5:37:b4:bb:1b:b1:5a:27:33:ce:76:f2:33:e8:90:c5
-            - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/home/ec2-user/monochords/deploy-me.sh"
+                    - 47:5e:3c:eb:7e:1a:d4:0f:25:e9:a2:43:8e:03:62:8e
+            - run: ssh -p $SSH_PORT $SSH_USER@$SSH_HOST "/monochords/deploy-me.sh"
  
 
 workflows:
     version: 2.1
-    rspec_workflow:
+    rspec_and_deploy_workflow:
         jobs:
             - rspec
             - deploy:
