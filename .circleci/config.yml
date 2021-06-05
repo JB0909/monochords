@@ -49,7 +49,7 @@ jobs:
                 command: bundle exec rspec
 
     deploy:
-        machine:xs
+        machine:
             enabled: true
         steps:
             - add_ssh_keys:
