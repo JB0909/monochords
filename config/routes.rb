@@ -6,8 +6,10 @@ Rails.application.routes.draw do
     :passwords => 'users/passwords',
     :confirmations => 'users/confirmations'
   }
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'static_pages#home'
+  post '/static_pages/guest_sign_in', to: 'static_pages#guest_sign_in'
   get  "/search", to:"searchs#search"
 
   resources :musics, as: :music, only: [:show, :create] do

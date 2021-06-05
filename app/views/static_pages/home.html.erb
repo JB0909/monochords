@@ -139,6 +139,9 @@
                 <div class="menu-right-btn">
                     <%= link_to "ログイン", new_user_session_path, class: 'btn-item' %>
                 </div>
+                <div class="menu-right-btn">
+                    <%= link_to 'ゲストログイン（閲覧用）', static_pages_guest_sign_in_path, class: 'btn-item', method: :post %>
+                </div>
             </div>
         </div>
     </div>
