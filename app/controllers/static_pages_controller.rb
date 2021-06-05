@@ -64,4 +64,14 @@ class StaticPagesController < ApplicationController
     def devise_mapping
         @devise_mapping ||= Devise.mappings[:user]
     end
+
+    def guest_sign_in
+        user = User.find_or_create_by(email: 'guest@example.com') do |user|
+            user.username = "ゲスト"
+            user.password = SecureRandom.alphanumeric(10) + [*'a'..'z'].sample(1).join + [*'0'..'9'].sample(1).join
+            user.confirmed_at = Time.now
+        end
+        sign_in user
+        redirect_to root_path
+    end
 end
