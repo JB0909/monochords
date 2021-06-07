@@ -60,7 +60,7 @@ https://monochords.jp/
 * Nginx
 * Puma
 * CircleCI CD機能を率いてdocker-composeよりコンテナを構築し、自動デプロイ
-* MySQL5.7
+* MySQL2
 
 **テスト**
 * Rspec
