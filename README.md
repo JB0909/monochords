@@ -72,7 +72,8 @@ https://monochords.jp/
 
 **インフラ構築図**
 
-![インフラ構築図](https://user-images.githubusercontent.com/53462797/121300091-531e3080-c931-11eb-8cdd-8f8943f9511c.png)
+![インフラ構築図](https://user-images.githubusercontent.com/53462797/121338856-e323a080-c958-11eb-8d10-5f2676a5ba19.jpg)
+
 
 
 # ER図
