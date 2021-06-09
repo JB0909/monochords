@@ -70,4 +70,9 @@ https://monochords.jp/
 * チーム開発を意識したGitHubの活用 （イシュー、プルリク、マージ)
 * deviseとAction Mailerを使用して自動メール送信
 
+**インフラ構築図**
+
+![インフラ構築図](https://user-images.githubusercontent.com/53462797/121300091-531e3080-c931-11eb-8cdd-8f8943f9511c.png)
+
+
 # ER図
