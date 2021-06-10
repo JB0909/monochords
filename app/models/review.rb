@@ -6,6 +6,10 @@ class Review < ApplicationRecord
   #Like
   has_many :review_likes, dependent: :destroy
 
+  #バリデーション
+  validates :user_id, presence: true
+  validates :music_id, presence: true
+  validates :content, presence: true, length: {maximum: 255 }
   default_scope -> { order(created_at: :desc) }
 
   def liked_by?(user)
