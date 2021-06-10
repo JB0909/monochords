@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :wish do
-    user { nil }
-    music { nil }
+    association :user
+    association :music
   end
 end
