@@ -1,9 +1,7 @@
 FactoryBot.define do
   factory :comment do
-    user { nil }
-    micropost { nil }
-    record { nil }
-    review { nil }
-    content { "MyString" }
+    content { "Comment Test" }
+    association :user
+    association :micropost
   end
 end
