@@ -4,6 +4,8 @@ RSpec.describe Comment, type: :model do
   describe 'バリデーション' do
     subject(:user) { FactoryBot.create(:user) }
     subject(:micropost) { FactoryBot.create(:micropost) }
+    subject(:record) { FactoryBot.create(:record) }
+    subject(:review) { FactoryBot.create(:review) }
     subject(:comment) { FactoryBot.build(:comment, user_id: user.id, micropost_id: micropost.id) }
 
     it '正常に登録できること' do
