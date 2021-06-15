@@ -4,6 +4,7 @@ class MicropostsController < ApplicationController
         @micropost_comment = Comment.where(micropost_id: [@micropost])
         if user_signed_in?
             @comment = current_user.comments.build
+            @user  = current_user
         end
     end
     def create
