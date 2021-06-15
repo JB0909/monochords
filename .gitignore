@@ -42,4 +42,3 @@ yarn-debug.log*
 
 /environments/db.env
 .env
-deploy-me.sh
