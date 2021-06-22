@@ -126,8 +126,10 @@ MONOCHORDとは1本の弦を張り、その振動を利用して音程を計測�
 * deviseとAction Mailerを使用して自動メール送信
 
 **インフラ構築図**
+・マルチAZ構成により冗長化を行い、可用性を向上させております。</br>
+・ELBにより負荷分散を行っております。
+![インフラ構築図](https://user-images.githubusercontent.com/53462797/122939658-c783b580-d3ae-11eb-906b-53b7af8db31a.jpg)
 
-![インフラ構築図](https://user-images.githubusercontent.com/53462797/121338856-e323a080-c958-11eb-8d10-5f2676a5ba19.jpg)
 
 
 
