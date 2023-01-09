@@ -89,7 +89,7 @@ https://monochords.jp/
 * Docker/docker-compose
 
 **本番環境**
-* AWS(ALB,EC2,RDS for MySQL,Route53,VPC)
+* AWS(ELB,EC2,RDS for MySQL,Route53,VPC)
 * Nginx
 * Puma
 * CircleCI CD機能を率いてdocker-composeよりコンテナを構築し、自動デプロイ
