@@ -34,8 +34,8 @@ https://monochords.jp/
 * 楽曲詳細ページが未登録時、クリック毎にデータベースへ登録
 
 **その他の機能**
-* ページネーション機能(kaminari)/クリックによる無限スクロール
-* HTTPS通信(AWS Certificate Manager)
+* ページネーション機能(kaminari)による無限スクロール
+* SSL証明書(AWS Certificate Manager)
 * レスポンシブ対応(モバイルファースト)
 
 # 使用方法
